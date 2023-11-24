@@ -20,7 +20,18 @@ public abstract class Input {
         }
     }
 
-    // get datatype input
+    public static String getNameInput(String message) {
+        while (true) {
+            System.out.println(message);
+            try {
+                return scanner.next();
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
+        }
+    }
+
+    // datatype input
     public static int intInput(String message) {
         System.out.println(message);
         try {
@@ -64,7 +75,6 @@ public abstract class Input {
                 return LocalDate.parse(scanner.next());
             } catch (Exception e) {
                 System.out.println("Error: " + e);
-
             }
         }
     }
