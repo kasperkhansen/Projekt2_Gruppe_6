@@ -1,9 +1,15 @@
 package Model;
 
-import View.Input;
-
+import View.*;
+import Testing.Dummies.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import Controller.MedlemController.*;
+import Model.Medlemskab;
+import Model.Motionist;
+import Model.AktivtMedlem;
+import Model.KonkurrenceSvoemmer;
+import Model.PassivtMedlem;
 
 public class Medlem {
     private final String navn;
@@ -11,15 +17,25 @@ public class Medlem {
 
     private final int alder;
     private final LocalDate foedselsdato;
-    private int id = 1;
+    private static int id = 1;
+    boolean erSenior = false;
 
 
-    public Medlem(String navn, String medlemsskabStr, int alder, LocalDate foedselsdato, int id){
+    public boolean senior(){
+        if (alder > 18){
+            erSenior = true;
+        }
+        return erSenior;
+    }
+
+
+    //-----------------------------------------medlems constructor------------------------------------------------------
+
+    public Medlem(String navn, String medlemsskabStr, int alder, LocalDate foedselsdato){
         this.navn = navn;
         addMedlemskab(medlemsskabStr);
         this.alder = alder;
         this.foedselsdato = foedselsdato;
-        this.id = id;
         id++;
     }
 
@@ -51,6 +67,7 @@ public class Medlem {
 
     //Tjekke om id tæller op ved flere objekter
 
+    //--------------------------------------------------get metoder---------------------------------------------------------
     public String getNavn() {
         return navn;
     }
