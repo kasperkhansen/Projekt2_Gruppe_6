@@ -7,8 +7,7 @@ import java.util.List;
 
 public class Medlemskab {
 
-    public static void main(String[] args) {
-    }
+
 
 
 

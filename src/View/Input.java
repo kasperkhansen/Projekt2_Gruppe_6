@@ -1,5 +1,7 @@
 package View;
 
+import Model.Medlem;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -10,6 +12,37 @@ public abstract class Input {
     public Input() {
         scanner = newScannerErrorHandling();
     }
+
+    public static int getAgeInput() {
+        return intInput("Indtast alder: ");
+    }
+
+    public static LocalDate getBirthDateInput() {
+        return dateInput("Indtast fødselsdato: ");
+    }
+
+    public static String medlemskabInput() {
+        System.out.println("Indtast medlemskab: ");
+        System.out.println("1. Aktiv + konkurrence");
+        System.out.println("2. Aktiv + motionist");
+        System.out.println("3. Passiv");
+        int choice = intInput("Choice: ");
+        System.out.println("--------------------\n");
+
+        switch (choice) {
+            case 1:
+                return "aktiv + konkurrence";
+            case 2:
+                return "aktiv + motionist";
+            case 3:
+                return "passiv";
+            default:
+                System.out.println("Invalid Input, Try Again");
+        }
+        return null;
+    }
+
+
 
     private Scanner newScannerErrorHandling () {
         try {
