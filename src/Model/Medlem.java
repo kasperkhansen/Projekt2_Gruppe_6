@@ -14,7 +14,7 @@ public class Medlem {
     private int id = 1;
 
 
-    Medlem(String navn, String medlemsskabStr, int alder, LocalDate foedselsdato, int id){
+    public Medlem(String navn, String medlemsskabStr, int alder, LocalDate foedselsdato, int id){
         this.navn = navn;
         addMedlemskab(medlemsskabStr);
         this.alder = alder;

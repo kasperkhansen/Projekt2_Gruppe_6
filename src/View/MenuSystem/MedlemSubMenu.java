@@ -12,7 +12,7 @@ public class MedlemSubMenu extends SubMenu {
         displaySubMenu();
     }
 
-    private void displaySubMenu() {
+    private static void displaySubMenu() {
         System.out.println("Medlem Menu");
         System.out.println("--------------------");
         System.out.println();
@@ -29,7 +29,7 @@ public class MedlemSubMenu extends SubMenu {
 
             switch (choice) {
                 case 1:
-                   // medlemController.aendreMedlemskab();
+                   medlemController.skiftMedlemskab();
                     System.out.println("medlemController.aendreMedlemskab() chosen");
                     break;
                 case 2:
@@ -46,4 +46,7 @@ public class MedlemSubMenu extends SubMenu {
         }
     }
 
+    public static void main(String[] args) {
+        MedlemSubMenu.displaySubMenu();
+    }
 }
