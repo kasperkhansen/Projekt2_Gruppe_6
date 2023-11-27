@@ -7,11 +7,9 @@ import java.util.Scanner;
 
 public abstract class Input {
 
-    private static Scanner scanner;
+    private static Scanner scanner = newScannerErrorHandling();
 
-    public Input() {
-        scanner = newScannerErrorHandling();
-    }
+
 
     public static int getAgeInput() {
         return intInput("Indtast alder: ");
@@ -44,7 +42,7 @@ public abstract class Input {
 
 
 
-    private Scanner newScannerErrorHandling () {
+    private static Scanner newScannerErrorHandling() {
         try {
             return new Scanner(System.in);
         } catch (Exception e) {
