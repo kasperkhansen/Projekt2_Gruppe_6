@@ -19,7 +19,7 @@ public class MedlemController {
         alleMedlemmer.add(medlem);
     }
 
-    public static void skiftMedlemskab (Medlemskab medlem, String medlemskab) {
+    public static void skiftMedlemskab () {
 
         Objects.requireNonNull(getMedlem()).setMedlemskab(Input.medlemskabInput());
 
