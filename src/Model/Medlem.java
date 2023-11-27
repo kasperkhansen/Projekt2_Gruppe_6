@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Medlem {
     private final String navn;
-    private ArrayList<Medlemskab> medlemsskab;
+    private ArrayList<Medlemskab> medlemsskab = new ArrayList<>();
 
     private final int alder;
     private final LocalDate foedselsdato;
@@ -44,6 +44,11 @@ public class Medlem {
         }
     }
 
+    public boolean isPassivtMedlemskab () {
+        return medlemsskab.get(0) instanceof PassivtMedlem;
+    }
+
+
     //Tjekke om id tæller op ved flere objekter
 
     public String getNavn() {
@@ -64,6 +69,23 @@ public class Medlem {
 
     public int getId() {
         return id;
+    }
+
+
+
+
+
+    public static void main(String[] args) {
+        medlemsskabTest();
+    }
+
+    private static void medlemsskabTest() {
+        Medlem medlem = new Medlem("test", "aktiv + konkurrence", 20, LocalDate.of(2000, 1, 1), 1);
+        System.out.println(medlem.getMedlemsskabArrayList().get(0).toString());
+        medlem.setMedlemskab("aktiv + motionist");
+        System.out.println(medlem.getMedlemsskabArrayList().get(0).toString());
+        medlem.setMedlemskab("passiv");
+        System.out.println(medlem.getMedlemsskabArrayList().get(0).toString());
     }
 
 }
