@@ -35,4 +35,10 @@ public class MedlemController {
     }
 
 
+    public static void main(String[] args) {
+        addMedlem(new Medlem("Jens", "aktiv + konkurrence", 20, null, 1));
+
+
+        skiftMedlemskab();
+    }
 }
