@@ -18,7 +18,7 @@ public class MedlemController {
     private static ArrayList<Medlem> fillAlleMedlemmerArr() {
         ArrayList<Medlem> m = new ArrayList<>();
 
-        m.add(new Medlem("jens", "passivt", 20, LocalDate.of(2010,01,01), 1));
+        m.add(new Medlem("jens", "passivt", 20, LocalDate.of(2010,01,01)));
         return m;
     }
 
@@ -43,7 +43,7 @@ public class MedlemController {
 
 
     public static void main(String[] args) {
-        addMedlem(new Medlem("Jens", "aktiv + konkurrence", 20, null, 1));
+        addMedlem(new Medlem("Jens", "aktiv + konkurrence", 20, null));
 
 
         skiftMedlemskab();
