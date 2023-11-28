@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="395.40347703434236" y="137.95780927161778">Model.PassivtMedlem</node>
+    <node x="298.93521978989196" y="359.76081289958734">Model.Motionist</node>
+    <node x="481.5749822104484" y="296.17689165384104">Controller.MedlemController</node>
+    <node x="343.855175479101" y="40.84416966677355">Model.AktivtMedlem</node>
+    <node x="53.72526996917722" y="-13.030684673764029">Model.Medlemskab</node>
+    <node x="102.4422546091194" y="134.08233908786812">Model.KonkurrenceSvoemmer</node>
+    <node x="-115.6939358219829" y="222.73140646973513">Model.Medlem</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Model.Medlem" target="Model.KonkurrenceSvoemmer" relationship="CREATE">
+      <point x="162.1361904311023" y="-174.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Model.Medlem" target="Model.PassivtMedlem" relationship="CREATE">
+      <point x="172.0" y="-69.4705935701478" />
+      <point x="413.43521978989196" y="327.26081289958734" />
+      <point x="-65.9682572444504" y="14.0" />
+    </edge>
+    <edge source="Controller.MedlemController" target="Model.KonkurrenceSvoemmer" relationship="TO_MANY">
+      <point x="-156.5" y="-43.916078754253704" />
+      <point x="306.43521978989196" y="342.26081289958734" />
+      <point x="87.99296518077256" y="14.0" />
+    </edge>
+    <edge source="Controller.MedlemController" target="Model.Medlem" relationship="TO_MANY">
+      <point x="-156.5" y="49.083921245746296" />
+      <point x="172.0" y="38.5294064298522" />
+    </edge>
+    <edge source="Controller.MedlemController" target="Model.PassivtMedlem" relationship="TO_MANY">
+      <point x="-149.0" y="-90.0" />
+      <point x="9.671505176106052" y="14.0" />
+    </edge>
+    <edge source="Model.AktivtMedlem" target="Model.Medlemskab" relationship="GENERALIZATION">
+      <point x="-1.7547910096027408E-4" y="13.999830333226441" />
+      <point x="422.355" y="102.0" />
+      <point x="128.725" y="102.0" />
+      <point x="-2.699691772249935E-4" y="13.99968467376403" />
+    </edge>
+    <edge source="Controller.MedlemController" target="Model.AktivtMedlem" relationship="TO_MANY">
+      <point x="0.0" y="-90.0" />
+      <point x="638.0749822104484" y="54.84416966677355" />
+      <point x="78.5" y="0.0" />
+    </edge>
+    <edge source="Controller.MedlemController" target="Model.Motionist" relationship="TO_MANY">
+      <point x="-156.5" y="-12.416078754253704" />
+      <point x="61.0" y="0.0" />
+    </edge>
+    <edge source="Model.PassivtMedlem" target="Model.Medlemskab" relationship="GENERALIZATION">
+      <point x="-4.7703434233881126E-4" y="-13.999809271617778" />
+      <point x="479.403" y="102.0" />
+      <point x="128.725" y="102.0" />
+      <point x="-2.699691772249935E-4" y="13.99968467376403" />
+    </edge>
+    <edge source="Model.KonkurrenceSvoemmer" target="Model.AktivtMedlem" relationship="GENERALIZATION">
+      <point x="-2.546091193948996E-4" y="-14.000339087868127" />
+      <point x="218.442" y="86.0" />
+      <point x="437.355" y="86.0" />
+      <point x="14.99982452089904" y="13.999830333226441" />
+    </edge>
+    <edge source="Model.Medlem" target="Model.Medlemskab" relationship="TO_MANY">
+      <point x="4.919205791160124" y="-174.0" />
+      <point x="-67.5" y="14.0" />
+    </edge>
+    <edge source="Model.Motionist" target="Model.AktivtMedlem" relationship="GENERALIZATION">
+      <point x="-2.1978989195758913E-4" y="-13.999812899587312" />
+      <point x="359.935" y="86.0" />
+      <point x="437.355" y="86.0" />
+      <point x="14.99982452089904" y="13.999830333226441" />
+    </edge>
+    <edge source="Model.Medlem" target="Model.Motionist" relationship="CREATE">
+      <point x="172.0" y="-22.9705935701478" />
+      <point x="-61.0" y="0.0" />
+    </edge>
+    <edge source="Controller.MedlemController" target="Model.Medlem" relationship="CREATE">
+      <point x="-156.5" y="34.083921245746296" />
+      <point x="172.0" y="23.5294064298522" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="1.2132231404958678" showDependencies="true" x="349.5" y="288.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

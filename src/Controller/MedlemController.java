@@ -49,7 +49,7 @@ public class MedlemController {
         Objects.requireNonNull(getMedlemMedInput()).setMedlemskab(Input.medlemskabInput());
     }
     public static void skiftMedlemskab(String navn) {
-        getMedlemMedNavn(navn).setMedlemskab(Input.medlemskabInput());
+        Objects.requireNonNull(getMedlemMedNavn(navn)).setMedlemskab(Input.medlemskabInput());
     }
 
 
@@ -66,6 +66,6 @@ public class MedlemController {
         tilfoejMedlem(new Medlem("Jens", "aktiv + konkurrence", 20, null));
 
 
-
+        skiftMedlemskab();
     }
 }
