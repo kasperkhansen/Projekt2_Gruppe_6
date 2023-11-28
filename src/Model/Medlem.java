@@ -1,15 +1,7 @@
 package Model;
-
 import View.*;
-import Testing.Dummies.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import Controller.MedlemController.*;
-import Model.Medlemskab;
-import Model.Motionist;
-import Model.AktivtMedlem;
-import Model.KonkurrenceSvoemmer;
-import Model.PassivtMedlem;
 
 public class Medlem {
     private final String navn;
@@ -19,6 +11,7 @@ public class Medlem {
     private final LocalDate foedselsdato;
     private static int id = 1;
     boolean erSenior = false;
+    boolean erPensionist = false;
 
 
     public boolean senior(){
@@ -26,6 +19,13 @@ public class Medlem {
             erSenior = true;
         }
         return erSenior;
+    }
+
+    public boolean Pensionist(){
+        if (alder >= 60){
+            erPensionist = true;
+        }
+        return erPensionist;
     }
 
 
@@ -97,7 +97,7 @@ public class Medlem {
     }
 
     private static void medlemsskabTest() {
-        Medlem medlem = new Medlem("test", "aktiv + konkurrence", 20, LocalDate.of(2000, 1, 1), 1);
+        Medlem medlem = new Medlem("test", "aktiv + konkurrence", 20, LocalDate.of(2000, 1, 1));
         System.out.println(medlem.getMedlemsskabArrayList().get(0).toString());
         medlem.setMedlemskab("aktiv + motionist");
         System.out.println(medlem.getMedlemsskabArrayList().get(0).toString());
