@@ -1,6 +1,7 @@
 package Model;
 import Controller.MedlemController;
-import View.*;
+import View.Input;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -15,9 +16,9 @@ public class Medlem {
     boolean erPensionist = false;
 
     // 3 options: "aktiv + konkurrence", "aktiv + motionist", "passiv"
-    public Medlem(String navn, String medlemsskabStr, int alder, LocalDate foedselsdato){
+    public Medlem(String navn, int medlemsskabNr, int alder, LocalDate foedselsdato){
         this.navn = navn;
-        addMedlemskab(medlemsskabStr);
+        addMedlemskab(medlemsskabNr);
         this.alder = alder;
         this.foedselsdato = foedselsdato;
         id++;
@@ -46,23 +47,44 @@ public class Medlem {
 
 
 
-    public void setMedlemskab(String medlemsskabStr) { // options: aktiv + konkurrence, aktiv + motionist, passiv = 3 options
+    public void setMedlemskab(int medlemsskabNr) { // options: aktiv + konkurrence, aktiv + motionist, passiv = 3 options
         for (int i = 0; i<medlemsskab.size(); i++) {
             medlemsskab.remove(i);
         }
 
             // take string and add to arraylist
             // options to chose: aktiv + konkurrence, aktiv + motionist, passiv = 3 options
-        addMedlemskab(medlemsskabStr);
+        addMedlemskab(medlemsskabNr);
 
     }
 
-    private void addMedlemskab(String medlemsskabStr) {
-        switch (medlemsskabStr) {
-            case "aktiv + konkurrence" -> medlemsskab.add(new KonkurrenceSvoemmer(Input.getNameInput("indtast navn: "), "aktiv + konkurrence", Input.getAgeInput(), Input.getBirthDateInput(), id));
-            case "aktiv + motionist" -> medlemsskab.add(new Motionist(Input.getNameInput("indtast navn: "), "aktiv + motionist", Input.getAgeInput(), Input.getBirthDateInput(), id));
-            case "passiv" -> medlemsskab.add(new PassivtMedlem(Input.getNameInput("indtast navn: "), "passiv", Input.getAgeInput(), Input.getBirthDateInput(), id));
+    private void addMedlemskab(int medlemsskabNr) {
+        boolean tilfoejMedlemskab = true;
+        while (tilfoejMedlemskab) {
 
+            switch (medlemsskabNr) {
+                case 1 -> {
+                    medlemsskab.add(new KonkurrenceSvoemmer());
+                    tilfoejMedlemskab = false;
+                }
+                case 2 -> {
+                    medlemsskab.add(new Motionist());
+                    tilfoejMedlemskab = false;
+                }
+                case 3 -> {
+                    medlemsskab.add(new PassivtMedlem());
+                    tilfoejMedlemskab = false;
+                }
+
+                default -> System.out.println("Invalid Input, Try Again");
+            }
+            if (tilfoejMedlemskab) {
+                System.out.println("Medlemskab tilføjet");
+            } else {
+                System.out.println("Medlemskab ikke tilføjet");
+                // message: vælg medlemskab options: 1, 2, 3 aktiv + konkurrence, aktiv + motionist, passiv = 3 options
+                medlemsskabNr = Input.intInput("Vælg medlemskab: 1. aktiv + konkurrence, 2. aktiv + motionist, 3. passiv");
+            }
         }
     }
 
@@ -96,19 +118,5 @@ public class Medlem {
 
 
 
-
-
-    public static void main(String[] args) {
-        medlemsskabTest();
-    }
-
-    private static void medlemsskabTest() {
-        Medlem medlem = new Medlem("test", "aktiv + konkurrence", 20, LocalDate.of(2000, 1, 1));
-        System.out.println(medlem.getMedlemsskabArrayList().get(0).toString());
-        medlem.setMedlemskab("aktiv + motionist");
-        System.out.println(medlem.getMedlemsskabArrayList().get(0).toString());
-        medlem.setMedlemskab("passiv");
-        System.out.println(medlem.getMedlemsskabArrayList().get(0).toString());
-    }
 
 }

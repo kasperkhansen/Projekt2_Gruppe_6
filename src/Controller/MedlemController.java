@@ -7,14 +7,13 @@ import java.util.Objects;
 
 public class MedlemController {
     public static ArrayList<Medlem> alleMedlemmer = fillAlleMedlemmerArr();
-    public static ArrayList<AktivtMedlem> AktivMedlemsListe = new ArrayList<>();
 
 
     // 1 medlem Methods ---------------------------------------------
     private static ArrayList<Medlem> fillAlleMedlemmerArr() {
         ArrayList<Medlem> m = new ArrayList<>();
 
-        m.add(new Medlem("jens", "passivt", 20, LocalDate.of(2010,01,01)));
+        m.add(new Medlem("jens", 1, 20, LocalDate.of(2010,01,01)));
         return m;
     }
 

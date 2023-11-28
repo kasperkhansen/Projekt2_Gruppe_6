@@ -1,7 +1,5 @@
 package View;
 
-import Model.Medlem;
-
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -19,25 +17,25 @@ public abstract class Input {
         return dateInput("Indtast fødselsdato: ");
     }
 
-    public static String medlemskabInput() {
-        System.out.println("Indtast medlemskab: ");
-        System.out.println("1. Aktiv + konkurrence");
-        System.out.println("2. Aktiv + motionist");
-        System.out.println("3. Passiv");
-        int choice = intInput("Choice: ");
-        System.out.println("--------------------\n");
+    public static int medlemskabInput() {
+        while (true) {
+            System.out.println("Indtast medlemskab: ");
+            System.out.println("--------------------");
 
-        switch (choice) {
-            case 1:
-                return "aktiv + konkurrence";
-            case 2:
-                return "aktiv + motionist";
-            case 3:
-                return "passiv";
-            default:
+            System.out.println("tast 1 for Aktiv + konkurrence");
+            System.out.println("tast 2 for Aktiv + motionist");
+            System.out.println("tast 3 for Passiv");
+            int choice = intInput("Choice: ");
+            System.out.println("--------------------\n");
+
+            if (choice < 4 && choice > 0) {
+                return choice;
+            } else {
                 System.out.println("Invalid Input, Try Again");
+            }
+
         }
-        return null;
+
     }
 
 
