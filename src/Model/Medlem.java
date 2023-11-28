@@ -1,4 +1,5 @@
 package Model;
+import Controller.MedlemController;
 import View.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,6 +13,17 @@ public class Medlem {
     private static int id = 1;
     boolean erSenior = false;
     boolean erPensionist = false;
+
+    // 3 options: "aktiv + konkurrence", "aktiv + motionist", "passiv"
+    public Medlem(String navn, String medlemsskabStr, int alder, LocalDate foedselsdato){
+        this.navn = navn;
+        addMedlemskab(medlemsskabStr);
+        this.alder = alder;
+        this.foedselsdato = foedselsdato;
+        id++;
+        MedlemController.tilfoejMedlem(this);
+    }
+
 
 
     public boolean senior(){
@@ -31,13 +43,7 @@ public class Medlem {
 
     //-----------------------------------------medlems constructor------------------------------------------------------
 
-    public Medlem(String navn, String medlemsskabStr, int alder, LocalDate foedselsdato){
-        this.navn = navn;
-        addMedlemskab(medlemsskabStr);
-        this.alder = alder;
-        this.foedselsdato = foedselsdato;
-        id++;
-    }
+
 
 
     public void setMedlemskab(String medlemsskabStr) { // options: aktiv + konkurrence, aktiv + motionist, passiv = 3 options
@@ -55,7 +61,7 @@ public class Medlem {
         switch (medlemsskabStr) {
             case "aktiv + konkurrence" -> medlemsskab.add(new KonkurrenceSvoemmer(Input.getNameInput("indtast navn: "), "aktiv + konkurrence", Input.getAgeInput(), Input.getBirthDateInput(), id));
             case "aktiv + motionist" -> medlemsskab.add(new Motionist(Input.getNameInput("indtast navn: "), "aktiv + motionist", Input.getAgeInput(), Input.getBirthDateInput(), id));
-            case     "passiv" -> medlemsskab.add(new PassivtMedlem(Input.getNameInput("indtast navn: "), "passiv", Input.getAgeInput(), Input.getBirthDateInput(), id));
+            case "passiv" -> medlemsskab.add(new PassivtMedlem(Input.getNameInput("indtast navn: "), "passiv", Input.getAgeInput(), Input.getBirthDateInput(), id));
 
         }
     }

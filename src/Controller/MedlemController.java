@@ -35,7 +35,7 @@ public class MedlemController {
     }
     public static Medlem getMedlemMedInput() {
         System.out.println("find medlem: ");
-        return getMedlem(Input.getNameInput("indtast navn: "));
+        return getMedlemMedNavn(Input.getNameInput("indtast navn: "));
     }
     // opdater medlem - input: opdateret medlem - process: find og fjern medlem - output: tilføj opdateret medlem
     public static void opdaterMedlem(Medlem medlem) {
@@ -66,6 +66,6 @@ public class MedlemController {
         tilfoejMedlem(new Medlem("Jens", "aktiv + konkurrence", 20, null));
 
 
-        skiftMedlemskab();
+
     }
 }
