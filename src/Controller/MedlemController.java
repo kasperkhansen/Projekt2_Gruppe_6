@@ -55,16 +55,4 @@ public class MedlemController {
 
 
 
-
-
-
-
-
-    // 3 test
-    public static void main(String[] args) {
-        tilfoejMedlem(new Medlem("Jens", "aktiv + konkurrence", 20, null));
-
-
-        skiftMedlemskab();
-    }
 }
