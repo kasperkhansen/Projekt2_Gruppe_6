@@ -44,9 +44,10 @@ public class MedlemController {
 
 
     // 2 medlemskab methods -----------------------------------------
-    public static void skiftMedlemskabMedInputScan () {
+    public static void skiftMedlemskabMedInputScan() {
         Objects.requireNonNull(getMedlemMedInput()).setMedlemskab(Input.medlemskabInput());
     }
+
     public static void skiftMedlemskab(String navn) {
         Objects.requireNonNull(getMedlemMedNavn(navn)).setMedlemskab(Input.medlemskabInput());
     }
@@ -55,4 +56,46 @@ public class MedlemController {
 
 
 
+
+    public static void betalEngangsbillet() {
+        System.out.println("Betal engangsbillet processing...");
+        if (!alleMedlemmer.isEmpty()) {
+            String søgtNavn = Input.getNameInput("Indtast navn");
+            boolean medlemFundet = false;
+
+            for (Medlem med : alleMedlemmer) {
+                if (med.getNavn().equals(søgtNavn)) {
+                    medlemFundet = true;
+
+                    if (med.isPassivtMedlemskab()) {
+                        System.out.println("Engangsbillet til " + søgtNavn + " er købt");
+                    } else {
+                        System.out.println(søgtNavn + " er ikke passivt medlem.");
+                    }
+                    break;
+                }
+            }
+            if (!medlemFundet) {
+                System.out.println("Ingen medlem fundet med dette navn: " + søgtNavn);
+            }
+        } else {
+            System.out.println("Ingen medlemmer i listen");
+        }
+    }
+
+    // 3 test
+    public static void main(String[] args) {
+        tilfoejMedlem(new Medlem("Jens", 3, 20, null));
+        betalEngangsbillet();
+    }
+
 }
+
+
+
+
+
+
+
+
+

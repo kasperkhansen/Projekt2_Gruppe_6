@@ -17,7 +17,7 @@ public class Dummies {
     public static Medlem f = new Medlem("Findus", "Passivtmedlem", 55, LocalDate.of(2002,4,2));
 
     public static void main(String[] args) {
-        MedlemController.skiftMedlemskab(f.getNavn());
+        MedlemController.betalEngangsbillet();
 
     }
 }
