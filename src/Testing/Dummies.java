@@ -1,11 +1,6 @@
 package Testing;
-import Controller.MedlemController;
-import Model.AktivtMedlem;
 import Model.Medlem;
-
-import javax.print.attribute.standard.PrinterIsAcceptingJobs;
 import java.time.LocalDate;
-
 //Medlem(String navn, String medlemsskab, int alder, LocalDate foedselsdato, int id)
 
 public class Dummies {

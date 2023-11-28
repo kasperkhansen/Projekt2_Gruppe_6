@@ -1,8 +1,4 @@
 package Testing;
-
-
-
-
 public class SuperClass_UserStoryTest {
 
     public static void printDoDTest() {
