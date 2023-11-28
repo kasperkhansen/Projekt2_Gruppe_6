@@ -78,7 +78,7 @@ public class Medlem {
 
                 default -> System.out.println("Invalid Input, Try Again");
             }
-            if (tilfoejMedlemskab) {
+            if (!tilfoejMedlemskab) {
                 System.out.println("Medlemskab tilføjet");
             } else {
                 System.out.println("Medlemskab ikke tilføjet");
