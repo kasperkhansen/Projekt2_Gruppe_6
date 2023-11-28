@@ -90,10 +90,6 @@ public class MedlemController {
         }
     }
 
-    // 3 test
-    public static void main(String[] args) {
-        tilfoejMedlem(new Medlem("Jens", 3, 20, null));
-        betalEngangsbillet();
-    }
+
 
 }
