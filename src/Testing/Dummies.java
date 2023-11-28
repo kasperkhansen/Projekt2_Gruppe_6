@@ -18,7 +18,7 @@ public class Dummies {
 
 
     public static void main(String[] args) {
-
+        MedlemController.betalEngangsbillet();
 
     }
 }

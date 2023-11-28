@@ -34,7 +34,7 @@ public class MedlemController {
         return null;
     }
     public static Medlem getMedlemMedInput() {
-        System.out.println("\nFind medlem valgt... ");
+        System.out.println("find medlem: ");
         return getMedlemMedNavn(Input.getNameInput("indtast navn: "));
     }
     // opdater medlem - input: opdateret medlem - process: find og fjern medlem - output: tilføj opdateret medlem
@@ -48,6 +48,7 @@ public class MedlemController {
     public static void skiftMedlemskabMedInputScan () {
         getMedlemMedInput().setMedlemskab(Input.medlemskabInput());
     }
+
     public static void skiftMedlemskab(String navn) {
         getMedlemMedNavn(navn).setMedlemskab(Input.medlemskabInput());
     }
@@ -60,6 +61,39 @@ public class MedlemController {
         System.out.println(alleMedlemmer);
         skiftMedlemskabMedInputScan();
         System.out.println(alleMedlemmer);
+    }
+
+
+    public static void betalEngangsbillet() {
+        System.out.println("Betal engangsbillet processing...");
+        if (!alleMedlemmer.isEmpty()) {
+            String søgtNavn = Input.getNameInput("Indtast navn");
+            boolean medlemFundet = false;
+
+            for (Medlem med : alleMedlemmer) {
+                if (med.getNavn().equals(søgtNavn)) {
+                    medlemFundet = true;
+
+                    if (med.isPassivtMedlemskab()) {
+                        System.out.println("Engangsbillet til " + søgtNavn + " er købt");
+                    } else {
+                        System.out.println(søgtNavn + " er ikke passivt medlem.");
+                    }
+                    break;
+                }
+            }
+            if (!medlemFundet) {
+                System.out.println("Ingen medlem fundet med dette navn: " + søgtNavn);
+            }
+        } else {
+            System.out.println("Ingen medlemmer i listen");
+        }
+    }
+
+    // 3 test
+    public static void main(String[] args) {
+        tilfoejMedlem(new Medlem("Jens", 3, 20, null));
+        betalEngangsbillet();
     }
 
 }
