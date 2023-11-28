@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Medlem {
     private final String navn;
-    private ArrayList<Medlemskab> medlemsskab = new ArrayList<>();
+    private final ArrayList<Medlemskab> medlemsskab = new ArrayList<>();
 
     private final int alder;
     private final LocalDate foedselsdato;
@@ -116,7 +116,8 @@ public class Medlem {
         return id;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return " " + navn + medlemsskab+  alder + foedselsdato;
+    }
 }

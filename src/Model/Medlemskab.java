@@ -1,3 +1,6 @@
 package Model;
-public class Medlemskab {
+
+import Testing.Dummies;
+
+public class Medlemskab implements Cloneable {
 }

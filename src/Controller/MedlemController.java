@@ -43,7 +43,6 @@ public class MedlemController {
         tilfoejMedlem(medlem);
     }
 
-
     // 2 medlemskab methods -----------------------------------------
     public static void skiftMedlemskabMedInputScan () {
         getMedlemMedInput().setMedlemskab(Input.medlemskabInput());
@@ -90,6 +89,9 @@ public class MedlemController {
         }
     }
 
-
-
+    public static void printAlleMedlemmer(){
+        for (Medlem medlem : alleMedlemmer) {
+            System.out.print(medlem);
+        }
+    }
 }
