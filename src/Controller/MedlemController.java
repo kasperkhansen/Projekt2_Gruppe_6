@@ -37,7 +37,7 @@ public class MedlemController {
         System.out.println("find medlem: ");
         return getMedlemMedNavn(Input.getNameInput("indtast navn: "));
     }
-    // opdater medlem - input: opdateret medlem - process: find og fjern medlem - output: tilføj opdateret medlem
+
     public static void opdaterMedlem(Medlem medlem) {
         fjernMedlem(medlem);
         tilfoejMedlem(medlem);
