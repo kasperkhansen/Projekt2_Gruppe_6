@@ -10,11 +10,9 @@ import java.util.Objects;
 public class MedlemController {
     public static ArrayList<Medlem> alleMedlemmer = fillAlleMedlemmerArr();
     public static ArrayList<AktivtMedlem> AktivMedlemsListe = new ArrayList<>();
-    public static ArrayList<PassivtMedlem> PassivtMedlemsListe = new ArrayList<>();
-    public static ArrayList<Motionist> MotionistListe = new ArrayList<>();
-    public static ArrayList<KonkurrenceSvoemmer> KonkurrenceSvoemmerListe = new ArrayList<>();
-    public static ArrayList<ArrayList> TopFemKonkurencSvoemmere;
 
+
+    // 1 medlem Methods ---------------------------------------------
     private static ArrayList<Medlem> fillAlleMedlemmerArr() {
         ArrayList<Medlem> m = new ArrayList<>();
 
@@ -22,28 +20,52 @@ public class MedlemController {
         return m;
     }
 
-    public static void addMedlem(Medlem medlem) {
+    // CRUD - tilføj, fjern, find, opdater
+    public static void tilfoejMedlem(Medlem medlem) {
         alleMedlemmer.add(medlem);
     }
-
-    public static void skiftMedlemskab () {
-
-        Objects.requireNonNull(getMedlem()).setMedlemskab(Input.medlemskabInput());
-
+    public static void fjernMedlem(Medlem medlem) {
+        alleMedlemmer.remove(medlem);
     }
-
-    private static Medlem getMedlem() {
+    public static Medlem getMedlemMedNavn(String navn) {
         for (Medlem medlem : alleMedlemmer) {
-            if (medlem.getNavn().equals(Input.getNameInput("indtast navn: "))) {
+            if (medlem.getNavn().equals(navn)) {
                 return medlem;
             }
         }
         return null;
     }
+    public static Medlem getMedlemMedInput() {
+        System.out.println("find medlem: ");
+        return getMedlem(Input.getNameInput("indtast navn: "));
+    }
+    // opdater medlem - input: opdateret medlem - process: find og fjern medlem - output: tilføj opdateret medlem
+    public static void opdaterMedlem(Medlem medlem) {
+        fjernMedlem(medlem);
+        tilfoejMedlem(medlem);
+    }
 
 
+    // 2 medlemskab methods -----------------------------------------
+    public static void skiftMedlemskabMedInputScan () {
+        Objects.requireNonNull(getMedlemMedInput()).setMedlemskab(Input.medlemskabInput());
+    }
+    public static void skiftMedlemskab(String navn) {
+        getMedlemMedNavn(navn).setMedlemskab(Input.medlemskabInput());
+    }
+
+
+
+
+
+
+
+
+
+
+    // 3 test
     public static void main(String[] args) {
-        addMedlem(new Medlem("Jens", "aktiv + konkurrence", 20, null));
+        tilfoejMedlem(new Medlem("Jens", "aktiv + konkurrence", 20, null));
 
 
         skiftMedlemskab();
