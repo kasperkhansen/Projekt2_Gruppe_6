@@ -43,7 +43,7 @@ public class DatabaseController {
             for (File file : listOfFiles) {
                 if (file.isFile()) {
                     Medlem loadedMedlem = loadFileToMedlem(file.getName());
-                    if (loadedMedlem != null) {
+                    if (loadedMedlem != null && !MedlemController.alleMedlemmer.contains(loadedMedlem)) {
                         MedlemController.alleMedlemmer.add(loadedMedlem);
                     }
                 }
