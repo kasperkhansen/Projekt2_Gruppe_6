@@ -8,7 +8,6 @@ public abstract class Input {
     private static Scanner scanner = newScannerErrorHandling();
 
 
-
     public static int getAgeInput() {
         return intInput("Indtast alder: ");
     }

@@ -17,7 +17,18 @@ public class DatabaseController {
     // Save alleMedlemmer arraylist of MedlemController to files for each member
     public static void saveDatabase() {
         for (Medlem medlem : MedlemController.alleMedlemmer) {
-            saveObjectAsFile(medlem, DATABASE_PATH + medlem.getNavn() + ".dat");
+            try {
+                File file = new File(DATABASE_PATH + medlem.getNavn() + ".dat");
+                if (file.createNewFile()) {
+                    System.out.println("File created: " + file.getName());
+                } else {
+                    System.out.println("File already exists.");
+                }
+            } catch (IOException e) {
+                System.err.println("Error saving member: " + medlem.getNavn());
+
+            }
+
         }
         updateListOfFiles();
     }
