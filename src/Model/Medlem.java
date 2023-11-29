@@ -126,7 +126,7 @@ public class Medlem implements Serializable {
 
     //--------------------------------------------------data metoder--------------------------------------------------------
     public void saveMedlem() {
-        String fileName = "src/Model/Database/" + id + ".txt";
+        String fileName = "src/Database/" + id + ".txt";
 
         DatabaseController.saveObjectAsFile(this, fileName);
     }

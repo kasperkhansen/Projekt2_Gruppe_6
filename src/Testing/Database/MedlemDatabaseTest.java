@@ -40,7 +40,7 @@ public class MedlemDatabaseTest {
         MedlemController.alleMedlemmer.clear();
 
         // Create test members
-        Medlem medlem1 = new Medlem("TestMember1", 1, 30, LocalDate.of(1992, 1, 1));
+        Medlem medlem1 = new Medlem("paul", 1, 30, LocalDate.of(1992, 1, 1));
         Medlem medlem2 = new Medlem("TestMember2", 2, 25, LocalDate.of(1997, 2, 1));
 
         // Add members to MedlemController
