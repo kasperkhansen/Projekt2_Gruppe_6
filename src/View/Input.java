@@ -103,7 +103,7 @@ public abstract class Input {
             try {
                 return LocalDate.parse(scanner.next());
             } catch (Exception e) {
-                System.out.println("Error: " + e);
+                System.out.println("Indtast fødselsdato i dette format yyyy-mm-dd:  ");
             }
         }
     }
