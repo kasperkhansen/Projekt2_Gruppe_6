@@ -56,4 +56,8 @@ public class FormandSubMenu extends SubMenu {
             }
         }
     }
+
+    public static void main(String[] args) {
+        new FormandSubMenu();
+    }
 }
