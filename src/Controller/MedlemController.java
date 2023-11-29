@@ -104,4 +104,6 @@ public class MedlemController {
         skiftMedlemskabMedInputScan();
         System.out.println(alleMedlemmer);
     }
+
+
 }
