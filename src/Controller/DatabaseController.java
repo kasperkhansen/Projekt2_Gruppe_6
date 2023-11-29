@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class DatabaseController {
 
-    private static final String DATABASE_PATH = "src/Database/";
+    public static final String DATABASE_PATH = "src/Database/";
     private static File[] listOfFiles;
 
     static {
@@ -25,7 +25,8 @@ public class DatabaseController {
     // Load alleMedlemmer arraylist of MedlemController from files for each member
     public static void loadDatabase() {
         MedlemController.alleMedlemmer.clear();
-        listOfFiles = getListOfFiles();
+        File folder = new File(DATABASE_PATH);
+        File[] listOfFiles = folder.listFiles();
 
         if (listOfFiles != null) {
             for (File file : listOfFiles) {
