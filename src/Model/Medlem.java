@@ -14,8 +14,8 @@ public class Medlem implements Serializable {
     private final int alder;
     private final LocalDate foedselsdato;
     private static int id = 1;
-    boolean erSenior = false;
-    boolean erPensionist = false;
+    public boolean erSenior = false;
+    public boolean erPensionist = false;
 
     // 3 options: "aktiv + konkurrence", "aktiv + motionist", "passiv"
     public Medlem(String navn, int medlemsskabNr, int alder, LocalDate foedselsdato){

@@ -29,11 +29,11 @@ public class MedlemSubMenu extends SubMenu {
 
             switch (choice) {
                 case 1:
-                   //medlemController.skiftMedlemskab();
+                   medlemController.skiftMedlemskabMedInputScan();
                     System.out.println("medlemController.aendreMedlemskab() chosen");
                     break;
                 case 2:
-                    //kontingentController.koebEnGangsBillet();
+                    kontingentController.koebEnGangsBillet();
                     System.out.println("kontingentController.koebEnGangsBillet()");
                     break;
 

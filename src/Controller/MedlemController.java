@@ -22,7 +22,7 @@ public class MedlemController {
     }
 
     public static void skiftMedlemskabMedInputScan () {
-            getMedlemMedInput().setMedlemskab(Input.medlemskabInput());
+            skiftMedlemskab(Input.getNameInput("Indtast navn:"));
     }
 
     public static void skiftMedlemskab(String navn) {
