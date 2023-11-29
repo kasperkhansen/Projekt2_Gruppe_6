@@ -1,4 +1,5 @@
 package Model;
+import Controller.DatabaseController;
 import Controller.MedlemController;
 import View.Input;
 
@@ -23,10 +24,12 @@ public class Medlem {
         this.foedselsdato = foedselsdato;
         id++;
         MedlemController.tilfoejMedlem(this);
+        saveMedlem();
     }
 
 
 
+    // -----------------------------------------alder metoder------------------------------------------------------------
     public boolean senior(){
         if (alder > 18){
             erSenior = true;
@@ -42,9 +45,7 @@ public class Medlem {
     }
 
 
-    //-----------------------------------------medlems constructor------------------------------------------------------
-
-
+    //-----------------------------------------medlemsskab metoder ------------------------------------------------------
 
 
     public void setMedlemskab(int medlemsskabNr) { // options: aktiv + konkurrence, aktiv + motionist, passiv = 3 options
@@ -116,8 +117,16 @@ public class Medlem {
         return id;
     }
 
+    //--------------------------------------------------set metoder---------------------------------------------------------
     @Override
     public String toString() {
         return " " + navn + medlemsskab+  alder + foedselsdato;
+    }
+
+    //--------------------------------------------------data metoder--------------------------------------------------------
+    public void saveMedlem() {
+        String fileName = "src/Model/Database/" + id + ".txt";
+
+        DatabaseController.saveObjectAsFile(this, fileName);
     }
 }

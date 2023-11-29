@@ -10,14 +10,9 @@ public class MedlemController {
 
 
     // 1 medlem Methods ---------------------------------------------
-    private static ArrayList<Medlem> fillAlleMedlemmerArr() {
-        ArrayList<Medlem> m = new ArrayList<Medlem>();
 
-        m.add(new Medlem("jens", 1, 20, LocalDate.of(2010,01,01)));
-        return m;
-    }
 
-    // CRUD - tilføj, fjern, find, opdater
+    // CRUD - tilføj, fjern, get, opdater
     public static void tilfoejMedlem(Medlem medlem) {
         alleMedlemmer.add(medlem);
         System.out.println("Medlem tilføjet: " + medlem.getNavn());
@@ -43,6 +38,7 @@ public class MedlemController {
         tilfoejMedlem(medlem);
     }
 
+
     // 2 medlemskab methods -----------------------------------------
     public static void skiftMedlemskabMedInputScan () {
         getMedlemMedInput().setMedlemskab(Input.medlemskabInput());
@@ -51,17 +47,6 @@ public class MedlemController {
     public static void skiftMedlemskab(String navn) {
         getMedlemMedNavn(navn).setMedlemskab(Input.medlemskabInput());
     }
-
-
-    public static void main(String[] args) {
-        System.out.println("debug: tilfoej startet");
-        tilfoejMedlem(new Medlem("jens", 1, 20, LocalDate.of(2010,01,01)));
-        System.out.println("debug: tilfoej sluttet");
-        System.out.println(alleMedlemmer);
-        skiftMedlemskabMedInputScan();
-        System.out.println(alleMedlemmer);
-    }
-
 
     public static void betalEngangsbillet() {
         System.out.println("Betal engangsbillet processing...");
@@ -89,9 +74,34 @@ public class MedlemController {
         }
     }
 
+
+    // 3 service methods ---------------------------------------------
     public static void printAlleMedlemmer(){
         for (Medlem medlem : alleMedlemmer) {
             System.out.print(medlem);
         }
+    }
+
+    public static void printMedlemMedNavn(String navn) {
+        System.out.println(getMedlemMedNavn(navn));
+    }
+
+    public static void printMedlemMedInput() {
+        System.out.println("find medlem: ");
+        System.out.println(getMedlemMedInput());
+    }
+
+
+
+
+
+    // test
+    public static void main(String[] args) {
+        System.out.println("debug: tilfoej startet");
+        tilfoejMedlem(new Medlem("jens", 1, 20, LocalDate.of(2010,01,01)));
+        System.out.println("debug: tilfoej sluttet");
+        System.out.println(alleMedlemmer);
+        skiftMedlemskabMedInputScan();
+        System.out.println(alleMedlemmer);
     }
 }
