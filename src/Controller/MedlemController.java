@@ -3,7 +3,6 @@ import Model.*;
 import View.Input;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class MedlemController {
     public static ArrayList<Medlem> alleMedlemmer = new ArrayList<>();
@@ -23,12 +22,49 @@ public class MedlemController {
     }
 
     public static void skiftMedlemskabMedInputScan () {
-        getMedlemMedInput().setMedlemskab(Input.medlemskabInput());
+            getMedlemMedInput().setMedlemskab(Input.medlemskabInput());
     }
 
     public static void skiftMedlemskab(String navn) {
-        getMedlemMedNavn(navn).setMedlemskab(Input.medlemskabInput());
-    }
+        Medlem medlem = getMedlemMedNavn(navn);
+            if (medlem != null) {
+                int nytMedlemskabNr;
+
+                do {
+                    nytMedlemskabNr = Input.medlemskabInput();
+
+                    if (nytMedlemskabNr == medlem.getMedlemskabsNr()) {
+                        System.out.println("Dette er det nuværende medlemskab. Vælg et andet for at skifte.");
+                    }
+                } while (nytMedlemskabNr == medlem.getMedlemskabsNr());
+
+                String valgtMedlemskab;
+                switch (nytMedlemskabNr) {
+                    case 1:
+                        medlem.setMedlemskab(1);
+                        valgtMedlemskab = "Aktiv - konkurrence.";
+                        System.out.println("Medlemskab for " + getMedlemMedNavn(navn).getNavn() + " er ændret til " + valgtMedlemskab);
+                        break;
+                    case 2:
+                        medlem.setMedlemskab(2);
+                        valgtMedlemskab = "Aktiv - motionist.";
+                        System.out.println("Medlemskab for " + getMedlemMedNavn(navn).getNavn() + " er ændret til " + valgtMedlemskab);
+                        break;
+                    case 3:
+                        medlem.setMedlemskab(3);
+                        valgtMedlemskab = "Passivt.";
+                        System.out.println("Medlemskab for " + getMedlemMedNavn(navn).getNavn() + " er ændret til " + valgtMedlemskab);
+                        break;
+                    default:
+                        System.out.println("Ugyldig indtastning, prøv igen");
+                        return;
+                }
+
+            } else {
+                System.out.println("Ingen medlem fundet med dette navn");
+            }
+        }
+
 
     public static void betalEngangsbillet() {
         System.out.println("Betal engangsbillet processing...");
@@ -62,8 +98,10 @@ public class MedlemController {
 
     // CRUD - tilføj, fjern, get, opdater
     public static void tilfoejMedlem(Medlem medlem) {
-        alleMedlemmer.add(medlem);
-        System.out.println("Medlem tilføjet: " + medlem.getNavn());
+        if (!alleMedlemmer.contains(medlem)) {
+            alleMedlemmer.add(medlem);
+            System.out.println("Medlem tilføjet: " + medlem.getNavn());
+        }
     }
     public static void fjernMedlem(Medlem medlem) {
         alleMedlemmer.remove(medlem);

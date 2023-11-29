@@ -1,4 +1,5 @@
 package Testing;
+import Controller.MedlemController;
 import Model.Medlem;
 import java.time.LocalDate;
 //Medlem(String navn, String medlemsskab, int alder, LocalDate foedselsdato, int id)
@@ -13,8 +14,11 @@ public class Dummies {
 
     public static void main(String[] args) {
         //MedlemController.printAlleMedlemmer(); liste med samtilige medlemmer
+        MedlemController.skiftMedlemskab("Flemming");
+        // MedlemController.fjernMedlem
         //skift medlemskab
         //MedlemController.betalEngangsbillet(); pass
         //MedlemController.skiftMedlemskab("Flemming");
+
     }
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Medlem implements Serializable {
     private final String navn;
     private final ArrayList<Medlemskab> medlemsskab = new ArrayList<>();
-
+    private int medlemsskabsNr;
     private final int alder;
     private final LocalDate foedselsdato;
     private static int id = 1;
@@ -21,10 +21,11 @@ public class Medlem implements Serializable {
     public Medlem(String navn, int medlemsskabNr, int alder, LocalDate foedselsdato){
         this.navn = navn;
         addMedlemskab(medlemsskabNr);
+        this.medlemsskabsNr=medlemsskabNr;
         this.alder = alder;
         this.foedselsdato = foedselsdato;
-        id++;
-        MedlemController.tilfoejMedlem(this);
+       id++;
+       MedlemController.tilfoejMedlem(this);
         saveMedlem();
     }
 
@@ -81,7 +82,6 @@ public class Medlem implements Serializable {
                 default -> System.out.println("Invalid Input, Try Again");
             }
             if (!tilfoejMedlemskab) {
-                System.out.println("Medlemskab tilføjet");
             } else {
                 System.out.println("Medlemskab ikke tilføjet");
                 // message: vælg medlemskab options: 1, 2, 3 aktiv + konkurrence, aktiv + motionist, passiv = 3 options
@@ -117,6 +117,10 @@ public class Medlem implements Serializable {
     public int getId() {
         return id;
     }
+
+    public int getMedlemskabsNr () {
+        return medlemsskabsNr;
+        }
 
     //--------------------------------------------------set metoder---------------------------------------------------------
     @Override
