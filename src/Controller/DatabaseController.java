@@ -1,106 +1,69 @@
 package Controller;
 
-// class for saving alleMedlemmer arraylist of MedlemController to files for each member
-
 import Model.Medlem;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 public class DatabaseController {
 
-    ArrayList<File> files = new ArrayList<>();
-    static File[] listOfFiles;
+    private static final String DATABASE_PATH = "src/Database/";
+    private static File[] listOfFiles;
 
-    private static File currentFile;
-
-    // method for saving alleMedlemmer arraylist of MedlemController to files for each member
+    // Save alleMedlemmer arraylist of MedlemController to files for each member
     public static void saveDatabase() {
-        for (int i = 0; i < MedlemController.alleMedlemmer.size(); i++) {
-            MedlemController.alleMedlemmer.get(i).saveMedlem();
+        for (Medlem medlem : MedlemController.alleMedlemmer) {
+            saveObjectAsFile(medlem, DATABASE_PATH + medlem.getNavn() + ".dat");
         }
         updateListOfFiles();
     }
 
-
-
-    // method for loading alleMedlemmer arraylist of MedlemController from files for each member
+    // Load alleMedlemmer arraylist of MedlemController from files for each member
     public static void loadDatabase() {
-
         MedlemController.alleMedlemmer.clear();
         listOfFiles = getListOfFiles();
 
         if (listOfFiles != null) {
             for (File file : listOfFiles) {
                 if (file.isFile()) {
-                    MedlemController.alleMedlemmer.add(loadFileToMedlem(file.getName()));
+                    Medlem loadedMedlem = loadFileToMedlem(file.getName());
+                    if (loadedMedlem != null) {
+                        MedlemController.alleMedlemmer.add(loadedMedlem);
+                    }
                 }
             }
         }
-
     }
 
-    // listOfFiles methods
+    // Get list of files in the database directory
     private static File[] getListOfFiles() {
-        File folder = new File("src/Database");
-        return listOfFiles = folder.listFiles();
+        File folder = new File(DATABASE_PATH);
+        return folder.listFiles();
     }
+
+    // Update the list of files
     private static void updateListOfFiles() {
         listOfFiles = getListOfFiles();
     }
 
-    // get Medlem from file
-    public static Medlem getMedlemFromFile(String fileName) {
-        return loadFileToMedlem(fileName);
-    }
-
-    public static Medlem loadFileToMedlem(String fileName) {
-        try {
-            for (File file : listOfFiles) {
-                if (file.getName().equals(fileName)) {
-                    currentFile = file;
-                    return new Medlem(getMedlemName(), getMedlemMedlemskabNr(), getMedlemAlder(), getMedlemFoedselsdato());
-                }
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-
-        } return null;
-
-    }
-
-
-
+    // Save an object as a file
     public static void saveObjectAsFile(Object object, String fileName) {
-        try {
-            FileOutputStream fileOut = new FileOutputStream(fileName);
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+        try (FileOutputStream fileOut = new FileOutputStream(fileName);
+             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
             objectOut.writeObject(object);
-            objectOut.close();
-            System.out.println("The Medlem  was succesfully saved in Database");
+            System.out.println("The Medlem was successfully saved in Database");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    // get Medlem values from file
-    public static String getMedlemName() {
-        return
+    // Load a Medlem object from a file
+    public static Medlem loadFileToMedlem(String fileName) {
+        try (FileInputStream fileIn = new FileInputStream(DATABASE_PATH + fileName);
+             ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
+            return (Medlem) objectIn.readObject();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
-    public static int getMedlemMedlemskabNr() {
-        return
-    }
-    public static int getMedlemAlder() {
-        return
-    }
-    public static String getMedlemFoedselsdato() {
-        return
-    }
-
-
-
-
-
 }
