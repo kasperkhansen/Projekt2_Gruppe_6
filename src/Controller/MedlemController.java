@@ -9,37 +9,19 @@ public class MedlemController {
     public static ArrayList<Medlem> alleMedlemmer = new ArrayList<>();
 
 
-    // 1 medlem Methods ---------------------------------------------
 
+    // use cases ---------------------------------------------
+    // 1. registrerMedlem
+    // 2. skiftMedlemskab
+    // 3. betalEngangsbillet
 
-    // CRUD - tilføj, fjern, get, opdater
-    public static void tilfoejMedlem(Medlem medlem) {
-        alleMedlemmer.add(medlem);
-        System.out.println("Medlem tilføjet: " + medlem.getNavn());
-    }
-    public static void fjernMedlem(Medlem medlem) {
-        alleMedlemmer.remove(medlem);
-    }
-    public static Medlem getMedlemMedNavn(String navn) {
-        for (Medlem medlem : alleMedlemmer) {
-            if (medlem.getNavn().equals(navn)) {
-                return medlem;
-            }
-        }
-        return null;
-    }
-    public static Medlem getMedlemMedInput() {
-        System.out.println("find medlem: ");
-        return getMedlemMedNavn(Input.getNameInput("indtast navn: "));
+    public static void registrerMedlem() {
+        System.out.println("Registrer medlem processing...");
+
+        tilfoejMedlem(new Medlem(Input.getNameInput("Indtast navn"), Input.medlemskabInput(), Input.getAgeInput(), Input.getBirthDateInput()));
+
     }
 
-    public static void opdaterMedlem(Medlem medlem) {
-        fjernMedlem(medlem);
-        tilfoejMedlem(medlem);
-    }
-
-
-    // 2 medlemskab methods -----------------------------------------
     public static void skiftMedlemskabMedInputScan () {
         getMedlemMedInput().setMedlemskab(Input.medlemskabInput());
     }
@@ -73,6 +55,40 @@ public class MedlemController {
             System.out.println("Ingen medlemmer i listen");
         }
     }
+
+
+    // 1 medlem Methods ---------------------------------------------
+
+
+    // CRUD - tilføj, fjern, get, opdater
+    public static void tilfoejMedlem(Medlem medlem) {
+        alleMedlemmer.add(medlem);
+        System.out.println("Medlem tilføjet: " + medlem.getNavn());
+    }
+    public static void fjernMedlem(Medlem medlem) {
+        alleMedlemmer.remove(medlem);
+    }
+    public static Medlem getMedlemMedNavn(String navn) {
+        for (Medlem medlem : alleMedlemmer) {
+            if (medlem.getNavn().equals(navn)) {
+                return medlem;
+            }
+        }
+        return null;
+    }
+    public static Medlem getMedlemMedInput() {
+        System.out.println("find medlem: ");
+        return getMedlemMedNavn(Input.getNameInput("indtast navn: "));
+    }
+
+    public static void opdaterMedlem(Medlem medlem) {
+        fjernMedlem(medlem);
+        tilfoejMedlem(medlem);
+    }
+
+
+    // 2 medlemskab methods -----------------------------------------
+
 
 
     // 3 service methods ---------------------------------------------

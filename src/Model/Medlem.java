@@ -3,10 +3,11 @@ import Controller.DatabaseController;
 import Controller.MedlemController;
 import View.Input;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Medlem {
+public class Medlem implements Serializable {
     private final String navn;
     private final ArrayList<Medlemskab> medlemsskab = new ArrayList<>();
 
@@ -129,4 +130,6 @@ public class Medlem {
 
         DatabaseController.saveObjectAsFile(this, fileName);
     }
+
+
 }

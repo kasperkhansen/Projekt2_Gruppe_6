@@ -2,5 +2,7 @@ package Model;
 
 import Testing.Dummies;
 
-public class Medlemskab implements Cloneable {
+import java.io.Serializable;
+
+public class Medlemskab implements Serializable {
 }
