@@ -9,6 +9,11 @@ public class DatabaseController {
     private static final String DATABASE_PATH = "src/Database/";
     private static File[] listOfFiles;
 
+    static {
+        // Create the database directory if it does not exist
+        new File(DATABASE_PATH).mkdirs();
+    }
+
     // Save alleMedlemmer arraylist of MedlemController to files for each member
     public static void saveDatabase() {
         for (Medlem medlem : MedlemController.alleMedlemmer) {

@@ -1,5 +1,7 @@
 package View.MenuSystem;
 
+import Controller.MedlemController;
+
 import java.time.LocalDate;
 
 import static View.Input.*;
@@ -34,7 +36,7 @@ public class FormandSubMenu extends SubMenu {
 
             switch (choice) {
                 case 1:
-           //         medlemController.registrerMedlem();
+                    MedlemController.registrerMedlem();
                     System.out.println("test: registrer medlem method chosen");
                     break;
                 case 2:
