@@ -7,10 +7,10 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Medlem implements Serializable {
+public class Medlem {
     private final String navn;
     private final ArrayList<Medlemskab> medlemsskab = new ArrayList<>();
-
+    private int medlemsskabNr;
     private final int alder;
     private final LocalDate foedselsdato;
     private static int id = 1;
@@ -21,6 +21,7 @@ public class Medlem implements Serializable {
     public Medlem(String navn, int medlemsskabNr, int alder, LocalDate foedselsdato){
         this.navn = navn;
         addMedlemskab(medlemsskabNr);
+        this.medlemsskabNr = medlemsskabNr;
         this.alder = alder;
         this.foedselsdato = foedselsdato;
         id++;
@@ -106,6 +107,10 @@ public class Medlem implements Serializable {
         return medlemsskab;
     }
 
+    public int getMedlemsskabNr() {
+        return medlemsskabNr;
+    }
+
     public int getAlder() {
         return alder;
     }
@@ -118,6 +123,8 @@ public class Medlem implements Serializable {
         return id;
     }
 
+
+
     //--------------------------------------------------set metoder---------------------------------------------------------
     @Override
     public String toString() {
@@ -126,10 +133,17 @@ public class Medlem implements Serializable {
 
     //--------------------------------------------------data metoder--------------------------------------------------------
     public void saveMedlem() {
-        String fileName = getId() + "_" + this.navn.replaceAll("\\s+", "") + ".dat";
-        DatabaseController.saveObjectAsFile(this, DatabaseController.DATABASE_PATH + fileName);
+        String IDtxt = getId() + ".txt";
+        try {
+            DatabaseController.saveMedlemAsFile(this, DatabaseController.DATABASE_PATH + IDtxt);
+        } catch (Exception e) {
+            System.out.println("Error saving member: " + navn);
+        }
+
     }
 
 
-
+    public int getMedlemskabNr() {
+        return medlemsskabNr;
+    }
 }
