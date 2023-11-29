@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class DatabaseController {
 
-    private static final String DATABASE_PATH = "src/Database/";
+    public static final String DATABASE_PATH = "src/Database/";
     private static File[] listOfFiles;
 
     static {
@@ -17,7 +17,18 @@ public class DatabaseController {
     // Save alleMedlemmer arraylist of MedlemController to files for each member
     public static void saveDatabase() {
         for (Medlem medlem : MedlemController.alleMedlemmer) {
-            saveObjectAsFile(medlem, DATABASE_PATH + medlem.getNavn() + ".dat");
+            try {
+                File file = new File(DATABASE_PATH + medlem.getNavn() + ".dat");
+                if (file.createNewFile()) {
+                    System.out.println("File created: " + file.getName());
+                } else {
+                    System.out.println("File already exists.");
+                }
+            } catch (IOException e) {
+                System.err.println("Error saving member: " + medlem.getNavn());
+
+            }
+
         }
         updateListOfFiles();
     }
@@ -25,13 +36,14 @@ public class DatabaseController {
     // Load alleMedlemmer arraylist of MedlemController from files for each member
     public static void loadDatabase() {
         MedlemController.alleMedlemmer.clear();
-        listOfFiles = getListOfFiles();
+        File folder = new File(DATABASE_PATH);
+        File[] listOfFiles = folder.listFiles();
 
         if (listOfFiles != null) {
             for (File file : listOfFiles) {
                 if (file.isFile()) {
                     Medlem loadedMedlem = loadFileToMedlem(file.getName());
-                    if (loadedMedlem != null) {
+                    if (loadedMedlem != null && !MedlemController.alleMedlemmer.contains(loadedMedlem)) {
                         MedlemController.alleMedlemmer.add(loadedMedlem);
                     }
                 }
