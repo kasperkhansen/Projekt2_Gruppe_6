@@ -3,67 +3,44 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="168.5" y="-188.0">Model.Motionist</node>
-    <node x="320.5" y="-188.0">Model.KonkurrenceSvoemmer</node>
-    <node x="-172.0" y="-120.0">Model.PassivtMedlem</node>
-    <node x="-101.5" y="-188.0">Model.Medlemskab</node>
-    <node x="214.0" y="-120.0">Model.AktivtMedlem</node>
-    <node x="-83.0" y="-57.0">Model.Medlem</node>
+    <node x="68.5" y="164.5">Controller.MedlemController</node>
+    <node x="-174.5" y="332.5">View.MenuSystem.UserMenu</node>
+    <node x="-188.0" y="492.5">View.MenuSystem.FormandSubMenu</node>
+    <node x="389.5" y="262.5">Controller.DatabaseController</node>
+    <node x="71.0" y="-355.5">Model.Medlem</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="Model.Medlem" target="Model.PassivtMedlem" relationship="CREATE">
-      <point x="94.0" y="-286.0" />
-      <point x="199.0" y="-77.0" />
-      <point x="-88.0" y="-77.0" />
-      <point x="0.0" y="14.0" />
+    <edge source="Controller.DatabaseController" target="Model.Medlem" relationship="CREATE">
+      <point x="0.0" y="-103.5" />
+      <point x="539.0" y="126.0" />
+      <point x="359.0" y="126.0" />
+      <point x="100.0" y="201.5" />
     </edge>
-    <edge source="Model.Medlem" target="Model.KonkurrenceSvoemmer" relationship="CREATE">
-      <point x="94.0" y="-286.0" />
-      <point x="199.0" y="-77.0" />
-      <point x="494.5" y="-77.0" />
-      <point x="58.0" y="14.0" />
+    <edge source="Controller.MedlemController" target="Model.Medlem" relationship="TO_MANY">
+      <point x="-80.0" y="-201.5" />
+      <point x="-120.0" y="201.5" />
     </edge>
-    <edge source="Model.Medlem" target="Model.Medlemskab" relationship="TO_MANY">
-      <point x="-94.0" y="-286.0" />
-      <point x="37.5" y="14.0" />
+    <edge source="View.MenuSystem.UserMenu" target="View.MenuSystem.FormandSubMenu" relationship="CREATE">
+      <point x="-0.0" y="33.5" />
+      <point x="-0.0" y="-33.5" />
     </edge>
-    <edge source="Model.PassivtMedlem" target="Model.Medlemskab" relationship="GENERALIZATION">
-      <point x="0.0" y="-14.0" />
-      <point x="-88.0" y="-130.0" />
-      <point x="-64.0" y="-130.0" />
-      <point x="-37.5" y="14.0" />
-    </edge>
-    <edge source="Model.KonkurrenceSvoemmer" target="Model.AktivtMedlem" relationship="GENERALIZATION">
-      <point x="-58.0" y="14.0" />
-      <point x="378.5" y="-150.0" />
-      <point x="331.75" y="-150.0" />
-      <point x="39.25" y="-14.0" />
-    </edge>
-    <edge source="Model.Motionist" target="Model.AktivtMedlem" relationship="GENERALIZATION">
-      <point x="30.5" y="14.0" />
-      <point x="260.0" y="-150.0" />
-      <point x="331.75" y="-150.0" />
-      <point x="39.25" y="-14.0" />
-    </edge>
-    <edge source="Model.AktivtMedlem" target="Model.Medlemskab" relationship="GENERALIZATION">
-      <point x="-39.25" y="-14.0" />
-      <point x="253.25" y="-130.0" />
-      <point x="-64.0" y="-130.0" />
-      <point x="-37.5" y="14.0" />
-    </edge>
-    <edge source="Model.Medlem" target="Model.Motionist" relationship="CREATE">
-      <point x="94.0" y="-286.0" />
-      <point x="-30.5" y="14.0" />
+    <edge source="Controller.MedlemController" target="Model.Medlem" relationship="CREATE">
+      <point x="80.0" y="-201.5" />
+      <point x="299.0" y="126.0" />
+      <point x="359.0" y="126.0" />
+      <point x="100.0" y="201.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Compact" zoom="1.0152143845089903" showDependencies="true" x="200.5" y="117.5" />
-  <SelectedNodes />
+  <settings layout="Hierarchic Compact" zoom="0.7669491525423728" showDependencies="true" x="229.5" y="198.51933701657464" />
+  <SelectedNodes>
+    <node>View.MenuSystem.UserMenu</node>
+    <node>View.MenuSystem.FormandSubMenu</node>
+  </SelectedNodes>
   <Categories>
-    <Category>Fields</Category>
     <Category>Methods</Category>
   </Categories>
   <SCOPE>All</SCOPE>
-  <VISIBILITY>private</VISIBILITY>
+  <VISIBILITY>public</VISIBILITY>
 </Diagram>
 
