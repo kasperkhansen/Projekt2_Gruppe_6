@@ -1,7 +1,7 @@
 package Controller;
 import Model.*;
 import View.Input;
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class MedlemController {
@@ -16,7 +16,7 @@ public class MedlemController {
     public static void registrerMedlem() {
         System.out.println("Registrere medlem...");
 
-        tilfoejMedlem(new Medlem(Input.getNameInput("Indtast navn"), Input.medlemskabInput(), Input.getBirthDateInput()));
+        tilfoejMedlem(new Medlem(Input.getNameInput("Indtast navn"), Input.medlemskabInput(), Input.getBirthDateInput(), Input.getIdInput()));
     }
 
     public static void tilfoejMedlem(Medlem medlem) {
@@ -26,50 +26,51 @@ public class MedlemController {
             System.out.println("(debug) Medlem tilføjet: " + medlem.getNavn());
         }
     }
+
     // skift
-    public static void skiftMedlemskabMedInputScan () {
-            skiftMedlemskab(Input.getNameInput("Indtast navn:"));
+    public static void skiftMedlemskabMedInputScan() {
+        skiftMedlemskab(Input.getIdInput());
     }
 
-    public static void skiftMedlemskab(String navn) {
-        Medlem medlem = getMedlemMedNavn(navn);
-            if (medlem != null) {
-                int nytMedlemskabNr;
+    public static void skiftMedlemskab(int id) {
+        Medlem medlem = getMedlemMedId(id);
+        if (medlem != null) {
+            int nytMedlemskabNr;
 
-                do {
-                    nytMedlemskabNr = Input.medlemskabInput();
+            do {
+                nytMedlemskabNr = Input.medlemskabInput();
 
-                    if (nytMedlemskabNr == medlem.getMedlemskabsNr()) {
-                        System.out.println("Dette er det nuværende medlemskab. Vælg et andet for at skifte.");
-                    }
-                } while (nytMedlemskabNr == medlem.getMedlemskabsNr());
-
-                String valgtMedlemskab;
-                switch (nytMedlemskabNr) {
-                    case 1:
-                        medlem.setMedlemskab(1);
-                        valgtMedlemskab = "Aktiv - konkurrence.";
-                        System.out.println("Medlemskab for " + getMedlemMedNavn(navn).getNavn() + " er ændret til " + valgtMedlemskab);
-                        break;
-                    case 2:
-                        medlem.setMedlemskab(2);
-                        valgtMedlemskab = "Aktiv - motionist.";
-                        System.out.println("Medlemskab for " + getMedlemMedNavn(navn).getNavn() + " er ændret til " + valgtMedlemskab);
-                        break;
-                    case 3:
-                        medlem.setMedlemskab(3);
-                        valgtMedlemskab = "Passivt.";
-                        System.out.println("Medlemskab for " + getMedlemMedNavn(navn).getNavn() + " er ændret til " + valgtMedlemskab);
-                        break;
-                    default:
-                        System.out.println("Ugyldig indtastning, prøv igen");
-                        return;
+                if (nytMedlemskabNr == medlem.getMedlemskabsNr()) {
+                    System.out.println("Dette er det nuværende medlemskab. Vælg et andet for at skifte.");
                 }
+            } while (nytMedlemskabNr == medlem.getMedlemskabsNr());
 
-            } else {
-                System.out.println("Ingen medlem fundet med dette navn");
+            String valgtMedlemskab;
+            switch (nytMedlemskabNr) {
+                case 1:
+                    medlem.setMedlemskab(1);
+                    valgtMedlemskab = "Aktiv - konkurrence.";
+                    System.out.println("Medlemskab for " + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
+                    break;
+                case 2:
+                    medlem.setMedlemskab(2);
+                    valgtMedlemskab = "Aktiv - motionist.";
+                    System.out.println("Medlemskab for " + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
+                    break;
+                case 3:
+                    medlem.setMedlemskab(3);
+                    valgtMedlemskab = "Passivt.";
+                    System.out.println("Medlemskab for " + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
+                    break;
+                default:
+                    System.out.println("Ugyldig indtastning, prøv igen");
+                    return;
             }
+
+        } else {
+            System.out.println("Ingen medlem fundet med dette navn");
         }
+    }
 
     // betal
     public static void betalEngangsbillet() {
@@ -110,21 +111,24 @@ public class MedlemController {
             System.out.println("Error saving member: " + medlem.getNavn());
         }
     }
+
     public static void fjernMedlem(Medlem medlem) {
         alleMedlemmer.remove(medlem);
         System.out.println("Medlem fjernet: " + medlem.getNavn());
     }
-    public static Medlem getMedlemMedNavn(String navn) {
+
+    public static Medlem getMedlemMedId(int id) {
         for (Medlem medlem : alleMedlemmer) {
-            if (medlem.getNavn().equals(navn)) {
+            if (medlem.getId() == id) {
                 return medlem;
             }
         }
         return null;
     }
+
     public static Medlem getMedlemMedInput() {
         System.out.println("find medlem: ");
-        return getMedlemMedNavn(Input.getNameInput("indtast navn: "));
+        return getMedlemMedId(Input.getIdInput());
     }
     public static void opdaterMedlem(Medlem medlem) {
         fjernMedlem(medlem);
@@ -132,24 +136,34 @@ public class MedlemController {
     }
 
     // 3 print methods ---------------------------------------------
-    public static void printAlleMedlemmer(){
+    public static void printAlleMedlemmer() {
         for (Medlem medlem : alleMedlemmer) {
             System.out.print(medlem.toString());
         }
     }
 
-    public static void printMedlemMedNavn(String navn) {
-        System.out.println(getMedlemMedNavn(navn));
+    public static void printMedlemMedId(int id) {
+        System.out.println(getMedlemMedId(id));
     }
 
     public static void printMedlemMedInput() {
         System.out.println("find medlem: ");
         System.out.println(getMedlemMedInput());
     }
-
-    public static void updateAlleMedlemmerMed(Medlem loadedMedlem) {
+    public static void updateAlleMedlemmerMed (Medlem loadedMedlem){
         if (loadedMedlem != null && !alleMedlemmer.contains(loadedMedlem)) {
             alleMedlemmer.add(loadedMedlem);
         }
+    }
+
+    // test
+    public static void main(String[] args) {
+        System.out.println("debug: tilfoej startet");
+        tilfoejMedlem(new Medlem("jens", 1, LocalDate.of(2010, 01, 01), 30721421));
+        System.out.println("debug: tilfoej sluttet");
+        System.out.println(alleMedlemmer);
+        skiftMedlemskabMedInputScan();
+        System.out.println(alleMedlemmer);
+
     }
 }

@@ -18,12 +18,12 @@ public class Medlem {
 
     private int alder;
     private final LocalDate foedselsdato;
-    private static int id = 1;
+    private final int id;
     public boolean erSenior = false;
     public boolean erPensionist = false;
 
     // 3 options: "aktiv + konkurrence", "aktiv + motionist", "passiv"
-    public Medlem(String navn, int medlemsskabNr, LocalDate foedselsdato){
+    public Medlem(String navn, int medlemsskabNr, LocalDate foedselsdato, int id){
         this.navn = navn;
         addMedlemskab(medlemsskabNr);
 
@@ -35,7 +35,8 @@ public class Medlem {
 
         this.alder = udregnAlder();
 
-        id++;
+        this.id = id;
+
 
     }
 
