@@ -20,9 +20,9 @@ public class KassererSubMenu extends SubMenu {
             System.out.println("2. Overblik over kontingentbetalinger.");
             System.out.println("3. Gå tilbage til Bruger menu");
             System.out.println("4. ");
-            System.out.println("5. Exit");
+            System.out.println("5. Afslut");
 
-            int choice = intInput("Choice: ");
+            int choice = intInput("Valg: ");
             System.out.println("--------------------\n");
 
 
@@ -43,10 +43,10 @@ public class KassererSubMenu extends SubMenu {
 
                     break;
                 case 5:
-                    System.out.println("Exiting...");
+                    System.out.println("Afslutter...");
                     System.exit(0);
                 default:
-                    System.out.println("Invalid Input, Try Again");
+                    System.out.println("Ugyldigt input, prøv igen");
             }
         }
     }

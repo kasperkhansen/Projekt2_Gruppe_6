@@ -29,9 +29,9 @@ public class TraenerSubMenu extends SubMenu {
             System.out.println("2. Se top 5 svoemmere indenfor discipliner");
             System.out.println("3. Registrer konkurrence svømmeres resultat");
             System.out.println("4. Gå tilbage til Bruger menu");
-            System.out.println("5. Exit");
+            System.out.println("5. Afslut");
 
-            int choice = intInput("Choice: ");
+            int choice = intInput("Valg: ");
             System.out.println("--------------------\n");
 
 
@@ -49,13 +49,14 @@ public class TraenerSubMenu extends SubMenu {
                     System.out.println("traenerController.registrerKonkurrenceSvoemmeresRsultat();");
                     break;
                 case 4:
+                    UserMenu.displayMenu();
 
                     break;
                 case 5:
-                    System.out.println("Exiting...");
+                    System.out.println("Afslutter...");
                     System.exit(0);
                 default:
-                    System.out.println("Invalid Input, Try Again");
+                    System.out.println("Ugyldigt input, prøv igen");
             }
         }
     }

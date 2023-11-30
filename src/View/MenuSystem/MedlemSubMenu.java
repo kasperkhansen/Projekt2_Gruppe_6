@@ -44,7 +44,7 @@ public class MedlemSubMenu extends SubMenu {
                     System.out.println("Afslutter...");
                     System.exit(0);
                 default:
-                    System.out.println("Invalid Input, Try Again");
+                    System.out.println("Ugyldigt input, prøv igen");
             }
         }
     }

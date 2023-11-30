@@ -19,8 +19,8 @@ public class UserMenu {
             System.out.println("2. Kasserer");
             System.out.println("3. Traener");
             System.out.println("4. Medlem");
-            System.out.println("5. Exit");
-            int choice = Input.intInput("Choice: ");
+            System.out.println("5. Afslut");
+            int choice = Input.intInput("Valg: ");
             System.out.println("--------------------\n");
 
 
@@ -38,10 +38,10 @@ public class UserMenu {
                     MedlemSubMenu medlemSubMenu = new MedlemSubMenu();
                     break;
                 case 5:
-                    System.out.println("Exiting...");
+                    System.out.println("Afslutter...");
                     System.exit(0);
                 default:
-                    System.out.println("Invalid Input, Try Again");
+                    System.out.println("Ugyldigt input, prøv igen");
             }
         }
     }
