@@ -23,7 +23,7 @@ public class MedlemController {
         if (!alleMedlemmer.contains(medlem)) {
             saveMedlemInFile(medlem);
             alleMedlemmer.add(medlem);
-            System.out.println("Medlem tilføjet: " + medlem.getNavn());
+            System.out.println("(debug) Medlem tilføjet: " + medlem.getNavn());
         }
     }
     // skift

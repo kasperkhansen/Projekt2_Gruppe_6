@@ -3,6 +3,8 @@ package Controller;
 import Model.Medlem;
 import java.io.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseController {
 
@@ -12,7 +14,6 @@ public class DatabaseController {
     // instance variables of medlem
     private static String navn;
     private static int medlemskabNr;
-    private static int alder;
     private static LocalDate foedselsdato;
 
     static {
@@ -39,39 +40,44 @@ public class DatabaseController {
 
     // Load alleMedlemmer arraylist of MedlemController from files for each member
     public static void loadFilesToArr() {
-        MedlemController.alleMedlemmer.clear();
         try {
-            loadFiles();
+            List<Medlem> loadedMembers = loadFiles(); // Load members from files
+            if (!loadedMembers.isEmpty()) {
+                MedlemController.alleMedlemmer.clear(); // Clear list only if files are loaded successfully
+                MedlemController.alleMedlemmer.addAll(loadedMembers);
+            }
         } catch (IOException e) {
-            System.err.println("Error loading files");
+            System.err.println("Error loading files: " + e.getMessage());
         }
     }
 
-    // Load files from the database directory
-    private static void loadFiles() throws IOException {
-        File folder = new File(DATABASE_PATH);
-        File[] listOfFiles = folder.listFiles();
 
-        if (listOfFiles != null) {
-            for (File file : listOfFiles) {
-                if (file.isFile()) {
-
-                    Medlem loadedMedlem = getMedlemFromFile(file);
-                    MedlemController.updateAlleMedlemmerMed(loadedMedlem);
+    private static List<Medlem> loadFiles() throws IOException {
+        updateListOfFiles();
+        List<Medlem> loadedMembers = new ArrayList<>();
+        for (File file : listOfFiles) {
+            try {
+                Medlem medlem = getMedlemFromFile(file); // Directly get Medlem object
+                if (medlem != null) {
+                    loadedMembers.add(medlem);
                 }
+            } catch (Exception e) {
+                System.err.println("Error loading file: " + file.getName() + " - " + e.getMessage());
+                // Hvis error ved fil, så fortsættes til andre filer
             }
         }
+        return loadedMembers;
     }
+
 
 
     // Get a Medlem object from a file
     private static Medlem getMedlemFromFile(File file) {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
             String navn = "";
             int medlemskabNr = 0;
-            int alder = 0;
             LocalDate foedselsdato = null;
+            String line;
 
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("navn: ")) {
@@ -79,9 +85,6 @@ public class DatabaseController {
                 }
                 if (line.startsWith("medlemskabsNr: ")) {
                     medlemskabNr = Integer.parseInt(line.substring(15));
-                }
-                if (line.startsWith("alder: ")) {
-                    alder = Integer.parseInt(line.substring(7));
                 }
                 if (line.startsWith("foedselsdato: ")) {
                     foedselsdato = LocalDate.parse(line.substring(14));
@@ -95,10 +98,8 @@ public class DatabaseController {
         } catch (IOException e) {
             System.err.println("Error reading from file: " + file.getName());
             return null;
-
         }
     }
-
 
     // Get a Medlem object from ID
     public static Medlem getMedlemByID(int ID) throws IOException {
@@ -112,18 +113,7 @@ public class DatabaseController {
         return null;
     }
 
-    // Get list of files in the database directory
-    private static File[] getListOfFiles() {
-        File folder = new File(DATABASE_PATH);
-        return folder.listFiles();
-    }
-
-    // Update the list of files
-    private static void updateListOfFiles() {
-        listOfFiles = getListOfFiles();
-    }
-
-    // Save an object as a file
+    // Save a Medlem as a file
     public static void saveMedlemAsFile(Medlem m, String fileNameMedlemID) {
 
         try {
@@ -172,6 +162,18 @@ public class DatabaseController {
         }
     }
 
+
+
+    // Get list of files in the database directory
+    private static File[] getListOfFiles() {
+        File folder = new File(DATABASE_PATH);
+        return folder.listFiles();
+    }
+    // Update the list of files
+    private static void updateListOfFiles() {
+        listOfFiles = getListOfFiles();
+    }
+
     private static File getFileBy(int id) {
         getListOfFiles();
         for (File file : listOfFiles) {
@@ -181,6 +183,8 @@ public class DatabaseController {
         }
         return null;
     }
+
+
 
 
     // print methods
