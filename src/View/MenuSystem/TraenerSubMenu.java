@@ -12,7 +12,7 @@ package View.MenuSystem;
 
 import static View.Input.intInput;
 
-public class TraenerSubMenu extends SubMenu {
+public class TraenerSubMenu {
 
     public TraenerSubMenu () {
         displaySubMenu();

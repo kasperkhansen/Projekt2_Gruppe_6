@@ -153,9 +153,6 @@ public class DatabaseController {
             if (line.startsWith("medlemskabsNr: ")) {
                 medlemskabNr = Integer.parseInt(line.substring(15));
             }
-            if (line.startsWith("alder: ")) {
-                alder = Integer.parseInt(line.substring(7));
-            }
             if (line.startsWith("foedselsdato: ")) {
                 foedselsdato = LocalDate.parse(line.substring(14));
             }
@@ -198,7 +195,6 @@ public class DatabaseController {
                 System.out.println("--------------------");
                 System.out.println("navn: " + navn);
                 System.out.println("medlemskabsNr: " + medlemskabNr);
-                System.out.println("alder: " + alder);
                 System.out.println("foedselsdato: " + foedselsdato);
                 System.out.println("--------------------");
                 System.out.println();
@@ -217,7 +213,6 @@ public class DatabaseController {
             System.out.println("--------------------");
             System.out.println("navn: " + navn);
             System.out.println("medlemskabsNr: " + medlemskabNr);
-            System.out.println("alder: " + alder);
             System.out.println("foedselsdato: " + foedselsdato);
             System.out.println("--------------------");
             System.out.println();
