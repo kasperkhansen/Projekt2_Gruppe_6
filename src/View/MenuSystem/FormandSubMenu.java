@@ -13,7 +13,7 @@ Registrere medlemmer.
 
  */
 
-public class FormandSubMenu extends SubMenu {
+public class FormandSubMenu {
 
     public FormandSubMenu () {
         displaySubMenu();

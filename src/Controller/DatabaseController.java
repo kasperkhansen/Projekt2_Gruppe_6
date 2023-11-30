@@ -64,7 +64,6 @@ public class DatabaseController {
     }
 
 
-
     // Get a Medlem object from a file
     private static Medlem getMedlemFromFile(File file) {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {

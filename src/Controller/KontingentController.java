@@ -9,6 +9,6 @@ public class KontingentController {
     public void registrerKontingentBetaling() {
     }
 
-    public void koebEnGangsBillet() {
+    public static void koebEnGangsBillet() {
     }
 }

@@ -3,7 +3,7 @@ package View.MenuSystem;
 import static View.Input.intInput;
 
 
-public class KassererSubMenu extends SubMenu {
+public class KassererSubMenu {
 
     public KassererSubMenu () {
         displaySubMenu();

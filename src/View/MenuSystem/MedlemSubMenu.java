@@ -1,12 +1,15 @@
 package View.MenuSystem;
 
+import Controller.KontingentController;
+import Controller.MedlemController;
+
 import static View.Input.intInput;
 
 /*
 
  */
 
-public class MedlemSubMenu extends SubMenu {
+public class MedlemSubMenu {
 
     public MedlemSubMenu () {
         displaySubMenu();
@@ -30,11 +33,11 @@ public class MedlemSubMenu extends SubMenu {
 
             switch (choice) {
                 case 1:
-                   medlemController.skiftMedlemskabMedInputScan();
+                    MedlemController.skiftMedlemskabMedInputScan();
                     System.out.println("medlemController.aendreMedlemskab() chosen");
                     break;
                 case 2:
-                    kontingentController.koebEnGangsBillet();
+                    KontingentController.koebEnGangsBillet();
                     System.out.println("kontingentController.koebEnGangsBillet()");
                     break;
                 case 3:

@@ -1,0 +1,4 @@
+navn: paul
+medlemskabsNr: 3
+alder: 21
+foedselsdato: 2002-01-01
