@@ -33,30 +33,49 @@ public class MedlemDatabaseTest {
 
         // fjern medlem
         MedlemController.fjernMedlem(medlem2);
-
-
     }
 
     private static void testSaveAndLoad() throws IOException {
         // Clear existing members
+        System.out.println("Test: Clearing MedlemController list");
         MedlemController.alleMedlemmer.clear();
+        MedlemController.printAlleMedlemmer();
+        System.out.println("Test: MedlemController list printed");
 
         // Create test members
+        System.out.println("Test: Creating test members");
         Medlem medlem1 = new Medlem("paul", 1, 30, LocalDate.of(1992, 1, 1));
         Medlem medlem2 = new Medlem("TestMember2", 2, 25, LocalDate.of(1997, 2, 1));
+        System.out.println("Test: Test members created");
 
         // Add members to MedlemController
-        MedlemController.alleMedlemmer.add(medlem1);
-        MedlemController.alleMedlemmer.add(medlem2);
+        // test if medlemmer automatically added to alleMedlemmer in MedlemController
+        System.out.println("Test: Adding test members to MedlemController");
+        MedlemController.printAlleMedlemmer();
+        System.out.println("Test: MedlemController list printed");
+
 
         // Save members to database
+        System.out.println("Test: Saving members to database");
         DatabaseController.saveDatabase();
+        DatabaseController.printDatabase();
+        System.out.println("Test: Members saved to database");
 
         // Clear the MedlemController list to simulate a fresh start
+        System.out.println("Test: Clearing MedlemController list to simulate fresh start");
         MedlemController.alleMedlemmer.clear();
+        System.out.println("Test: MedlemController list cleared");
+        MedlemController.printAlleMedlemmer();
+        System.out.println("Test: MedlemController list printed");
 
         // Load members from database
+        System.out.println("Test: Loading members from database");
         DatabaseController.loadDatabase();
+        System.out.println("Test: Members loaded from database");
+        System.out.println("Loaded from database to alleMedlemmer arraylist:");
+        MedlemController.printAlleMedlemmer();
+        System.out.println("Test: MedlemController list printed");
+
 
         // Check if members are loaded correctly
         if (MedlemController.alleMedlemmer.size() == 2) {

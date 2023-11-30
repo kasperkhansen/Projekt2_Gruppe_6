@@ -1,0 +1,4 @@
+navn: paul
+medlemskabsNr: 1
+alder: 30
+foedselsdato: 1992-01-01

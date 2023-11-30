@@ -32,8 +32,8 @@ public class Medlem {
 
         this.alder = alder;
         this.foedselsdato = foedselsdato;
-       id++;
-       MedlemController.tilfoejMedlem(this);
+        id++;
+        MedlemController.tilfoejMedlem(this);
         saveMedlem();
     }
 

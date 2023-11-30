@@ -3,7 +3,6 @@ package Controller;
 import Model.Medlem;
 import java.io.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class DatabaseController {
 
@@ -33,9 +32,7 @@ public class DatabaseController {
                 }
             } catch (IOException e) {
                 System.err.println("Error saving member: " + medlem.getNavn());
-
             }
-
         }
         updateListOfFiles();
     }
@@ -43,15 +40,14 @@ public class DatabaseController {
     // Load alleMedlemmer arraylist of MedlemController from files for each member
     public static void loadDatabase() throws IOException {
         MedlemController.alleMedlemmer.clear();
-
         try {
             loadFiles();
         } catch (IOException e) {
             System.err.println("Error loading files");
         }
-
     }
 
+    // Load files from the database directory
     private static void loadFiles() throws IOException {
         File folder = new File(DATABASE_PATH);
         File[] listOfFiles = folder.listFiles();
@@ -60,7 +56,7 @@ public class DatabaseController {
             for (File file : listOfFiles) {
                 if (file.isFile()) {
 
-                    Medlem loadedMedlem = loadFileToMedlem(file);
+                    Medlem loadedMedlem = getMedlemFromFile(file);
                     if (loadedMedlem != null && !MedlemController.alleMedlemmer.contains(loadedMedlem)) {
                         MedlemController.alleMedlemmer.add(loadedMedlem);
                     }
@@ -69,7 +65,8 @@ public class DatabaseController {
         }
     }
 
-    private static Medlem loadFileToMedlem(File file) throws IOException {
+    // Get a Medlem object from a file
+    private static Medlem getMedlemFromFile(File file) throws IOException {
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new FileReader(file));
@@ -99,7 +96,17 @@ public class DatabaseController {
         }
     }
 
-
+    // Get a Medlem object from ID
+    public static Medlem getMedlemByID(int ID) throws IOException {
+        getListOfFiles();
+        for (File file : listOfFiles) {
+            if (file.getName().equals(ID + ".txt")) {
+                getValues(file);
+                return new Medlem(navn, medlemskabNr, alder, foedselsdato);
+            }
+        }
+        return null;
+    }
 
     // Get list of files in the database directory
     private static File[] getListOfFiles() {
@@ -128,18 +135,7 @@ public class DatabaseController {
 
     }
 
-    // Load a Medlem object from a file
-    public static Medlem loadFileToMedlemByMedlemID(int ID) throws IOException {
-        getListOfFiles();
-        for (File file : listOfFiles) {
-            if (file.getName().equals(ID + ".txt")) {
-                getValues(file);
-                return new Medlem(navn, medlemskabNr, alder, foedselsdato);
-            }
-        }
-        return null;
-    }
-
+    // Get the values from a file
     private static void getValues (File file) throws IOException {
         FileReader fileReader = new FileReader(file);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -160,5 +156,54 @@ public class DatabaseController {
                 foedselsdato = LocalDate.parse(line.substring(14));
             }
         }
+    }
+
+
+    public static void printDatabase () {
+        System.out.println("DatabaseController.printDatabase");
+        try {
+            loadFiles();
+            for (File file : listOfFiles) {
+                getValues(file);
+                System.out.println("File: " + file.getName());
+                System.out.println("--------------------");
+                System.out.println("navn: " + navn);
+                System.out.println("medlemskabsNr: " + medlemskabNr);
+                System.out.println("alder: " + alder);
+                System.out.println("foedselsdato: " + foedselsdato);
+                System.out.println("--------------------");
+                System.out.println();
+            }
+        } catch (IOException e) {
+            System.err.println("Error loading files");
+        }
+
+    }
+
+    public static void printMedlemByID(int ID) {
+        try {
+            File file = getFileBy(ID);
+            getValues(file);
+            System.out.println("File: " + file.getName());
+            System.out.println("--------------------");
+            System.out.println("navn: " + navn);
+            System.out.println("medlemskabsNr: " + medlemskabNr);
+            System.out.println("alder: " + alder);
+            System.out.println("foedselsdato: " + foedselsdato);
+            System.out.println("--------------------");
+            System.out.println();
+        } catch (IOException e) {
+            System.err.println("Error loading member");
+        }
+    }
+
+    private static File getFileBy(int id) {
+        getListOfFiles();
+        for (File file : listOfFiles) {
+            if (file.getName().equals(id + ".txt")) {
+                return file;
+            }
+        }
+        return null;
     }
 }

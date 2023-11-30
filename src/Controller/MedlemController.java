@@ -18,7 +18,6 @@ public class MedlemController {
         System.out.println("Registrere medlem...");
 
         tilfoejMedlem(new Medlem(Input.getNameInput("Indtast navn"), Input.medlemskabInput(), Input.getAgeInput(), Input.getBirthDateInput()));
-
     }
 
     public static void skiftMedlemskabMedInputScan () {
