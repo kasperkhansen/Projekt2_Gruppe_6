@@ -36,14 +36,13 @@ public class Medlem {
         this.alder = udregnAlder();
 
         id++;
-        MedlemController.tilfoejMedlem(this);
-        saveMedlem();
+
     }
 
 
 
     // -----------------------------------------alder metoder------------------------------------------------------------
-   int udregnAlder () {
+    int udregnAlder () {
       LocalDate nu = LocalDate.now();
       LocalDate foedsel = foedselsdato;
 
@@ -153,17 +152,6 @@ public class Medlem {
     @Override
     public String toString() {
         return " " + navn + medlemsskab+  alder + foedselsdato;
-    }
-
-    //--------------------------------------------------data metoder--------------------------------------------------------
-    public void saveMedlem() {
-        String IDtxt = getId() + ".txt";
-        try {
-            DatabaseController.saveMedlemAsFile(this, DatabaseController.DATABASE_PATH + IDtxt);
-        } catch (Exception e) {
-            System.out.println("Error saving member: " + navn);
-        }
-
     }
 
 

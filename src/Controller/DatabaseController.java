@@ -21,7 +21,7 @@ public class DatabaseController {
     }
 
     // Save alleMedlemmer arraylist of MedlemController to files for each member
-    public static void saveDatabase() {
+    public static void saveArrToFileDatabase() {
         for (Medlem medlem : MedlemController.alleMedlemmer) {
             try {
                 File file = new File(DatabaseController.DATABASE_PATH + medlem.getId() + ".txt");
@@ -38,7 +38,7 @@ public class DatabaseController {
     }
 
     // Load alleMedlemmer arraylist of MedlemController from files for each member
-    public static void loadDatabase() throws IOException {
+    public static void loadFilesToArr() {
         MedlemController.alleMedlemmer.clear();
         try {
             loadFiles();
@@ -57,13 +57,13 @@ public class DatabaseController {
                 if (file.isFile()) {
 
                     Medlem loadedMedlem = getMedlemFromFile(file);
-                    if (loadedMedlem != null && !MedlemController.alleMedlemmer.contains(loadedMedlem)) {
-                        MedlemController.alleMedlemmer.add(loadedMedlem);
-                    }
+                    MedlemController.updateAlleMedlemmerMed(loadedMedlem);
                 }
             }
         }
     }
+
+
 
     // Get a Medlem object from a file
     private static Medlem getMedlemFromFile(File file) {
@@ -75,7 +75,18 @@ public class DatabaseController {
             LocalDate foedselsdato = null;
 
             while ((line = reader.readLine()) != null) {
-                // Process the line to extract data
+                if (line.startsWith("navn: ")) {
+                    navn = line.substring(6);
+                }
+                if (line.startsWith("medlemskabsNr: ")) {
+                    medlemskabNr = Integer.parseInt(line.substring(15));
+                }
+                if (line.startsWith("alder: ")) {
+                    alder = Integer.parseInt(line.substring(7));
+                }
+                if (line.startsWith("foedselsdato: ")) {
+                    foedselsdato = LocalDate.parse(line.substring(14));
+                }
             }
 
             return new Medlem(navn, medlemskabNr, foedselsdato);
@@ -114,10 +125,12 @@ public class DatabaseController {
     }
 
     // Save an object as a file
-    public static void saveMedlemAsFile(Medlem m, String fileNameMedlemID) throws IOException {
+    public static void saveMedlemAsFile(Medlem m, String fileNameMedlemID) {
 
         try {
             File file = new File(fileNameMedlemID);
+
+            // check if file exists
             if (file.createNewFile()) {
                 System.out.println("File created: " + file.getName());
                 FileWriter fileWriter = new FileWriter(file);

@@ -1,25 +1,32 @@
 package Controller;
 import Model.*;
 import View.Input;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 
 public class MedlemController {
     public static ArrayList<Medlem> alleMedlemmer = new ArrayList<>();
-
-
 
     // use cases ---------------------------------------------
     // 1. registrerMedlem
     // 2. skiftMedlemskab
     // 3. betalEngangsbillet
 
+    // medlem
     public static void registrerMedlem() {
         System.out.println("Registrere medlem...");
 
         tilfoejMedlem(new Medlem(Input.getNameInput("Indtast navn"), Input.medlemskabInput(), Input.getBirthDateInput()));
     }
 
+    public static void tilfoejMedlem(Medlem medlem) {
+        if (!alleMedlemmer.contains(medlem)) {
+            saveMedlemInFile(medlem);
+            alleMedlemmer.add(medlem);
+            System.out.println("Medlem tilføjet: " + medlem.getNavn());
+        }
+    }
+    // skift
     public static void skiftMedlemskabMedInputScan () {
             skiftMedlemskab(Input.getNameInput("Indtast navn:"));
     }
@@ -64,7 +71,7 @@ public class MedlemController {
             }
         }
 
-
+    // betal
     public static void betalEngangsbillet() {
         System.out.println("Betal engangsbillet i proces...");
         if (!alleMedlemmer.isEmpty()) {
@@ -90,20 +97,22 @@ public class MedlemController {
             System.out.println("Ingen medlemmer i listen");
         }
     }
-
-
     // 1 medlem Methods ---------------------------------------------
-
-
     // CRUD - tilføj, fjern, get, opdater
-    public static void tilfoejMedlem(Medlem medlem) {
-        if (!alleMedlemmer.contains(medlem)) {
-            alleMedlemmer.add(medlem);
-            System.out.println("Medlem tilføjet: " + medlem.getNavn());
+
+
+    // 2 medlem Methods ---------------------------------------------
+    private static void saveMedlemInFile(Medlem medlem) {
+        String IDtxt = medlem.getId() + ".txt";
+        try {
+            DatabaseController.saveMedlemAsFile(medlem, DatabaseController.DATABASE_PATH + IDtxt);
+        } catch (Exception e) {
+            System.out.println("Error saving member: " + medlem.getNavn());
         }
     }
     public static void fjernMedlem(Medlem medlem) {
         alleMedlemmer.remove(medlem);
+        System.out.println("Medlem fjernet: " + medlem.getNavn());
     }
     public static Medlem getMedlemMedNavn(String navn) {
         for (Medlem medlem : alleMedlemmer) {
@@ -117,21 +126,15 @@ public class MedlemController {
         System.out.println("find medlem: ");
         return getMedlemMedNavn(Input.getNameInput("indtast navn: "));
     }
-
     public static void opdaterMedlem(Medlem medlem) {
         fjernMedlem(medlem);
         tilfoejMedlem(medlem);
     }
 
-
-    // 2 medlemskab methods -----------------------------------------
-
-
-
-    // 3 service methods ---------------------------------------------
+    // 3 print methods ---------------------------------------------
     public static void printAlleMedlemmer(){
         for (Medlem medlem : alleMedlemmer) {
-            System.out.print(medlem);
+            System.out.print(medlem.toString());
         }
     }
 
@@ -144,17 +147,9 @@ public class MedlemController {
         System.out.println(getMedlemMedInput());
     }
 
-
-
-    // test
-    public static void main(String[] args) {
-        System.out.println("debug: tilfoej startet");
-        tilfoejMedlem(new Medlem("jens", 1, LocalDate.of(2010,01,01)));
-        System.out.println("debug: tilfoej sluttet");
-        System.out.println(alleMedlemmer);
-        skiftMedlemskabMedInputScan();
-        System.out.println(alleMedlemmer);
+    public static void updateAlleMedlemmerMed(Medlem loadedMedlem) {
+        if (loadedMedlem != null && !alleMedlemmer.contains(loadedMedlem)) {
+            alleMedlemmer.add(loadedMedlem);
+        }
     }
-
-
 }

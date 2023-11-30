@@ -1,4 +1,4 @@
-navn: Hauge
+navn: paul
 medlemskabsNr: 1
-alder: 22
-foedselsdato: 2001-11-09
+alder: 31
+foedselsdato: 1992-01-01
