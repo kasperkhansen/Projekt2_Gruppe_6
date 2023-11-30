@@ -1,5 +1,7 @@
 package View;
 
+import Model.Medlem;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -7,9 +9,8 @@ public abstract class Input {
 
     private static Scanner scanner = newScannerErrorHandling();
 
-
     public static int getAgeInput() {
-        return intInput("Indtast alder: ");
+        return 0;
     }
 
     public static LocalDate getBirthDateInput() {

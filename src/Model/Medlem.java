@@ -23,17 +23,18 @@ public class Medlem {
     public boolean erPensionist = false;
 
     // 3 options: "aktiv + konkurrence", "aktiv + motionist", "passiv"
-    public Medlem(String navn, int medlemsskabNr, int udregnAlder, LocalDate foedselsdato){
+    public Medlem(String navn, int medlemsskabNr, LocalDate foedselsdato){
         this.navn = navn;
         addMedlemskab(medlemsskabNr);
 
         this.medlemsskabNr = medlemsskabNr;
 
-        this.alder = udregnAlder();
-
         this.medlemsskabsNr=medlemsskabNr;
 
         this.foedselsdato = foedselsdato;
+
+        this.alder = udregnAlder();
+
         id++;
         MedlemController.tilfoejMedlem(this);
         saveMedlem();
@@ -47,7 +48,7 @@ public class Medlem {
       LocalDate foedsel = foedselsdato;
 
        Period periode = Period.between(foedsel, nu);
-       int alder = periode.getYears();
+       alder = periode.getYears();
 
        return alder;
    }

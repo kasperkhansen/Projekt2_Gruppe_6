@@ -88,7 +88,7 @@ public class DatabaseController {
                 }
             }
 
-            return new Medlem(navn, medlemskabNr, alder, foedselsdato);
+            return new Medlem(navn, medlemskabNr, foedselsdato);
         } finally {
             if (reader != null) {
                 reader.close();
@@ -102,7 +102,7 @@ public class DatabaseController {
         for (File file : listOfFiles) {
             if (file.getName().equals(ID + ".txt")) {
                 getValues(file);
-                return new Medlem(navn, medlemskabNr, alder, foedselsdato);
+                return new Medlem(navn, medlemskabNr, foedselsdato);
             }
         }
         return null;
@@ -215,6 +215,5 @@ public class DatabaseController {
             System.err.println("Error loading member");
         }
     }
-
 
 }

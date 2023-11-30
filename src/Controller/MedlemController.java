@@ -17,7 +17,7 @@ public class MedlemController {
     public static void registrerMedlem() {
         System.out.println("Registrere medlem...");
 
-        tilfoejMedlem(new Medlem(Input.getNameInput("Indtast navn"), Input.medlemskabInput(), Input.getAgeInput(), Input.getBirthDateInput()));
+        tilfoejMedlem(new Medlem(Input.getNameInput("Indtast navn"), Input.medlemskabInput(), Input.getBirthDateInput()));
     }
 
     public static void skiftMedlemskabMedInputScan () {
@@ -149,7 +149,7 @@ public class MedlemController {
     // test
     public static void main(String[] args) {
         System.out.println("debug: tilfoej startet");
-        tilfoejMedlem(new Medlem("jens", 1, 18, LocalDate.of(2010,01,01)));
+        tilfoejMedlem(new Medlem("jens", 1, LocalDate.of(2010,01,01)));
         System.out.println("debug: tilfoej sluttet");
         System.out.println(alleMedlemmer);
         skiftMedlemskabMedInputScan();
