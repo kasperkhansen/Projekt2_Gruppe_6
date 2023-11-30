@@ -37,7 +37,7 @@ public class MedlemSubMenu {
                     System.out.println("medlemController.aendreMedlemskab() chosen");
                     break;
                 case 2:
-                    KontingentController.koebEnGangsBillet();
+                    MedlemController.betalEngangsbillet();
                     System.out.println("kontingentController.koebEnGangsBillet()");
                     break;
                 case 3:
