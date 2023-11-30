@@ -5,6 +5,7 @@ import View.Input;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 public class Medlem {
@@ -15,22 +16,23 @@ public class Medlem {
 
     private int medlemsskabsNr;
 
-    private final int alder;
+    private int alder;
     private final LocalDate foedselsdato;
     private static int id = 1;
     public boolean erSenior = false;
     public boolean erPensionist = false;
 
     // 3 options: "aktiv + konkurrence", "aktiv + motionist", "passiv"
-    public Medlem(String navn, int medlemsskabNr, int alder, LocalDate foedselsdato){
+    public Medlem(String navn, int medlemsskabNr, int udregnAlder, LocalDate foedselsdato){
         this.navn = navn;
         addMedlemskab(medlemsskabNr);
 
         this.medlemsskabNr = medlemsskabNr;
 
+        this.alder = udregnAlder();
+
         this.medlemsskabsNr=medlemsskabNr;
 
-        this.alder = alder;
         this.foedselsdato = foedselsdato;
         id++;
         MedlemController.tilfoejMedlem(this);
@@ -40,6 +42,16 @@ public class Medlem {
 
 
     // -----------------------------------------alder metoder------------------------------------------------------------
+   int udregnAlder () {
+      LocalDate nu = LocalDate.now();
+      LocalDate foedsel = foedselsdato;
+
+       Period periode = Period.between(foedsel, nu);
+       int alder = periode.getYears();
+
+       return alder;
+   }
+
     public boolean senior(){
         if (alder > 18){
             erSenior = true;

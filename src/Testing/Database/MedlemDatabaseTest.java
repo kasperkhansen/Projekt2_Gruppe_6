@@ -45,8 +45,8 @@ public class MedlemDatabaseTest {
 
         // Create test members
         System.out.println("Test: Creating test members");
-        Medlem medlem1 = new Medlem("paul", 1, 30, LocalDate.of(1992, 1, 1));
-        Medlem medlem2 = new Medlem("TestMember2", 2, 25, LocalDate.of(1997, 2, 1));
+        Medlem medlem1 = new Medlem("paul", 1, 18, LocalDate.of(1992, 1, 1));
+        Medlem medlem2 = new Medlem("TestMember2", 2, 18,  LocalDate.of(1997, 2, 1));
         System.out.println("Test: Test members created");
         System.out.println();
 

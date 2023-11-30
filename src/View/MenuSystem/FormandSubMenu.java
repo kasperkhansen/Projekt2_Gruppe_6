@@ -37,7 +37,6 @@ public class FormandSubMenu extends SubMenu {
             switch (choice) {
                 case 1:
                     MedlemController.registrerMedlem();
-                    System.out.println("test: registrer medlem method chosen");
                     break;
                 case 2:
                     UserMenu.displayMenu();

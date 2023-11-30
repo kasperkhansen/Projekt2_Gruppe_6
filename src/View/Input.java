@@ -24,13 +24,13 @@ public abstract class Input {
             System.out.println("tast 1 for Aktiv + konkurrence");
             System.out.println("tast 2 for Aktiv + motionist");
             System.out.println("tast 3 for Passiv");
-            int choice = intInput("Choice: ");
+            int choice = intInput("Valg: ");
             System.out.println("--------------------\n");
 
             if (choice < 4 && choice > 0) {
                 return choice;
             } else {
-                System.out.println("Invalid Input, Try Again");
+                System.out.println("Ugyldigt input, prøv igen");
             }
 
         }
@@ -98,7 +98,7 @@ public abstract class Input {
     private static LocalDate scanDate() {
 
         while (true) {
-            System.out.println("Enter date in format yyyy-mm-dd: ");
+            System.out.println("Indtast fødselsdato i dette format yyyy-mm-dd: ");
             try {
                 return LocalDate.parse(scanner.next());
             } catch (Exception e) {
