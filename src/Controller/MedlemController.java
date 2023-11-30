@@ -149,7 +149,7 @@ public class MedlemController {
     // test
     public static void main(String[] args) {
         System.out.println("debug: tilfoej startet");
-        tilfoejMedlem(new Medlem("jens", 1, 20, LocalDate.of(2010,01,01)));
+        tilfoejMedlem(new Medlem("jens", 1, 18, LocalDate.of(2010,01,01)));
         System.out.println("debug: tilfoej sluttet");
         System.out.println(alleMedlemmer);
         skiftMedlemskabMedInputScan();
