@@ -18,7 +18,7 @@ public class KassererSubMenu extends SubMenu {
             System.out.println("\nPlease choose an option:");
             System.out.println("1. Registrer kontingentbetalinger");
             System.out.println("2. Overblik over kontingentbetalinger.");
-            System.out.println("3. ");
+            System.out.println("3. Gå tilbage til Bruger menu");
             System.out.println("4. ");
             System.out.println("5. Exit");
 
@@ -36,6 +36,7 @@ public class KassererSubMenu extends SubMenu {
                     System.out.println("kontingentController.overblikOverKontingentBetalinger();");
                     break;
                 case 3:
+                    UserMenu.displayMenu();
 
                     break;
                 case 4:

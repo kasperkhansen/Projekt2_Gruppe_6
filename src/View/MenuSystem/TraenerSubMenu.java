@@ -28,7 +28,7 @@ public class TraenerSubMenu extends SubMenu {
             System.out.println("1. Registrering af svoemmernes traenings resultater");
             System.out.println("2. Se top 5 svoemmere indenfor discipliner");
             System.out.println("3. Registrer konkurrence svømmeres resultat");
-            System.out.println("4. ");
+            System.out.println("4. Gå tilbage til Bruger menu");
             System.out.println("5. Exit");
 
             int choice = intInput("Choice: ");

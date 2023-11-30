@@ -20,8 +20,9 @@ public class MedlemSubMenu extends SubMenu {
         while (true) {
             System.out.println("\nPlease choose an option:");
             System.out.println("1. Ændring af medlemskab");
-            System.out.println("2. ");
-            System.out.println("3. Exit");
+            System.out.println("2. Køb enganges billet");
+            System.out.println("3. Gå tilbage til Bruger menu");
+            System.out.println("4. Exit");
 
             int choice = intInput("Choice: ");
             System.out.println("--------------------\n");
@@ -36,8 +37,10 @@ public class MedlemSubMenu extends SubMenu {
                     kontingentController.koebEnGangsBillet();
                     System.out.println("kontingentController.koebEnGangsBillet()");
                     break;
-
                 case 3:
+                    UserMenu.displayMenu();
+
+                case 4:
                     System.out.println("Exiting...");
                     System.exit(0);
                 default:

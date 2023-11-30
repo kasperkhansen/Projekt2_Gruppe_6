@@ -4,13 +4,13 @@ import View.Input;
 
 public class UserMenu {
     int choice;
-    String userName;
+    static String userName;
 
     public UserMenu() {
         userName = Input.getNameInput("user name");
     }
 
-    public void displayMenu() {
+    public static void displayMenu() {
         System.out.println("\nWelcome " + userName + "!");
         System.out.println("--------------------");
         while (true) {

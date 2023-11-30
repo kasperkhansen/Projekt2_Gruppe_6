@@ -27,7 +27,7 @@ public class FormandSubMenu extends SubMenu {
         while (true) {
             System.out.println("\nPlease choose an option:");
             System.out.println("1. Registrerer Medlem");
-            System.out.println("2. ");
+            System.out.println("2. Gå tilbage til Bruger menu");
             System.out.println("3. Exit");
 
             int choice = intInput("Choice: ");
@@ -40,7 +40,7 @@ public class FormandSubMenu extends SubMenu {
                     System.out.println("test: registrer medlem method chosen");
                     break;
                 case 2:
-
+                    UserMenu.displayMenu();
 
                     break;
                 case 3:
