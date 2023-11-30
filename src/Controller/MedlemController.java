@@ -15,7 +15,7 @@ public class MedlemController {
     // 3. betalEngangsbillet
 
     public static void registrerMedlem() {
-        System.out.println("Registrer medlem processing...");
+        System.out.println("Registrere medlem...");
 
         tilfoejMedlem(new Medlem(Input.getNameInput("Indtast navn"), Input.medlemskabInput(), Input.getAgeInput(), Input.getBirthDateInput()));
 
@@ -67,7 +67,7 @@ public class MedlemController {
 
 
     public static void betalEngangsbillet() {
-        System.out.println("Betal engangsbillet processing...");
+        System.out.println("Betal engangsbillet i proces...");
         if (!alleMedlemmer.isEmpty()) {
             String søgtNavn = Input.getNameInput("Indtast navn");
             boolean medlemFundet = false;
