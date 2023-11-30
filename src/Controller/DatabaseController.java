@@ -78,18 +78,14 @@ public class DatabaseController {
                 // Process the line to extract data
             }
 
-<<<<<<< Updated upstream
             return new Medlem(navn, medlemskabNr, foedselsdato);
-        } finally {
-            if (reader != null) {
-                reader.close();
-            }
-=======
-            return new Medlem(navn, medlemskabNr, alder, foedselsdato);
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + file.getName());
+            return null;
         } catch (IOException e) {
             System.err.println("Error reading from file: " + file.getName());
             return null;
->>>>>>> Stashed changes
+
         }
     }
 
