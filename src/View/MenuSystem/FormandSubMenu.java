@@ -28,9 +28,9 @@ public class FormandSubMenu extends SubMenu {
             System.out.println("\nPlease choose an option:");
             System.out.println("1. Registrerer Medlem");
             System.out.println("2. ");
-            System.out.println("3. Exit");
+            System.out.println("3. Afslut");
 
-            int choice = intInput("Choice: ");
+            int choice = intInput("Valg: ");
             System.out.println("--------------------\n");
 
 
@@ -50,10 +50,10 @@ public class FormandSubMenu extends SubMenu {
 
                     break;
                 case 5:
-                    System.out.println("Exiting...");
+                    System.out.println("Afslutter...");
                     System.exit(0);
                 default:
-                    System.out.println("Invalid Input, Try Again");
+                    System.out.println("Ugyldigt input, prøv igen");
             }
         }
     }

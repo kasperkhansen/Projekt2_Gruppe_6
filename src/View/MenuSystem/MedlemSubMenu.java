@@ -18,12 +18,12 @@ public class MedlemSubMenu extends SubMenu {
         System.out.println();
 
         while (true) {
-            System.out.println("\nPlease choose an option:");
+            System.out.println("\nVælg en mulighed:");
             System.out.println("1. Ændring af medlemskab");
             System.out.println("2. ");
             System.out.println("3. Exit");
 
-            int choice = intInput("Choice: ");
+            int choice = intInput("Valg: ");
             System.out.println("--------------------\n");
 
 
@@ -38,7 +38,7 @@ public class MedlemSubMenu extends SubMenu {
                     break;
 
                 case 3:
-                    System.out.println("Exiting...");
+                    System.out.println("Afslutter...");
                     System.exit(0);
                 default:
                     System.out.println("Invalid Input, Try Again");
