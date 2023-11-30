@@ -1,4 +1,0 @@
-navn: TestMember2
-medlemskabsNr: 2
-alder: 25
-foedselsdato: 1997-02-01

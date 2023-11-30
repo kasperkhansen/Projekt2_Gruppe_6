@@ -41,18 +41,21 @@ public class MedlemDatabaseTest {
         MedlemController.alleMedlemmer.clear();
         MedlemController.printAlleMedlemmer();
         System.out.println("Test: MedlemController list printed");
+        System.out.println();
 
         // Create test members
         System.out.println("Test: Creating test members");
         Medlem medlem1 = new Medlem("paul", 1, 30, LocalDate.of(1992, 1, 1));
         Medlem medlem2 = new Medlem("TestMember2", 2, 25, LocalDate.of(1997, 2, 1));
         System.out.println("Test: Test members created");
+        System.out.println();
 
         // Add members to MedlemController
         // test if medlemmer automatically added to alleMedlemmer in MedlemController
         System.out.println("Test: Adding test members to MedlemController");
         MedlemController.printAlleMedlemmer();
         System.out.println("Test: MedlemController list printed");
+        System.out.println();
 
 
         // Save members to database
@@ -60,6 +63,7 @@ public class MedlemDatabaseTest {
         DatabaseController.saveDatabase();
         DatabaseController.printDatabase();
         System.out.println("Test: Members saved to database");
+        System.out.println();
 
         // Clear the MedlemController list to simulate a fresh start
         System.out.println("Test: Clearing MedlemController list to simulate fresh start");
@@ -67,6 +71,7 @@ public class MedlemDatabaseTest {
         System.out.println("Test: MedlemController list cleared");
         MedlemController.printAlleMedlemmer();
         System.out.println("Test: MedlemController list printed");
+        System.out.println();
 
         // Load members from database
         System.out.println("Test: Loading members from database");

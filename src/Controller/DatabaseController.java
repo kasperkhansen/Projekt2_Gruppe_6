@@ -122,17 +122,25 @@ public class DatabaseController {
     // Save an object as a file
     public static void saveMedlemAsFile(Medlem m, String fileNameMedlemID) throws IOException {
 
-        File file = new File(fileNameMedlemID);
-        FileWriter fileWriter = new FileWriter(file);
+        try {
+            File file = new File(fileNameMedlemID);
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getName());
+                FileWriter fileWriter = new FileWriter(file);
 
-        // write file with structure to preserve all Medlem instance variables as strings
-        fileWriter.write("navn: "+m.getNavn() + "\n");
-        fileWriter.write("medlemskabsNr: "+m.getMedlemskabNr() + "\n");
-        fileWriter.write("alder: "+m.getAlder() + "\n");
-        fileWriter.write("foedselsdato: "+m.getFoedselsdato() + "\n");
+                // write file with structure to preserve all Medlem instance variables as strings
+                fileWriter.write("navn: "+m.getNavn() + "\n");
+                fileWriter.write("medlemskabsNr: "+m.getMedlemskabNr() + "\n");
+                fileWriter.write("alder: "+m.getAlder() + "\n");
+                fileWriter.write("foedselsdato: "+m.getFoedselsdato() + "\n");
 
-        fileWriter.close();
-
+                fileWriter.close();
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.err.println("Error saving member: " + m.getNavn());
+        }
     }
 
     // Get the values from a file
@@ -158,7 +166,18 @@ public class DatabaseController {
         }
     }
 
+    private static File getFileBy(int id) {
+        getListOfFiles();
+        for (File file : listOfFiles) {
+            if (file.getName().equals(id + ".txt")) {
+                return file;
+            }
+        }
+        return null;
+    }
 
+
+    // print methods
     public static void printDatabase () {
         System.out.println("DatabaseController.printDatabase");
         try {
@@ -197,13 +216,5 @@ public class DatabaseController {
         }
     }
 
-    private static File getFileBy(int id) {
-        getListOfFiles();
-        for (File file : listOfFiles) {
-            if (file.getName().equals(id + ".txt")) {
-                return file;
-            }
-        }
-        return null;
-    }
+
 }
