@@ -66,10 +66,8 @@ public class DatabaseController {
     }
 
     // Get a Medlem object from a file
-    private static Medlem getMedlemFromFile(File file) throws IOException {
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(file));
+    private static Medlem getMedlemFromFile(File file) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             String navn = "";
             int medlemskabNr = 0;
@@ -77,24 +75,24 @@ public class DatabaseController {
             LocalDate foedselsdato = null;
 
             while ((line = reader.readLine()) != null) {
-                if (line.startsWith("navn: ")) {
-                    navn = line.substring(6);
-                } else if (line.startsWith("medlemskabsNr: ")) {
-                    medlemskabNr = Integer.parseInt(line.substring(15));
-                } else if (line.startsWith("alder: ")) {
-                    alder = Integer.parseInt(line.substring(7));
-                } else if (line.startsWith("foedselsdato: ")) {
-                    foedselsdato = LocalDate.parse(line.substring(14));
-                }
+                // Process the line to extract data
             }
 
+<<<<<<< Updated upstream
             return new Medlem(navn, medlemskabNr, foedselsdato);
         } finally {
             if (reader != null) {
                 reader.close();
             }
+=======
+            return new Medlem(navn, medlemskabNr, alder, foedselsdato);
+        } catch (IOException e) {
+            System.err.println("Error reading from file: " + file.getName());
+            return null;
+>>>>>>> Stashed changes
         }
     }
+
 
     // Get a Medlem object from ID
     public static Medlem getMedlemByID(int ID) throws IOException {
