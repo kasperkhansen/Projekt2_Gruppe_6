@@ -12,11 +12,7 @@ public class Medlem {
     private final String navn;
     private final ArrayList<Medlemskab> medlemsskab = new ArrayList<>();
 
-    private int medlemsskabNr;
-
     private int medlemsskabsNr;
-
-
 
     private int alder;
     public final LocalDate foedselsdato;

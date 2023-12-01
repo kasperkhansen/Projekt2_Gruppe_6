@@ -99,9 +99,6 @@ public class MedlemController {
             System.out.println("Ingen medlemmer i listen");
         }
     }
-    // 1 medlem Methods ---------------------------------------------
-    // CRUD - tilføj, fjern, get, opdater
-
 
     // 2 medlem Methods ---------------------------------------------
     private static void saveMedlemInFile(Medlem medlem) {
@@ -127,10 +124,6 @@ public class MedlemController {
         return null;
     }
 
-    public static Medlem getMedlemMedInput() {
-        System.out.println("find medlem: ");
-        return getMedlemMedId(Input.getIdInput());
-    }
     public static void opdaterMedlem(Medlem medlem) {
         fjernMedlem(medlem);
         tilfoejMedlem(medlem);
