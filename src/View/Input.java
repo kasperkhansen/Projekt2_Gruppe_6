@@ -1,7 +1,5 @@
 package View;
 
-import Model.Medlem;
-
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -9,8 +7,12 @@ public abstract class Input {
 
     private static Scanner scanner = newScannerErrorHandling();
 
-    public static int getAgeInput() {
+    /*public static int getAgeInput() {
         return 0;
+    }*/
+
+    public static int getIdInput() {
+        return intInput("Indtast dit telefon nummer: ");
     }
 
     public static LocalDate getBirthDateInput() {
