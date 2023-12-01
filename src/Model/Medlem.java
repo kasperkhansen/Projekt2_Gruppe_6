@@ -19,7 +19,7 @@ public class Medlem {
 
 
     private int alder;
-    private final LocalDate foedselsdato;
+    public final LocalDate foedselsdato;
     private final int id;
     public boolean erSenior = false;
     public boolean erPensionist = false;

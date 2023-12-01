@@ -32,8 +32,8 @@ public class MedlemDatabaseTest {
 
         // Create test members
         System.out.println("Test: Creating test members");
-        MedlemController.tilfoejMedlem(new Medlem("paul", 1, LocalDate.of(1992, 1, 1)));
-        MedlemController.tilfoejMedlem(new Medlem("TestMember2", 2,  LocalDate.of(1997, 2, 1)));
+        MedlemController.tilfoejMedlem(new Medlem("paul", 1, LocalDate.of(1992, 1, 1), 10101010));
+        MedlemController.tilfoejMedlem(new Medlem("TestMember2", 2,  LocalDate.of(1997, 2, 1), 20202020));
         System.out.println("Test: Test members created");
         System.out.println();
 

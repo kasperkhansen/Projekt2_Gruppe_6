@@ -1,7 +1,8 @@
 package Testing;
-import Controller.MedlemController;
-import Model.Medlem;
-import java.time.LocalDate;
+        import Controller.MedlemController;
+        import Model.Medlem;
+        import java.time.LocalDate;
+        import java.time.Period;
 //Medlem(String navn, String medlemsskab, int alder, LocalDate foedselsdato, int id)
 
 public class Dummies {
@@ -13,3 +14,8 @@ public class Dummies {
     public static Medlem f = new Medlem("Gert", 3, LocalDate.of(2003, 1, 1), 66666666);
 
 }
+
+
+
+
+

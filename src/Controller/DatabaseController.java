@@ -91,7 +91,7 @@ public class DatabaseController {
                 }
             }
 
-            return new Medlem(navn, medlemskabNr, foedselsdato);
+            return new Medlem(navn, medlemskabNr, foedselsdato, id);
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + file.getName());
             return null;
@@ -108,7 +108,7 @@ public class DatabaseController {
             for (File file : listOfFiles) {
                 if (file.getName().equals(mobileNummber + ".txt")) {
                     getValues(file);
-                    return new Medlem(navn, medlemskabNr, foedselsdato);
+                    return new Medlem(navn, medlemskabNr, foedselsdato, id);
                 }
             }
             return null;
