@@ -43,14 +43,14 @@ public class Medlem {
        return alder;
    }
 
-    public boolean senior(){
+    public boolean erSenior(){
         if (alder > 18){
             erSenior = true;
         }
         return erSenior;
     }
 
-    public boolean Pensionist(){
+    public boolean erPensionist(){
         if (alder >= 60){
             erPensionist = true;
         }
@@ -99,7 +99,7 @@ public class Medlem {
         }
     }
 
-    public boolean isPassivtMedlemskab () {
+    public boolean erPassivtMedlemskab () {
         return medlemsskab.get(0) instanceof PassivtMedlem;
     }
 
