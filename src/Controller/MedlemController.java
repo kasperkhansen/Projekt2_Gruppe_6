@@ -40,10 +40,10 @@ public class MedlemController {
             do {
                 nytMedlemskabNr = Input.medlemskabInput();
 
-                if (nytMedlemskabNr == medlem.getMedlemskabsNr()) {
+                if (nytMedlemskabNr == medlem.getMedlemsskabsNr()) {
                     System.out.println("Dette er det nuværende medlemskab. Vælg et andet for at skifte.");
                 }
-            } while (nytMedlemskabNr == medlem.getMedlemskabsNr());
+            } while (nytMedlemskabNr == medlem.getMedlemsskabsNr());
 
             String valgtMedlemskab;
             switch (nytMedlemskabNr) {

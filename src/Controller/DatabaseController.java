@@ -18,8 +18,8 @@ public class DatabaseController {
     private static int id;
     private static LocalDate foedselsdato;
 
+    // Create the database directory if it does not exist
     static {
-        // Create the database directory if it does not exist
         new File(DATABASE_PATH).mkdirs();
     }
 
@@ -53,7 +53,7 @@ public class DatabaseController {
         }
     }
 
-
+    // 1
     private static List<Medlem> loadFiles() throws IOException {
         updateListOfFiles();
         List<Medlem> loadedMembers = new ArrayList<>();
@@ -71,9 +71,7 @@ public class DatabaseController {
         return loadedMembers;
     }
 
-
-
-    // Get a Medlem object from a file
+    // 2 Get a Medlem object from a file
     private static Medlem getMedlemFromFile(File file) {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String navn = "";
@@ -93,7 +91,7 @@ public class DatabaseController {
                 }
             }
 
-            return new Medlem(navn, medlemskabNr, foedselsdato, id);
+            return new Medlem(navn, medlemskabNr, foedselsdato);
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + file.getName());
             return null;
@@ -104,15 +102,20 @@ public class DatabaseController {
     }
 
     // Get a Medlem object from ID
-    public static Medlem getMedlemByID(int ID) throws IOException {
-        getListOfFiles();
-        for (File file : listOfFiles) {
-            if (file.getName().equals(ID + ".txt")) {
-                getValues(file);
-                return new Medlem(navn, medlemskabNr, foedselsdato, id);
+    public static Medlem getMedlemByMobileNumber(int mobileNummber) {
+        updateListOfFiles();
+        try {
+            for (File file : listOfFiles) {
+                if (file.getName().equals(mobileNummber + ".txt")) {
+                    getValues(file);
+                    return new Medlem(navn, medlemskabNr, foedselsdato);
+                }
             }
+            return null;
+        } catch (IOException e) {
+            System.err.println("Error loading member");
+            return null;
         }
-        return null;
     }
 
     // Save a Medlem as a file
@@ -131,7 +134,7 @@ public class DatabaseController {
                 fileWriter.write("medlemskabsNr: "+m.getMedlemskabNr() + "\n");
                 fileWriter.write("alder: "+m.getAlder() + "\n");
                 fileWriter.write("foedselsdato: "+m.getFoedselsdato() + "\n");
-
+                System.out.println("Member data saved to file: " + file.getName());
                 fileWriter.close();
             } else {
                 System.out.println("File already exists.");
@@ -163,27 +166,11 @@ public class DatabaseController {
 
 
 
-    // Get list of files in the database directory
-    private static File[] getListOfFiles() {
-        File folder = new File(DATABASE_PATH);
-        return folder.listFiles();
-    }
     // Update the list of files
     private static void updateListOfFiles() {
-        listOfFiles = getListOfFiles();
+        File folder = new File(DATABASE_PATH);
+        listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
     }
-
-    private static File getFileBy(int id) {
-        getListOfFiles();
-        for (File file : listOfFiles) {
-            if (file.getName().equals(id + ".txt")) {
-                return file;
-            }
-        }
-        return null;
-    }
-
-
 
 
     // print methods
@@ -205,22 +192,6 @@ public class DatabaseController {
             System.err.println("Error loading files");
         }
 
-    }
-
-    public static void printMedlemByID(int ID) {
-        try {
-            File file = getFileBy(ID);
-            getValues(file);
-            System.out.println("File: " + file.getName());
-            System.out.println("--------------------");
-            System.out.println("navn: " + navn);
-            System.out.println("medlemskabsNr: " + medlemskabNr);
-            System.out.println("foedselsdato: " + foedselsdato);
-            System.out.println("--------------------");
-            System.out.println();
-        } catch (IOException e) {
-            System.err.println("Error loading member");
-        }
     }
 
 }
