@@ -11,6 +11,20 @@ public class Medlem {
     private final String navn;
     private final ArrayList<Medlemskab> medlemsskab = new ArrayList<>();
 
+    public final ArrayList<Butterfly> butterflyTraening = new ArrayList<>();
+
+    public final ArrayList<Butterfly> butterflyKonkurrence = new ArrayList<>();
+
+    public final ArrayList<Crawl> crawlTraening = new ArrayList<>();
+
+    public final ArrayList<Crawl> crawlKonkurrence = new ArrayList<>();
+
+    public final ArrayList<Bryst> brystTraening = new ArrayList<>();
+
+    public final ArrayList<Bryst> brystKonkurrence = new ArrayList<>();
+
+    private int medlemsskabNr;
+
     private int medlemsskabsNr;
 
     private int alder;
@@ -102,13 +116,13 @@ public class Medlem {
         return medlemsskab.get(0) instanceof PassivtMedlem;
     }
 
-    public boolean erKontingentBetalt() {
+    /*public boolean erKontingentBetalt() {
         if (kontingentBetaling.betalt) {
             return true;
         } else {
             return false;
         }
-    }
+    }*/
 
     //Tjekke om id tæller op ved flere objekter
 
