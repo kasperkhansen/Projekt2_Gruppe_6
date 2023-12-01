@@ -100,6 +100,13 @@ public class Medlem {
         return medlemsskab.get(0) instanceof PassivtMedlem;
     }
 
+    public boolean erKontingentBetalt() {
+        if (kontingentBetaling.betalt) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     //Tjekke om id tæller op ved flere objekter
 
@@ -140,11 +147,5 @@ public class Medlem {
         return medlemsskabsNr;
     }
 
-    public boolean erKontingentBetalt() {
-        if (kontingentBetaling.betalt) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+
 }
