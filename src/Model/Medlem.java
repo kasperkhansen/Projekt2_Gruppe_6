@@ -1,4 +1,6 @@
 package Model;
+import Controller.DatabaseController;
+import Controller.MedlemController;
 import View.Input;
 
 import java.time.LocalDate;
