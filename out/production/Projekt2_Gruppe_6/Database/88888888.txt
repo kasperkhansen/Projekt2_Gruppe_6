@@ -1,0 +1,4 @@
+navn: Peter
+medlemskabsNr: 2
+alder: 60
+foedselsdato: 1963-01-03

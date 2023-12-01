@@ -1,14 +1,5 @@
 package View.MenuSystem;
 
-/*
-
-
-.
-
-.
-
-
- */
 
 import static View.Input.intInput;
 

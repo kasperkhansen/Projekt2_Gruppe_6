@@ -43,14 +43,14 @@ public class FormandSubMenu {
 
                     break;
                 case 3:
-
+                    System.out.println("Afslutter...");
+                    System.exit(0);
                     break;
                 case 4:
 
                     break;
                 case 5:
-                    System.out.println("Afslutter...");
-                    System.exit(0);
+
                 default:
                     System.out.println("Ugyldigt input, prøv igen");
             }

@@ -19,8 +19,7 @@ public class KassererSubMenu {
             System.out.println("1. Registrer kontingentbetalinger");
             System.out.println("2. Overblik over kontingentbetalinger.");
             System.out.println("3. Gå tilbage til Bruger menu");
-            System.out.println("4. ");
-            System.out.println("5. Afslut");
+            System.out.println("4. Afslut");
 
             int choice = intInput("Valg: ");
             System.out.println("--------------------\n");
@@ -40,11 +39,11 @@ public class KassererSubMenu {
 
                     break;
                 case 4:
-
-                    break;
-                case 5:
                     System.out.println("Afslutter...");
                     System.exit(0);
+                    break;
+                // case 5:
+
                 default:
                     System.out.println("Ugyldigt input, prøv igen");
             }

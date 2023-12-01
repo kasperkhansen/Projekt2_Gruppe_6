@@ -16,8 +16,10 @@ public class Medlem {
 
     private int medlemsskabsNr;
 
+
+
     private int alder;
-    private final LocalDate foedselsdato;
+    public final LocalDate foedselsdato;
     private final int id;
     public boolean erSenior = false;
     public boolean erPensionist = false;
@@ -26,18 +28,10 @@ public class Medlem {
     public Medlem(String navn, int medlemsskabNr, LocalDate foedselsdato, int id){
         this.navn = navn;
         addMedlemskab(medlemsskabNr);
-
-        this.medlemsskabNr = medlemsskabNr;
-
-        this.medlemsskabsNr=medlemsskabNr;
-
+        this.medlemsskabsNr = medlemsskabNr;
         this.foedselsdato = foedselsdato;
-
         this.alder = udregnAlder();
-
         this.id = id;
-
-
     }
 
 
@@ -69,8 +63,6 @@ public class Medlem {
 
 
     //-----------------------------------------medlemsskab metoder ------------------------------------------------------
-
-
     public void setMedlemskab(int medlemsskabNr) { // options: aktiv + konkurrence, aktiv + motionist, passiv = 3 options
         for (int i = 0; i<medlemsskab.size(); i++) {
             medlemsskab.remove(i);
@@ -127,8 +119,8 @@ public class Medlem {
         return medlemsskab;
     }
 
-    public int getMedlemsskabNr() {
-        return medlemsskabNr;
+    public int getMedlemsskabsNr() {
+        return medlemsskabsNr;
     }
 
     public int getAlder() {
@@ -144,11 +136,6 @@ public class Medlem {
     }
 
 
-    public int getMedlemskabsNr () {
-        return medlemsskabsNr;
-        }
-
-
     //--------------------------------------------------set metoder---------------------------------------------------------
     @Override
     public String toString() {
@@ -157,6 +144,6 @@ public class Medlem {
 
 
     public int getMedlemskabNr() {
-        return medlemsskabNr;
+        return medlemsskabsNr;
     }
 }
