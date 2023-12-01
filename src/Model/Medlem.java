@@ -3,7 +3,6 @@ import Controller.DatabaseController;
 import Controller.MedlemController;
 import View.Input;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -12,11 +11,7 @@ public class Medlem {
     private final String navn;
     private final ArrayList<Medlemskab> medlemsskab = new ArrayList<>();
 
-    private int medlemsskabNr;
-
     private int medlemsskabsNr;
-
-
 
     private int alder;
     public final LocalDate foedselsdato;
@@ -47,14 +42,14 @@ public class Medlem {
        return alder;
    }
 
-    public boolean senior(){
+    public boolean erSenior(){
         if (alder > 18){
             erSenior = true;
         }
         return erSenior;
     }
 
-    public boolean Pensionist(){
+    public boolean erPensionist(){
         if (alder >= 60){
             erPensionist = true;
         }
@@ -103,10 +98,17 @@ public class Medlem {
         }
     }
 
-    public boolean isPassivtMedlemskab () {
+    public boolean erPassivtMedlemskab () {
         return medlemsskab.get(0) instanceof PassivtMedlem;
     }
 
+    public boolean erKontingentBetalt() {
+        if (kontingentBetaling.betalt) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     //Tjekke om id tæller op ved flere objekter
 
@@ -146,4 +148,6 @@ public class Medlem {
     public int getMedlemskabNr() {
         return medlemsskabsNr;
     }
+
+
 }

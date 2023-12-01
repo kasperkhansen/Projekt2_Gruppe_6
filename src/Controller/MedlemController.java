@@ -99,9 +99,6 @@ public class MedlemController {
             System.out.println("Ingen medlemmer i listen");
         }
     }
-    // 1 medlem Methods ---------------------------------------------
-    // CRUD - tilføj, fjern, get, opdater
-
 
     // 2 medlem Methods ---------------------------------------------
     private static void saveMedlemInFile(Medlem medlem) {
@@ -127,10 +124,6 @@ public class MedlemController {
         return null;
     }
 
-    public static Medlem getMedlemMedInput() {
-        System.out.println("find medlem: ");
-        return getMedlemMedId(Input.getIdInput());
-    }
     public static void opdaterMedlem(Medlem medlem) {
         fjernMedlem(medlem);
         tilfoejMedlem(medlem);
@@ -143,28 +136,4 @@ public class MedlemController {
         }
     }
 
-    public static void printMedlemMedId(int id) {
-        System.out.println(getMedlemMedId(id));
-    }
-
-    public static void printMedlemMedInput() {
-        System.out.println("find medlem: ");
-        System.out.println(getMedlemMedInput());
-    }
-    public static void updateAlleMedlemmerMed (Medlem loadedMedlem){
-        if (loadedMedlem != null && !alleMedlemmer.contains(loadedMedlem)) {
-            alleMedlemmer.add(loadedMedlem);
-        }
-    }
-
-    // test
-    public static void main(String[] args) {
-        System.out.println("debug: tilfoej startet");
-        tilfoejMedlem(new Medlem("jens", 1, LocalDate.of(2010, 01, 01), 30721421));
-        System.out.println("debug: tilfoej sluttet");
-        System.out.println(alleMedlemmer);
-        skiftMedlemskabMedInputScan();
-        System.out.println(alleMedlemmer);
-
-    }
 }

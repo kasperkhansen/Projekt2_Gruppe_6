@@ -1,7 +1,7 @@
 package View.MenuSystem;
 
 import static View.Input.intInput;
-
+import Controller.KontingentController;
 
 public class KassererSubMenu {
 
@@ -28,11 +28,11 @@ public class KassererSubMenu {
             switch (choice) {
                 case 1:
                     //kontingentController.registrerKontingentBetaling();
-                    System.out.println("kontingentController.registrerKontingentBetaling();");
+
                     break;
                 case 2:
                     //kontingentController.overblikOverKontingentBetalinger();
-                    System.out.println("kontingentController.overblikOverKontingentBetalinger();");
+                    System.out.println("kontingentController.seOverblik();");
                     break;
                 case 3:
                     UserMenu.displayMenu();

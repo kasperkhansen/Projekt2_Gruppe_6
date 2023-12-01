@@ -4,5 +4,5 @@ import Testing.Dummies;
 
 import java.io.Serializable;
 
-public class Medlemskab implements Serializable {
+public class Medlemskab {
 }
