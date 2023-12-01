@@ -144,6 +144,15 @@ public class DatabaseController {
         }
     }
 
+    public static void updaterMedlemFile(Medlem medlem, int nytMedlemskabNr) {
+        System.out.println("Opdaterer medlem file: " + medlem.getNavn());
+        String IDtxt = medlem.getId() + ".txt";
+        Medlem m = getMedlemFromFile(new File(DatabaseController.DATABASE_PATH + IDtxt));
+        deleteFile(IDtxt);
+        m.setMedlemskab(nytMedlemskabNr);
+        saveMedlemAsFile(m, DatabaseController.DATABASE_PATH + IDtxt);
+    }
+
     // Get the values from a file
     private static void getValues (File file) throws IOException {
         FileReader fileReader = new FileReader(file);
@@ -164,18 +173,24 @@ public class DatabaseController {
         }
     }
 
-
-
     // Update the list of files
     private static void updateListOfFiles() {
         File folder = new File(DATABASE_PATH);
         listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
     }
 
+    private static void deleteFile(String iDtxt) {
+        File file = new File(DatabaseController.DATABASE_PATH + iDtxt);
+        if (file.delete()) {
+            System.out.println();
+        } else {
+            System.out.println("Error deleting file: " + file.getName());
+        }
+    }
 
-    // print methods
+
     public static void printDatabase () {
-        System.out.println("DatabaseController.printDatabase");
+        System.out.println("Printer database...");
         try {
             loadFiles();
             for (File file : listOfFiles) {
@@ -193,5 +208,4 @@ public class DatabaseController {
         }
 
     }
-
 }

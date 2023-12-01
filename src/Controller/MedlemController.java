@@ -44,6 +44,7 @@ public class MedlemController {
                     System.out.println("Dette er det nuværende medlemskab. Vælg et andet for at skifte.");
                 }
             } while (nytMedlemskabNr == medlem.getMedlemsskabsNr());
+            DatabaseController.updaterMedlemFile(medlem, nytMedlemskabNr);
 
             String valgtMedlemskab;
             switch (nytMedlemskabNr) {
