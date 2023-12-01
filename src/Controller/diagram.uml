@@ -3,44 +3,75 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="68.5" y="164.5">Controller.MedlemController</node>
-    <node x="-174.5" y="332.5">View.MenuSystem.UserMenu</node>
-    <node x="-188.0" y="492.5">View.MenuSystem.FormandSubMenu</node>
-    <node x="389.5" y="262.5">Controller.DatabaseController</node>
-    <node x="71.0" y="-355.5">Model.Medlem</node>
+    <node x="255.0" y="-68.0">Model.Motionist</node>
+    <node x="-118.0" y="854.0">Controller.DatabaseController</node>
+    <node x="-152.0" y="64.0">Model.Medlem</node>
+    <node x="-159.0" y="-188.0">Model.Medlemskab</node>
+    <node x="0.0" y="-68.0">Model.KonkurrenceSvoemmer</node>
+    <node x="-188.0" y="-68.0">Model.PassivtMedlem</node>
   </nodes>
   <notes />
   <edges>
+    <edge source="Model.KonkurrenceSvoemmer" target="Model.Medlemskab" relationship="GENERALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="116.0" y="-134.0" />
+      <point x="-47.333333333333314" y="-134.0" />
+      <point x="36.666666666666686" y="14.0" />
+    </edge>
+    <edge source="Model.Medlem" target="Model.KonkurrenceSvoemmer" relationship="CREATE">
+      <point x="100.0" y="-342.0" />
+      <point x="136.0" y="-14.0" />
+      <point x="116.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Model.Medlem" target="Model.PassivtMedlem" relationship="CREATE">
+      <point x="100.0" y="-342.0" />
+      <point x="136.0" y="-14.0" />
+      <point x="-104.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
     <edge source="Controller.DatabaseController" target="Model.Medlem" relationship="CREATE">
-      <point x="0.0" y="-103.5" />
-      <point x="539.0" y="126.0" />
-      <point x="359.0" y="126.0" />
-      <point x="100.0" y="201.5" />
+      <point x="0.0" y="-272.0" />
+      <point x="0.0" y="342.0" />
     </edge>
-    <edge source="Controller.MedlemController" target="Model.Medlem" relationship="TO_MANY">
-      <point x="-80.0" y="-201.5" />
-      <point x="-120.0" y="201.5" />
+    <edge source="Model.Medlem" target="Model.Medlemskab" relationship="TO_MANY">
+      <point x="-92.0" y="-342.0" />
+      <point x="-56.0" y="26.0" />
+      <point x="-204.0" y="26.0" />
+      <point x="-204.0" y="-94.0" />
+      <point x="-124.0" y="-94.0" />
+      <point x="-40.0" y="14.0" />
     </edge>
-    <edge source="View.MenuSystem.UserMenu" target="View.MenuSystem.FormandSubMenu" relationship="CREATE">
-      <point x="-0.0" y="33.5" />
-      <point x="-0.0" y="-33.5" />
+    <edge source="Model.PassivtMedlem" target="Model.Medlemskab" relationship="GENERALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="-104.0" y="-94.0" />
+      <point x="116.0" y="-94.0" />
+      <point x="116.0" y="-134.0" />
+      <point x="-47.333333333333314" y="-134.0" />
+      <point x="36.666666666666686" y="14.0" />
     </edge>
-    <edge source="Controller.MedlemController" target="Model.Medlem" relationship="CREATE">
-      <point x="80.0" y="-201.5" />
-      <point x="299.0" y="126.0" />
-      <point x="359.0" y="126.0" />
-      <point x="100.0" y="201.5" />
+    <edge source="Model.Medlem" target="Model.Motionist" relationship="CREATE">
+      <point x="100.0" y="-342.0" />
+      <point x="136.0" y="-14.0" />
+      <point x="316.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Model.Motionist" target="Model.Medlemskab" relationship="GENERALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="316.0" y="-94.0" />
+      <point x="116.0" y="-94.0" />
+      <point x="116.0" y="-134.0" />
+      <point x="-47.333333333333314" y="-134.0" />
+      <point x="36.666666666666686" y="14.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Compact" zoom="0.7669491525423728" showDependencies="true" x="229.5" y="198.51933701657464" />
-  <SelectedNodes>
-    <node>View.MenuSystem.UserMenu</node>
-    <node>View.MenuSystem.FormandSubMenu</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Compact" zoom="0.45080946450809467" showDependencies="true" x="96.5" y="615.0" />
+  <SelectedNodes />
   <Categories>
+    <Category>Fields</Category>
     <Category>Methods</Category>
   </Categories>
   <SCOPE>All</SCOPE>
-  <VISIBILITY>public</VISIBILITY>
+  <VISIBILITY>private</VISIBILITY>
 </Diagram>
 

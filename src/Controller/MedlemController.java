@@ -143,28 +143,4 @@ public class MedlemController {
         }
     }
 
-    public static void printMedlemMedId(int id) {
-        System.out.println(getMedlemMedId(id));
-    }
-
-    public static void printMedlemMedInput() {
-        System.out.println("find medlem: ");
-        System.out.println(getMedlemMedInput());
-    }
-    public static void updateAlleMedlemmerMed (Medlem loadedMedlem){
-        if (loadedMedlem != null && !alleMedlemmer.contains(loadedMedlem)) {
-            alleMedlemmer.add(loadedMedlem);
-        }
-    }
-
-    // test
-    public static void main(String[] args) {
-        System.out.println("debug: tilfoej startet");
-        tilfoejMedlem(new Medlem("jens", 1, LocalDate.of(2010, 01, 01), 30721421));
-        System.out.println("debug: tilfoej sluttet");
-        System.out.println(alleMedlemmer);
-        skiftMedlemskabMedInputScan();
-        System.out.println(alleMedlemmer);
-
-    }
 }
