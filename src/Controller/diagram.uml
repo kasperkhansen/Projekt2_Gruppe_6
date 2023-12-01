@@ -3,70 +3,14 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="255.0" y="-68.0">Model.Motionist</node>
-    <node x="-118.0" y="854.0">Controller.DatabaseController</node>
-    <node x="-152.0" y="64.0">Model.Medlem</node>
-    <node x="-159.0" y="-188.0">Model.Medlemskab</node>
-    <node x="0.0" y="-68.0">Model.KonkurrenceSvoemmer</node>
-    <node x="-188.0" y="-68.0">Model.PassivtMedlem</node>
+    <node x="-188.0" y="-328.5">Model.Medlem</node>
   </nodes>
   <notes />
-  <edges>
-    <edge source="Model.KonkurrenceSvoemmer" target="Model.Medlemskab" relationship="GENERALIZATION">
-      <point x="0.0" y="-14.0" />
-      <point x="116.0" y="-134.0" />
-      <point x="-47.333333333333314" y="-134.0" />
-      <point x="36.666666666666686" y="14.0" />
-    </edge>
-    <edge source="Model.Medlem" target="Model.KonkurrenceSvoemmer" relationship="CREATE">
-      <point x="100.0" y="-342.0" />
-      <point x="136.0" y="-14.0" />
-      <point x="116.0" y="-14.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="Model.Medlem" target="Model.PassivtMedlem" relationship="CREATE">
-      <point x="100.0" y="-342.0" />
-      <point x="136.0" y="-14.0" />
-      <point x="-104.0" y="-14.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="Controller.DatabaseController" target="Model.Medlem" relationship="CREATE">
-      <point x="0.0" y="-272.0" />
-      <point x="0.0" y="342.0" />
-    </edge>
-    <edge source="Model.Medlem" target="Model.Medlemskab" relationship="TO_MANY">
-      <point x="-92.0" y="-342.0" />
-      <point x="-56.0" y="26.0" />
-      <point x="-204.0" y="26.0" />
-      <point x="-204.0" y="-94.0" />
-      <point x="-124.0" y="-94.0" />
-      <point x="-40.0" y="14.0" />
-    </edge>
-    <edge source="Model.PassivtMedlem" target="Model.Medlemskab" relationship="GENERALIZATION">
-      <point x="0.0" y="-14.0" />
-      <point x="-104.0" y="-94.0" />
-      <point x="116.0" y="-94.0" />
-      <point x="116.0" y="-134.0" />
-      <point x="-47.333333333333314" y="-134.0" />
-      <point x="36.666666666666686" y="14.0" />
-    </edge>
-    <edge source="Model.Medlem" target="Model.Motionist" relationship="CREATE">
-      <point x="100.0" y="-342.0" />
-      <point x="136.0" y="-14.0" />
-      <point x="316.0" y="-14.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="Model.Motionist" target="Model.Medlemskab" relationship="GENERALIZATION">
-      <point x="0.0" y="-14.0" />
-      <point x="316.0" y="-94.0" />
-      <point x="116.0" y="-94.0" />
-      <point x="116.0" y="-134.0" />
-      <point x="-47.333333333333314" y="-134.0" />
-      <point x="36.666666666666686" y="14.0" />
-    </edge>
-  </edges>
-  <settings layout="Hierarchic Compact" zoom="0.45080946450809467" showDependencies="true" x="96.5" y="615.0" />
-  <SelectedNodes />
+  <edges />
+  <settings layout="Hierarchic Compact" zoom="1.053030303030303" showDependencies="true" x="0.0" y="0.0" />
+  <SelectedNodes>
+    <node>Model.Medlem</node>
+  </SelectedNodes>
   <Categories>
     <Category>Fields</Category>
     <Category>Methods</Category>
