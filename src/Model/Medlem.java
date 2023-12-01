@@ -1,9 +1,6 @@
 package Model;
-import Controller.DatabaseController;
-import Controller.MedlemController;
 import View.Input;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -141,5 +138,13 @@ public class Medlem {
 
     public int getMedlemskabNr() {
         return medlemsskabsNr;
+    }
+
+    public boolean erKontingentBetalt() {
+        if (kontingentBetaling.betalt) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
