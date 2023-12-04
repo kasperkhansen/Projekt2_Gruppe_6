@@ -2,6 +2,7 @@ package View;
 
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public abstract class Input {
 
@@ -81,7 +82,17 @@ public abstract class Input {
             System.out.println("Indtast tid i format 00.00");
             System.out.println("--------------------");
 
-            double svoemmeTid = doubleInput("Indtast tid: ");
+            try {
+                String tidInput = stringInput("Indtast tid i format 00.00");
+
+                if (Pattern.matches("\\d+\\.\\d+", tidInput)) {
+                    return Double.parseDouble(tidInput);
+                } else {
+                    System.out.println("Ugyldig format, prøv igen.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Ugyldig format, prøv igen.");
+            }
         }
     }
 
