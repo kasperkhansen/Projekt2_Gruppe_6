@@ -3,44 +3,19 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="68.5" y="164.5">Controller.MedlemController</node>
-    <node x="-174.5" y="332.5">View.MenuSystem.UserMenu</node>
-    <node x="-188.0" y="492.5">View.MenuSystem.FormandSubMenu</node>
-    <node x="389.5" y="262.5">Controller.DatabaseController</node>
-    <node x="71.0" y="-355.5">Model.Medlem</node>
+    <node x="-188.0" y="-328.5">Model.Medlem</node>
   </nodes>
   <notes />
-  <edges>
-    <edge source="Controller.DatabaseController" target="Model.Medlem" relationship="CREATE">
-      <point x="0.0" y="-103.5" />
-      <point x="539.0" y="126.0" />
-      <point x="359.0" y="126.0" />
-      <point x="100.0" y="201.5" />
-    </edge>
-    <edge source="Controller.MedlemController" target="Model.Medlem" relationship="TO_MANY">
-      <point x="-80.0" y="-201.5" />
-      <point x="-120.0" y="201.5" />
-    </edge>
-    <edge source="View.MenuSystem.UserMenu" target="View.MenuSystem.FormandSubMenu" relationship="CREATE">
-      <point x="-0.0" y="33.5" />
-      <point x="-0.0" y="-33.5" />
-    </edge>
-    <edge source="Controller.MedlemController" target="Model.Medlem" relationship="CREATE">
-      <point x="80.0" y="-201.5" />
-      <point x="299.0" y="126.0" />
-      <point x="359.0" y="126.0" />
-      <point x="100.0" y="201.5" />
-    </edge>
-  </edges>
-  <settings layout="Hierarchic Compact" zoom="0.7669491525423728" showDependencies="true" x="229.5" y="198.51933701657464" />
+  <edges />
+  <settings layout="Hierarchic Compact" zoom="1.053030303030303" showDependencies="true" x="0.0" y="0.0" />
   <SelectedNodes>
-    <node>View.MenuSystem.UserMenu</node>
-    <node>View.MenuSystem.FormandSubMenu</node>
+    <node>Model.Medlem</node>
   </SelectedNodes>
   <Categories>
+    <Category>Fields</Category>
     <Category>Methods</Category>
   </Categories>
   <SCOPE>All</SCOPE>
-  <VISIBILITY>public</VISIBILITY>
+  <VISIBILITY>private</VISIBILITY>
 </Diagram>
 

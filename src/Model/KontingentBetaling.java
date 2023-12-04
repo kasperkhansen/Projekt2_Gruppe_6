@@ -6,6 +6,7 @@ public class KontingentBetaling {
     private boolean aktivMedlem;
     private boolean seniorMedlem;
     private boolean pensionistRabat;
+    private boolean passivMedlem;
     private LocalDate foedsesldato;
 
     private int aktivJuniorKontingent = 1000;
@@ -20,6 +21,7 @@ public class KontingentBetaling {
         this.pensionistRabat=pensionistRabat;
         this.foedsesldato=foedsesldato;
     }
+
 
     public void bekræftBetaling () {
         this.betaltKontingent=true;
@@ -49,6 +51,10 @@ public class KontingentBetaling {
         return (int) (pris * 0.75); // 25% rabat
     }
 
+    public void besked () {
+
+    }
+
     public String toString() {
         return "KontingentBetaling{" +
                 "aktivMedlem=" + aktivMedlem +
@@ -58,3 +64,4 @@ public class KontingentBetaling {
                 '}' ;
     }
 }
+

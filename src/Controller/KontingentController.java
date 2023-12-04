@@ -11,22 +11,39 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static View.Input.booleanInput;
+
 public class KontingentController {
     private static ArrayList<Medlem> alleMedlemmer = MedlemController.alleMedlemmer;
     private static ArrayList<Medlem> medlemmerMedKontingentBetalt = new ArrayList<>();
     private static ArrayList<Medlem> medlemmerUdenKontingentBetalt = new ArrayList<>();
-    private List<KontingentBetaling> betalinger;
+    private static List<KontingentBetaling> betalinger = new ArrayList<>();
     private MedlemController medlemController;
 
     public KontingentController(MedlemController medlemController) {
-        this.betalinger = new ArrayList<>();
         this.medlemController = medlemController;
     }
 
-    public void opretBetaling(boolean aktivMedlem, boolean seniorMedlem, boolean pensionistRabat, LocalDate foedselsdato) {
+    public static void opretBetaling(Medlem medlem) {
+        boolean aktivMedlem = !medlem.erPassivtMedlemskab();
+        boolean seniorMedlem = medlem.erSenior();
+        boolean pensionistRabat = medlem.erPensionist();
+        LocalDate foedselsdato = medlem.getFoedselsdato();
+
+        if (medlem.erPassivtMedlemskab()) {
+        } else if (medlem.getAlder() < 18) {
+        } else if (medlem.getAlder() >= 18 && medlem.getAlder() < 60) {
+        } else if (medlem.erPensionist()) {
+        } else {
+        }
+
         KontingentBetaling nyBetaling = new KontingentBetaling(aktivMedlem, seniorMedlem, pensionistRabat, foedselsdato);
         betalinger.add(nyBetaling);
-        int nr = Input.getIdInput();
+
+        int nr = medlem.getId();
+
+        System.out.println("Betalingen for " +medlem.getNavn()+ " er registreret");
+       // System.out.println(nyBetaling.besked());
     }
 
     public void seOverblik() {
@@ -37,7 +54,7 @@ public class KontingentController {
 
 
     public void overblikOverKontingentBetalinger() {
-        updateLists();
+     //    updateLists();
         System.out.println("--------------------------\n");
         System.out.println("Overblik over kontingent betalinger: ");
         System.out.println("Medlemmer med kontingent betalt: ");
@@ -70,7 +87,7 @@ public class KontingentController {
 
 
 
-    private void updateLists() {
+    /* private void updateLists() {
         for (Medlem medlem : alleMedlemmer) {
             if (medlem.getKontingentBetalt()) {
                 medlemmerMedKontingentBetalt.add(medlem);
@@ -78,5 +95,5 @@ public class KontingentController {
                 medlemmerUdenKontingentBetalt.add(medlem);
             }
         }
-    }
+    } */
 }

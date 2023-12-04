@@ -8,6 +8,7 @@ import java.time.Period;
 import java.util.ArrayList;
 
 public class Medlem {
+    public static KontingentBetaling getKontingentBetaling;
     private final String navn;
     private final ArrayList<Medlemskab> medlemsskab = new ArrayList<>();
 
@@ -23,9 +24,8 @@ public class Medlem {
 
     public final ArrayList<Bryst> brystKonkurrence = new ArrayList<>();
 
-    private int medlemsskabNr;
-
     private int medlemsskabsNr;
+
 
     private int alder;
     public final LocalDate foedselsdato;

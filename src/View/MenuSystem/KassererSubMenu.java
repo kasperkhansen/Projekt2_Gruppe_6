@@ -1,9 +1,16 @@
 package View.MenuSystem;
 
+import static Controller.MedlemController.getMedlemMedId;
 import static View.Input.intInput;
 import Controller.KontingentController;
+import Model.Medlem;
+import View.Input;
+
+import static View.Input.booleanInput;
 
 public class KassererSubMenu {
+
+
 
     public KassererSubMenu () {
         displaySubMenu();
@@ -27,8 +34,7 @@ public class KassererSubMenu {
 
             switch (choice) {
                 case 1:
-                    //kontingentController.registrerKontingentBetaling();
-
+                registrerKontingentBetaling();
                     break;
                 case 2:
                     //kontingentController.overblikOverKontingentBetalinger();
@@ -36,7 +42,6 @@ public class KassererSubMenu {
                     break;
                 case 3:
                     UserMenu.displayMenu();
-
                     break;
                 case 4:
                     System.out.println("Afslutter...");
@@ -48,5 +53,16 @@ public class KassererSubMenu {
                     System.out.println("Ugyldigt input, prøv igen");
             }
         }
+    }
+
+    private void registrerKontingentBetaling() {
+        int MedlemId = Input.getIdInput();
+        Medlem medlem = getMedlemMedId(MedlemId);
+        KontingentController.opretBetaling(medlem);
+        /*boolean aktivJuniorMedlem = booleanInput("Er medlemmet aktiv junior? (Ja/Nej): ");
+        boolean aktivSeniorMedlem = booleanInput("Er medlemmet Senior? (Ja/Nej): ");
+        boolean pensionistRabat = booleanInput("Er medlemmet pensionist? (Ja/Nej): ");
+        boolean passivMedlem = booleanInput("Er medlemmet passivt? (Ja/Nej): "); */
+
     }
 }
