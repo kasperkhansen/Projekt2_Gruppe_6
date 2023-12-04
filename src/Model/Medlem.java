@@ -164,4 +164,28 @@ public class Medlem {
     }
 
 
+    // get metoder til Traening og Konkurrence
+    public ArrayList<Integer> getButterflyTraening() {
+        return null;
+    }
+
+    public ArrayList<Integer> getCrawlTraening() {
+        return null;
+    }
+
+    public ArrayList<Integer> getBrystTraening() {
+        return null;
+    }
+
+    public ArrayList<Integer> getButterflyKonkurrence() {
+        return null;
+    }
+
+    public ArrayList<Integer> getCrawlKonkurrence() {
+        return null;
+    }
+
+    public ArrayList<Integer> getBrystKonkurrence() {
+        return null;
+    }
 }

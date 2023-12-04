@@ -1,5 +1,6 @@
 package View.MenuSystem;
 
+import Controller.DatabaseController;
 import View.Input;
 
 public class UserMenu {
@@ -11,6 +12,7 @@ public class UserMenu {
     }
 
     public static void displayMenu() {
+        DatabaseController.loadFilesToArr();
         System.out.println("\nWelcome " + userName + "!");
         System.out.println("--------------------");
         while (true) {
@@ -45,5 +47,4 @@ public class UserMenu {
             }
         }
     }
-
 }

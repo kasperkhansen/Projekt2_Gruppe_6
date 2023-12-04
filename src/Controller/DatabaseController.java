@@ -134,6 +134,18 @@ public class DatabaseController {
                 fileWriter.write("medlemskabsNr: "+m.getMedlemskabNr() + "\n");
                 fileWriter.write("alder: "+m.getAlder() + "\n");
                 fileWriter.write("foedselsdato: "+m.getFoedselsdato() + "\n");
+                // document Traening and Konkurrence results of Medlem
+                fileWriter.write("traening resultater: \n");
+                writeTiderToFile(m.getButterflyTraening(), fileWriter);
+                writeTiderToFile(m.getCrawlTraening(), fileWriter);
+                writeTiderToFile(m.getBrystTraening(), fileWriter);
+
+                fileWriter.write("konkurrence resultater: \n");
+                writeTiderToFile(m.getButterflyKonkurrence(), fileWriter);
+                writeTiderToFile(m.getCrawlKonkurrence(), fileWriter);
+                writeTiderToFile(m.getBrystKonkurrence(), fileWriter);
+
+
                 System.out.println("Member data saved to file: " + file.getName());
                 fileWriter.close();
             } else {
@@ -142,6 +154,18 @@ public class DatabaseController {
         } catch (IOException e) {
             System.err.println("Error saving member: " + m.getNavn());
         }
+    }
+
+    private static void writeTiderToFile(ArrayList<Integer> tider, FileWriter fileWriter) throws IOException {
+        try {
+            for (int tid : tider) {
+                fileWriter.write(tid + ", ");
+            }
+            fileWriter.write(" ");
+        } catch (NullPointerException e) {
+            fileWriter.write("antal: 0\n");
+        }
+
     }
 
     public static void updaterMedlemFile(Medlem medlem, int nytMedlemskabNr) {

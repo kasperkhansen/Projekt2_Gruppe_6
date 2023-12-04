@@ -51,8 +51,4 @@ public class MedlemSubMenu {
             }
         }
     }
-
-    public static void main(String[] args) {
-        MedlemSubMenu.displaySubMenu();
-    }
 }
