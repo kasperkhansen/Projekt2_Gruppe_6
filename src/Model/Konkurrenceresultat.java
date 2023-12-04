@@ -1,7 +1,5 @@
 package Model;
 
-import java.time.LocalDate;
-
 public class Konkurrenceresultat {
     double traeningsTid;
 
@@ -13,7 +11,7 @@ public class Konkurrenceresultat {
         return placering;
     }
 
-    public double getTraeningsTid() {
+    public double getTid() {
         return traeningsTid;
     }
 

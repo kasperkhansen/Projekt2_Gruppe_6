@@ -7,14 +7,13 @@ public class Traeningsresultat {
 
     LocalDate traeningsDato;
 
-    public double getTraeningsTid() {
+    public double getTid() {
         return traeningsTid;
     }
 
     public LocalDate getTraeningsDato() {
         return traeningsDato;
     }
-
 
     public Traeningsresultat(double traeningsTid, LocalDate traeningsDato) {
         this.traeningsTid = traeningsTid;

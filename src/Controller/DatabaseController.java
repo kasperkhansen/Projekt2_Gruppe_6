@@ -1,6 +1,9 @@
 package Controller;
 
+import Model.Konkurrenceresultat;
 import Model.Medlem;
+import Model.Traeningsresultat;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -136,14 +139,14 @@ public class DatabaseController {
                 fileWriter.write("foedselsdato: "+m.getFoedselsdato() + "\n");
                 // document Traening and Konkurrence results of Medlem
                 fileWriter.write("traening resultater: \n");
-                writeTiderToFile(m.getButterflyTraening(), fileWriter);
-                writeTiderToFile(m.getCrawlTraening(), fileWriter);
-                writeTiderToFile(m.getBrystTraening(), fileWriter);
+                writeTraeningsTiderToFile(m.getButterflyTraening(), fileWriter);
+                writeTraeningsTiderToFile(m.getCrawlTraening(), fileWriter);
+                writeTraeningsTiderToFile(m.getBrystTraening(), fileWriter);
 
                 fileWriter.write("konkurrence resultater: \n");
-                writeTiderToFile(m.getButterflyKonkurrence(), fileWriter);
-                writeTiderToFile(m.getCrawlKonkurrence(), fileWriter);
-                writeTiderToFile(m.getBrystKonkurrence(), fileWriter);
+                writeKonkurrenceTiderToFile(m.getButterflyKonkurrence(), fileWriter);
+                writeKonkurrenceTiderToFile(m.getCrawlKonkurrence(), fileWriter);
+                writeKonkurrenceTiderToFile(m.getBrystKonkurrence(), fileWriter);
 
 
                 System.out.println("Member data saved to file: " + file.getName());
@@ -156,17 +159,29 @@ public class DatabaseController {
         }
     }
 
-    private static void writeTiderToFile(ArrayList<Integer> tider, FileWriter fileWriter) throws IOException {
+    private static void writeTraeningsTiderToFile(ArrayList<Traeningsresultat> resultater, FileWriter fileWriter) throws IOException {
         try {
-            for (int tid : tider) {
+            for (Traeningsresultat resultat : resultater) {
+                Double tid = resultat.getTid();
                 fileWriter.write(tid + ", ");
             }
-            fileWriter.write(" ");
+            fileWriter.write("\n");
         } catch (NullPointerException e) {
             fileWriter.write("antal: 0\n");
         }
-
     }
+    private static void writeKonkurrenceTiderToFile(ArrayList<Konkurrenceresultat> resultater, FileWriter fileWriter) throws IOException {
+        try {
+            for (Konkurrenceresultat resultat : resultater) {
+                Double tid = resultat.getTid();
+                fileWriter.write(tid + ", ");
+            }
+            fileWriter.write("\n");
+        } catch (NullPointerException e) {
+            fileWriter.write("antal: 0\n");
+        }
+    }
+
 
     public static void updaterMedlemFile(Medlem medlem, int nytMedlemskabNr) {
         System.out.println("Opdaterer medlem file: " + medlem.getNavn());

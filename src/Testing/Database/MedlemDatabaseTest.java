@@ -2,6 +2,7 @@ package Testing.Database;
 
 import Controller.DatabaseController;
 import Controller.MedlemController;
+import Controller.TraenerController;
 import Model.Medlem;
 import View.MenuSystem.UserMenu;
 
@@ -76,7 +77,8 @@ public class MedlemDatabaseTest {
         MedlemController.skiftMedlemskabMedInputScan();
         MedlemController.betalEngangsbillet();
         MedlemController.opdaterMedlem(testMember1);
-        MedlemController.fjernMedlem(testMember2);
+
+
 
         // Assertions
         // Add specific assertions here to verify the expected outcomes of the operations
