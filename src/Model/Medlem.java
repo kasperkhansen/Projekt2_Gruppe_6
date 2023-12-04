@@ -12,17 +12,17 @@ public class Medlem {
     private final String navn;
     private final ArrayList<Medlemskab> medlemsskab = new ArrayList<>();
 
-    public final ArrayList<Butterfly> butterflyTraening = new ArrayList<>();
+    public final ArrayList<Traeningsresultat> butterflyTraening = new ArrayList<>();
 
-    public final ArrayList<Butterfly> butterflyKonkurrence = new ArrayList<>();
+    public final ArrayList<Konkurrenceresultat> butterflyKonkurrence = new ArrayList<>();
 
-    public final ArrayList<Crawl> crawlTraening = new ArrayList<>();
+    public final ArrayList<Traeningsresultat> crawlTraening = new ArrayList<>();
 
-    public final ArrayList<Crawl> crawlKonkurrence = new ArrayList<>();
+    public final ArrayList<Konkurrenceresultat> crawlKonkurrence = new ArrayList<>();
 
-    public final ArrayList<Bryst> brystTraening = new ArrayList<>();
+    public final ArrayList<Traeningsresultat> brystTraening = new ArrayList<>();
 
-    public final ArrayList<Bryst> brystKonkurrence = new ArrayList<>();
+    public final ArrayList<Konkurrenceresultat> brystKonkurrence = new ArrayList<>();
 
     private int medlemsskabsNr;
 
