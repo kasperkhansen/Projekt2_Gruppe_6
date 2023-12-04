@@ -40,6 +40,8 @@ public class KontingentController {
         KontingentBetaling nyBetaling = new KontingentBetaling(aktivMedlem, seniorMedlem, pensionistRabat, foedselsdato);
         betalinger.add(nyBetaling);
 
+        int kontingentBeløb = nyBetaling.beregnKontingent();
+
         int nr = medlem.getId();
 
         System.out.println("Betalingen for " +medlem.getNavn()+ " er registreret");

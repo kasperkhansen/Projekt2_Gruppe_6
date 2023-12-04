@@ -12,8 +12,8 @@ public abstract class Input {
     }*/
 
     public static int getIdInput() {
-        int medlemId = intInput("Indtast medlemmets ID: ");
-        return intInput("Indtast dit telefon nummer: ");
+        int medlemId = intInput("Indtast medlemmets tlf nr: ");
+        return medlemId;
     }
 
     public static LocalDate getBirthDateInput() {
