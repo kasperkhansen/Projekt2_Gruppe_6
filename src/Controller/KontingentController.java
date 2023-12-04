@@ -43,7 +43,7 @@ public class KontingentController {
         int nr = medlem.getId();
 
         System.out.println("Betalingen for " +medlem.getNavn()+ " er registreret");
-        System.out.println(nyBetaling.besked());
+       // System.out.println(nyBetaling.besked());
     }
 
     public void seOverblik() {

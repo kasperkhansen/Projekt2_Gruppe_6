@@ -24,8 +24,6 @@ public class Medlem {
 
     public final ArrayList<Bryst> brystKonkurrence = new ArrayList<>();
 
-    private int medlemsskabNr;
-
     private int medlemsskabsNr;
 
 
