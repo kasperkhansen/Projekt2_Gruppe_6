@@ -85,45 +85,6 @@ public abstract class Input {
         }
     }
 
-    /*public static resultatInput() {
-        while (true) {
-            System.out.println("Vælg svømmedisciplin: ");
-            System.out.println("--------------------");
-
-            System.out.println("tast 1 for Crawl");
-            System.out.println("tast 2 for Bryst");
-            System.out.println("tast 3 for Butterfly");
-            int disciplinValg = intInput("Valg: ");
-
-            if (disciplinValg <4 && disciplinValg >0) {
-                while (true) {
-                    System.out.println("Vælg træning eller konkurrence: ");
-                    System.out.println("--------------------");
-
-                    System.out.println("tast 1 for Træning");
-                    System.out.println("tast 2 for Konkurrence");
-                    int konkurrenceValg = intInput("Valg: ");
-
-                    if (konkurrenceValg <4 && konkurrenceValg >0) {
-                        System.out.println("Indtast tid i format 00.00");
-                        System.out.println("--------------------");
-
-                        double svoemmeTid = doubleInput("Indtast tid: ");
-
-                        return konkurrenceValg;
-
-                    } else {
-                        System.out.println("Ugyldigt input, prøv igen");
-                    }
-                }
-            } else {
-                System.out.println("Ugyldigt input, prøv igen");
-            }
-        }
-    }*/
-
-
-
     private static Scanner newScannerErrorHandling() {
         try {
             return new Scanner(System.in);

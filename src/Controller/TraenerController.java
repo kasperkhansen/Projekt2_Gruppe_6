@@ -15,29 +15,36 @@ public class TraenerController {
             int nyDisciplinTid = Input.svoemmeDisciplinValg();
             int nyDisciplinType = Input.konkurrenceValg();
             double nyTid = Input.svoemmeTid();
-            String valgtDisciplin;
 
             if (nyDisciplinType == 1) {
-                String hvilketStaevne = Input.stringInput("Indtast stævne: ");
-                int hvilkenPlacering = Input.intInput("Indtast placering: ");
-                switch (nyDisciplinTid) {
-                    case 1:
-                        medlem.brystKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
-                    case 2:
-                        medlem.crawlKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
-                    case 3:
-                        medlem.butterflyKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
+                if (medlem.getMedlemsskabsNr()==1){
+                    String hvilketStaevne = Input.stringInput("Indtast stævne: ");
+                    int hvilkenPlacering = Input.intInput("Indtast placering: ");
+                    switch (nyDisciplinTid) {
+                        case 1:
+                            medlem.brystKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
+                        case 2:
+                            medlem.crawlKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
+                        case 3:
+                            medlem.butterflyKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
+                    }
+                }  else {
+                    System.out.println("Dette medlem er ikke en konkurrencesvømmer");
                 }
-            }
+                }
             else {
-                LocalDate hvilkenDato = Input.dateInput("Indtast dato: ");
-                switch (nyDisciplinTid) {
-                    case 1:
-                        medlem.brystTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
-                    case 2:
-                        medlem.crawlTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
-                    case 3:
-                        medlem.butterflyTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
+                if (medlem.getMedlemsskabsNr()!=3) {
+                    LocalDate hvilkenDato = Input.dateInput("Indtast dato: ");
+                    switch (nyDisciplinTid) {
+                        case 1:
+                            medlem.brystTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
+                        case 2:
+                            medlem.crawlTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
+                        case 3:
+                            medlem.butterflyTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
+                }
+                } else {
+                    System.out.println("Dette medlem er ikke et aktivt medlem");
                 }
             }
         } else {
