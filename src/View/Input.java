@@ -5,13 +5,14 @@ import java.util.Scanner;
 
 public abstract class Input {
 
-    private static Scanner scanner = newScannerErrorHandling();
+    private static final Scanner scanner= newScannerErrorHandling();
 
     /*public static int getAgeInput() {
         return 0;
     }*/
 
     public static int getIdInput() {
+        int medlemId = intInput("Indtast medlemmets ID: ");
         return intInput("Indtast dit telefon nummer: ");
     }
 
@@ -187,6 +188,20 @@ public abstract class Input {
                 return LocalDate.parse(scanner.next());
             } catch (Exception e) {
                 System.out.println("Indtast fødselsdato i dette format yyyy-mm-dd:  ");
+            }
+        }
+    }
+
+    public static boolean booleanInput(String prompt) {
+        System.out.print(prompt + " ");
+        while (true) {
+            String userInput = scanner.nextLine().toLowerCase();
+            if (userInput.equals("ja") || userInput.equals("j")) {
+                return true;
+            } else if (userInput.equals("nej") || userInput.equals("n")) {
+                return false;
+            } else {
+                System.out.println("Ugyldigt input. Indtast venligst Ja/Nej: ");
             }
         }
     }

@@ -84,7 +84,7 @@ public class MedlemController {
                 if (med.getNavn().equals(søgtNavn)) {
                     medlemFundet = true;
 
-                    if (med.isPassivtMedlemskab()) {
+                    if (med.erPassivtMedlemskab()) {
                         System.out.println("Engangsbillet til " + søgtNavn + " er købt");
                     } else {
                         System.out.println(søgtNavn + " er ikke passivt medlem.");
