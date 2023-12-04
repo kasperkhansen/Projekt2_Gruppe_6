@@ -54,7 +54,6 @@ public class KontingentController {
         }
     }
 
-
     public void overblikOverKontingentBetalinger() {
      //    updateLists();
         System.out.println("--------------------------\n");
@@ -74,12 +73,6 @@ public class KontingentController {
         System.out.println("--------------------------\n");
 
         }
-
-
-
-
-
-
 
     public void registrerKontingentBetaling() {
     }
