@@ -1,0 +1,4 @@
+navn: jens
+medlemskabsNr: 1
+alder: 23
+foedselsdato: 2000-08-19
