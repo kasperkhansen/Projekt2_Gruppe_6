@@ -3,7 +3,7 @@ package Model;
 import java.time.LocalDate;
 
 public class Traeningsresultat {
-    double traeningsTid;
+    static double traeningsTid;
 
     LocalDate traeningsDato;
 
@@ -15,8 +15,10 @@ public class Traeningsresultat {
         return traeningsDato;
     }
 
+
     public Traeningsresultat(double traeningsTid, LocalDate traeningsDato) {
         this.traeningsTid = traeningsTid;
         this.traeningsDato = traeningsDato;
     }
+
 }
