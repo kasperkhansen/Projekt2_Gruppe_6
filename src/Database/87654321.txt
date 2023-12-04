@@ -1,0 +1,12 @@
+navn: TestMember2
+medlemskabsNr: 2
+alder: 26
+foedselsdato: 1997-02-01
+traening resultater: 
+
+
+
+konkurrence resultater: 
+
+
+

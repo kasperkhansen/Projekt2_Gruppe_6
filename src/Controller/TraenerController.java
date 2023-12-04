@@ -55,12 +55,13 @@ public class TraenerController {
             System.out.println("Ingen medlem fundet med dette navn");
         }
     }
-class SvoemmedisciplinComparator implements Comparator<Traeningsresultat>{
+
+    class SvoemmedisciplinComparator implements Comparator<Traeningsresultat>{
     @Override
     public int compare(Traeningsresultat o1, Traeningsresultat o2) {
-        if (o1.getTraeningsTid() > o2.getTraeningsTid())
+        if (o1.getTid() > o2.getTid())
             return 1;
-        if (o1.getTraeningsTid() == o2.getTraeningsTid())
+        if (o1.getTid() == o2.getTid())
             return 0;
         else return -1;
     }
@@ -74,7 +75,6 @@ class SvoemmedisciplinComparator implements Comparator<Traeningsresultat>{
             SvoemmedisciplinComparator BrystSammenligner = new SvoemmedisciplinComparator();
             Collections.sort(Medlem.brystTraening, BrystSammenligner);
     }
-
     public void seTopFemSvoemmereButterfly(){
         SvoemmedisciplinComparator ButterflySammenligner = new SvoemmedisciplinComparator();
         Collections.sort(Medlem.butterflyTraening, ButterflySammenligner);
