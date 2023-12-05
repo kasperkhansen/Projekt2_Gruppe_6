@@ -11,17 +11,34 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static Controller.MedlemController.getAlleMedlemmer;
+import static Controller.MedlemController.getMedlemMedId;
 import static View.Input.booleanInput;
 
 public class KontingentController {
-    private static ArrayList<Medlem> alleMedlemmer = MedlemController.alleMedlemmer;
+    private static ArrayList<Medlem> alleMedlemmer = MedlemController.getAlleMedlemmer();
+
     private static ArrayList<Medlem> medlemmerMedKontingentBetalt = new ArrayList<>();
     private static ArrayList<Medlem> medlemmerUdenKontingentBetalt = new ArrayList<>();
     private static List<KontingentBetaling> betalinger = new ArrayList<>();
-    private MedlemController medlemController;
 
-    public KontingentController(MedlemController medlemController) {
-        this.medlemController = medlemController;
+
+    public static void registrerKontingentBetaling() {
+        DatabaseController.loadFilesToArr();
+        System.out.println("Registrerer kontingent betaling...");
+
+        while (true) {
+            MedlemController.printAlleMedlemmerMobilNr();
+            int MedlemId = Input.getIdInput();
+            Medlem medlem = getMedlemMedId(MedlemId);
+            if (medlem == null) {
+                System.out.println("Medlem med id " + MedlemId + " findes ikke. Prøv igen.");
+            } else {
+                KontingentController.opretBetaling(medlem);
+                break;
+            }
+        }
+
     }
 
     public static void opretBetaling(Medlem medlem) {
@@ -74,8 +91,6 @@ public class KontingentController {
 
         }
 
-    public void registrerKontingentBetaling() {
-    }
 
     public static void koebEnGangsBillet() {
     }
