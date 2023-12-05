@@ -138,4 +138,43 @@ public class MedlemController {
         }
     }
 
+
+
+    public void fillStaevneCrawl(){
+        for (Medlem m : TraenerController.BedsteStaevneTiderCrawl) {
+            m..get(0);
+        }
+    }
+
+    public void fillStaevneBryst(){
+        for (Medlem m : TraenerController.BedsteStaevneTiderBryst) {
+        }
+    }
+
+    public void fillStaevneButterfly(){
+        for (Medlem m : TraenerController.BedsteStaevneTiderButterfly){
+        }
+    }
+
+    public void fillTraeningCrawl(){
+        for (Medlem m : TraenerController.BedsteTraeningsTiderCrawl) {
+        }
+    }
+
+    public void fillTraeningBryst(){
+        for (Medlem m : TraenerController.BedsteTraeningsTiderBryst) {
+        }
+    }
+
+    public void fillTraeningButterfly(){
+        for (Medlem m : TraenerController.BedsteTraeningsTiderButterfly) {
+        }
+
+
+    }
+
+
+
+
+
 }
