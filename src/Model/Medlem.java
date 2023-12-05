@@ -14,15 +14,15 @@ public class Medlem {
 
     public static final ArrayList<Traeningsresultat> butterflyTraening = new ArrayList<>();
 
-    public final ArrayList<Konkurrenceresultat> butterflyKonkurrence = new ArrayList<>();
+    public static final ArrayList<Konkurrenceresultat> butterflyKonkurrence = new ArrayList<>();
 
     public static final ArrayList<Traeningsresultat> crawlTraening = new ArrayList<>();
 
-    public final ArrayList<Konkurrenceresultat> crawlKonkurrence = new ArrayList<>();
+    public static final ArrayList<Konkurrenceresultat> crawlKonkurrence = new ArrayList<>();
 
     public static final ArrayList<Traeningsresultat> brystTraening = new ArrayList<>();
 
-    public final ArrayList<Konkurrenceresultat> brystKonkurrence = new ArrayList<>();
+    public static final ArrayList<Konkurrenceresultat> brystKonkurrence = new ArrayList<>();
 
 
     private int medlemsskabsNr;
@@ -42,8 +42,6 @@ public class Medlem {
         this.alder = udregnAlder();
         this.id = id;
     }
-
-
 
     // -----------------------------------------alder metoder------------------------------------------------------------
     int udregnAlder () {
