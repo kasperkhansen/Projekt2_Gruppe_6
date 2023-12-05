@@ -1,5 +1,6 @@
 package View.MenuSystem;
 
+import Controller.DatabaseController;
 import Controller.MedlemController;
 
 import java.time.LocalDate;
@@ -37,10 +38,10 @@ public class FormandSubMenu {
             switch (choice) {
                 case 1:
                     MedlemController.registrerMedlem();
+                    DatabaseController.saveArrToFileDatabase();
                     break;
                 case 2:
                     UserMenu.displayMenu();
-
                     break;
                 case 3:
                     System.out.println("Afslutter...");

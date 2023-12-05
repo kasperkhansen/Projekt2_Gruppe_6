@@ -124,6 +124,7 @@ public class Medlem {
 
     //Tjekke om id tæller op ved flere objekter
 
+
     //--------------------------------------------------get metoder---------------------------------------------------------
     public String getNavn() {
         return navn;

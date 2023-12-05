@@ -1,5 +1,6 @@
 package View.MenuSystem;
 
+import Controller.DatabaseController;
 import Controller.KontingentController;
 import Controller.MedlemController;
 
@@ -34,10 +35,12 @@ public class MedlemSubMenu {
             switch (choice) {
                 case 1:
                     MedlemController.skiftMedlemskabMedInputScan();
+                    DatabaseController.saveArrToFileDatabase();
                     System.out.println("medlemController.aendreMedlemskab() chosen");
                     break;
                 case 2:
                     MedlemController.betalEngangsbillet();
+                    DatabaseController.saveArrToFileDatabase();
                     System.out.println("kontingentController.koebEnGangsBillet()");
                     break;
                 case 3:

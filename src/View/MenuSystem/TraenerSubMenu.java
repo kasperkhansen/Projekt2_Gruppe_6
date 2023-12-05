@@ -1,6 +1,8 @@
 package View.MenuSystem;
 
 
+import Controller.DatabaseController;
+
 import static View.Input.intInput;
 
 public class TraenerSubMenu {
@@ -29,14 +31,17 @@ public class TraenerSubMenu {
             switch (choice) {
                 case 1:
                     //traenerController.registrerTraeningsResultater();
+                    DatabaseController.saveArrToFileDatabase();
                     System.out.println("traenerController.registrerTraeningsResultater();");
                     break;
                 case 2:
                     //traenerController.seTopFemSvoemmere();
+                    DatabaseController.saveArrToFileDatabase();
                     System.out.println("traenerController.seTopFemSvoemmere();");
                     break;
                 case 3:
                     //traenerController.registrerKonkurrenceSvoemmeresRsultat();
+                    DatabaseController.saveArrToFileDatabase();
                     System.out.println("traenerController.registrerKonkurrenceSvoemmeresRsultat();");
                     break;
                 case 4:

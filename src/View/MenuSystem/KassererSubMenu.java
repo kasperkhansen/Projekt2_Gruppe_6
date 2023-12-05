@@ -2,6 +2,8 @@ package View.MenuSystem;
 
 import static Controller.MedlemController.getMedlemMedId;
 import static View.Input.intInput;
+
+import Controller.DatabaseController;
 import Controller.KontingentController;
 import Model.Medlem;
 import View.Input;
@@ -35,6 +37,7 @@ public class KassererSubMenu {
             switch (choice) {
                 case 1:
                     KontingentController.registrerKontingentBetaling();
+                    DatabaseController.saveArrToFileDatabase();
                     break;
                 case 2:
                     //kontingentController.overblikOverKontingentBetalinger();

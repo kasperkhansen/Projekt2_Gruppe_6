@@ -38,7 +38,6 @@ public class KontingentController {
                 break;
             }
         }
-
     }
 
     public static void opretBetaling(Medlem medlem) {

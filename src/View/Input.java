@@ -152,6 +152,10 @@ public abstract class Input {
         return scanDate();
     }
 
+    public static LocalDate dateInput(){
+        return scanDate();
+    }
+
     private static LocalDate scanDate() {
 
         while (true) {
