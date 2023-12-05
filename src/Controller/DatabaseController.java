@@ -12,7 +12,7 @@ import java.util.List;
 public class DatabaseController {
 
     public static final String DATABASE_PATH = "src/Database/";
-    private static File[] listOfFiles;
+    public static File[] listOfFiles;
 
     // instance variables of medlem
     private static String navn;
@@ -66,7 +66,7 @@ public class DatabaseController {
                 System.out.println("Member data saved to file: " + file.getName());
                 fileWriter.close();
             } else {
-                System.out.println("File already exists.");
+
             }
         } catch (IOException e) {
             System.err.println("Error saving member: " + m.getNavn());
@@ -78,7 +78,7 @@ public class DatabaseController {
     // Load alleMedlemmer arraylist of MedlemController from files for each member
     public static void loadFilesToArr() {
         try {
-            List<Medlem> loadedMembers = loadFiles(); // Load members from files
+            ArrayList<Medlem> loadedMembers = loadFiles(); // Load members from files
             if (!loadedMembers.isEmpty()) {
                 MedlemController.alleMedlemmer.clear(); // Clear list only if files are loaded successfully
                 MedlemController.alleMedlemmer.addAll(loadedMembers);
@@ -91,7 +91,7 @@ public class DatabaseController {
     // 1
     private static ArrayList<Medlem> loadFiles() throws IOException {
         updateListOfFiles();
-        ArrayList<Medlem> loadedMembers = new ArrayList<>();
+        ArrayList<Medlem> loadedMembers = getMembersOfFiles();
         for (File file : listOfFiles) {
             try {
                 Medlem medlem = getMedlemFromFile(file); // Directly get Medlem object
@@ -125,11 +125,12 @@ public class DatabaseController {
 
 
     // 2 Get a Medlem object from a file
-    private static Medlem getMedlemFromFile(File file) {
+    public static Medlem getMedlemFromFile(File file) {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String navn = "";
             int medlemskabNr = 0;
             LocalDate foedselsdato = null;
+            int id = Integer.parseInt(file.getName().substring(0, file.getName().length() - 4));
             String line;
 
             while ((line = reader.readLine()) != null) {
@@ -170,6 +171,14 @@ public class DatabaseController {
             System.err.println("Error loading member");
             return null;
         }
+    }
+
+    private static ArrayList<Medlem> getMembersOfFiles() {
+        ArrayList<Medlem> loadedMembers = new ArrayList<>();
+        for (File file : DatabaseController.listOfFiles) {
+            loadedMembers.add(DatabaseController.getMedlemFromFile(file));
+        }
+        return loadedMembers;
     }
 
     // Get the values from a file

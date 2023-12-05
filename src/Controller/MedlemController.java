@@ -115,6 +115,10 @@ public class MedlemController {
         return null;
     }
 
+    public static ArrayList<Medlem> getAlleMedlemmer() {
+        return alleMedlemmer;
+    }
+
     public static void opdaterMedlem(Medlem medlem) {
         fjernMedlem(medlem);
         tilfoejMedlem(medlem);
@@ -124,6 +128,13 @@ public class MedlemController {
     public static void printAlleMedlemmer() {
         for (Medlem medlem : alleMedlemmer) {
             System.out.print(medlem.toString());
+        }
+        System.out.println();
+    }
+
+    public static void printAlleMedlemmerMobilNr() {
+        for (Medlem medlem : alleMedlemmer) {
+            System.out.println(medlem.getNavn() + " " + medlem.getId());
         }
     }
 

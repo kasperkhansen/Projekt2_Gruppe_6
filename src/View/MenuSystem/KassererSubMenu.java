@@ -34,7 +34,7 @@ public class KassererSubMenu {
 
             switch (choice) {
                 case 1:
-                registrerKontingentBetaling();
+                    KontingentController.registrerKontingentBetaling();
                     break;
                 case 2:
                     //kontingentController.overblikOverKontingentBetalinger();
@@ -55,14 +55,5 @@ public class KassererSubMenu {
         }
     }
 
-    private void registrerKontingentBetaling() {
-        int MedlemId = Input.getIdInput();
-        Medlem medlem = getMedlemMedId(MedlemId);
-        KontingentController.opretBetaling(medlem);
-        /*boolean aktivJuniorMedlem = booleanInput("Er medlemmet aktiv junior? (Ja/Nej): ");
-        boolean aktivSeniorMedlem = booleanInput("Er medlemmet Senior? (Ja/Nej): ");
-        boolean pensionistRabat = booleanInput("Er medlemmet pensionist? (Ja/Nej): ");
-        boolean passivMedlem = booleanInput("Er medlemmet passivt? (Ja/Nej): "); */
 
-    }
 }
