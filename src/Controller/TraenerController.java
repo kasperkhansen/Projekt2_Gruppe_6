@@ -42,7 +42,7 @@ public class TraenerController {
                 }
             else {
                 if (medlem.getMedlemsskabsNr()!=3) {
-                    LocalDate hvilkenDato = Input.dateInput("Indtast dato for stævne: ");
+                    LocalDate hvilkenDato = Input.dateInput("Indtast træningsdato: ");
                     double nyTid = Input.svoemmeTid();
                     switch (nyDisciplinTid) {
                         case 1:
