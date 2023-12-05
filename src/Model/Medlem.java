@@ -33,6 +33,8 @@ public class Medlem {
     public boolean erSenior = false;
     public boolean erPensionist = false;
 
+    LocalDate sidstBetalt;
+
     // 3 options: "aktiv + konkurrence", "aktiv + motionist", "passiv"
     public Medlem(String navn, int medlemsskabNr, LocalDate foedselsdato, int id){
         this.navn = navn;
@@ -41,6 +43,7 @@ public class Medlem {
         this.foedselsdato = foedselsdato;
         this.alder = udregnAlder();
         this.id = id;
+        this.sidstBetalt = LocalDate.now();
     }
 
     // -----------------------------------------alder metoder------------------------------------------------------------
@@ -186,4 +189,13 @@ public class Medlem {
     public ArrayList<Konkurrenceresultat> getBrystKonkurrence() {
         return brystKonkurrence;
     }
+
+    public void setSidstBetalt(LocalDate sidstBetalt) {
+        this.sidstBetalt = sidstBetalt;
+    }
+
+    public LocalDate getSidstBetalt() {
+        return sidstBetalt;
+    }
+
 }
