@@ -1,9 +1,10 @@
 package Model;
 import View.Input;
-
+import javax.sound.midi.Soundbank;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 public class Medlem {
     public static KontingentBetaling getKontingentBetaling;
@@ -157,7 +158,9 @@ public class Medlem {
         return " " + navn +", "+ medlemsskab.get(0).toString() + ", "+  alder +", "+ foedselsdato + ", id: " + id;
     }
 
-    public int getMedlemsskabNr() {
+
+
+    public int getMedlemskabNr() {
         return medlemsskabsNr;
     }
 

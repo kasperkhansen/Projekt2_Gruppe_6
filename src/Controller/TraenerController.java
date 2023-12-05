@@ -3,16 +3,22 @@ package Controller;
 import Model.*;
 import View.Input;
 
-
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
+import Controller.MedlemController;
 import java.time.LocalDate;
-
 import static Controller.MedlemController.alleMedlemmer;
 import static Controller.MedlemController.getMedlemMedId;
 
 public class TraenerController {
+
+    static ArrayList<Medlem> BedsteTraeningsTiderCrawl = new ArrayList<Medlem>();
+    static ArrayList<Medlem> BedsteTraeningsTiderBryst = new ArrayList<Medlem>();
+    static ArrayList<Medlem> BedsteTraeningsTiderButterfly = new ArrayList<Medlem>();
+    static ArrayList<Medlem> BedsteStaevneTiderCrawl = new ArrayList<Medlem>();
+    static ArrayList<Medlem> BedsteStaevneTiderBryst = new ArrayList<Medlem>();
+    static ArrayList<Medlem> BedsteStaevneTiderButterfly = new ArrayList<Medlem>();
 
     public static void registrerResultat() {
         int id = Input.getIdInput();
@@ -118,4 +124,27 @@ public class TraenerController {
         SvoemmedisciplinKonkurrenceResultatComparator steavneButterflySammenligner = new SvoemmedisciplinKonkurrenceResultatComparator();
         Collections.sort(Medlem.butterflyKonkurrence, steavneButterflySammenligner);
     }
+
+    /*public String getBedsteStaevneTidCrawl() {
+        for (Medlem m: BedsteStaevneTiderCrawl) {
+            seTopFemSteavneResultatCrawl();
+            return;
+        }
+    }
+    public getBedsteStaevneTidBryst(){
+    }
+
+    public getBedsteStaevneTidButterfly(){
+    }
+
+    public getBedsteTraeningsTidCrawl(){
+    }
+
+    public getBedsteTraeningsTidBryst(){
+    }
+
+    public getBedsteTraeningsTidButterfly(){
+    }
+
+     */
 }
