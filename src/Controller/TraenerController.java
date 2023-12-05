@@ -85,12 +85,34 @@ public class TraenerController {
         Collections.sort(Medlem.butterflyTraening, ButterflySammenligner);
     }
 
-    public void registrerKonkurrenceSvoemmeresRsultat() {
-    }
 
     public static void main(String[] args) {
         Medlem b = new Medlem("Bent", 2,  LocalDate.of(2003, 1, 1), 22222222);
         alleMedlemmer.add(b);
         registrerResultat();
+    }
+    static class SvoemmedisciplinKonkurrenceResultatComparator implements Comparator<Konkurrenceresultat>{
+        @Override
+        public int compare(Konkurrenceresultat o1, Konkurrenceresultat o2) {
+            if (o1.getTid() > o2.getTid())
+                return 1;
+            if (o1.getTid() == o2.getTid())
+                return 0;
+            else return -1;
+        }
+    }
+    public void seTopFemSteavneResultatCrawl() {
+        SvoemmedisciplinKonkurrenceResultatComparator staevneCrawlSammenligner = new SvoemmedisciplinKonkurrenceResultatComparator();
+        Collections.sort(Medlem.crawlKonkurrence, staevneCrawlSammenligner);
+    }
+
+    public void seTopFemSteavneResultatBryst() {
+        SvoemmedisciplinKonkurrenceResultatComparator steavneBrystSammenligner = new SvoemmedisciplinKonkurrenceResultatComparator();
+        Collections.sort(Medlem.brystKonkurrence, steavneBrystSammenligner);
+    }
+
+    public void seTopFemSteavneResultatButterfly() {
+        SvoemmedisciplinKonkurrenceResultatComparator steavneButterflySammenligner = new SvoemmedisciplinKonkurrenceResultatComparator();
+        Collections.sort(Medlem.butterflyKonkurrence, steavneButterflySammenligner);
     }
 }
