@@ -3,13 +3,13 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="-188.0" y="-328.5">Model.Medlem</node>
+    <node x="-117.5" y="-62.0">Model.Traeningsresultat</node>
   </nodes>
   <notes />
   <edges />
-  <settings layout="Hierarchic Compact" zoom="1.053030303030303" showDependencies="true" x="0.0" y="0.0" />
+  <settings layout="Hierarchic Compact" zoom="1.5" showDependencies="true" x="10.333333333333314" y="151.33333333333334" />
   <SelectedNodes>
-    <node>Model.Medlem</node>
+    <node>Model.Traeningsresultat</node>
   </SelectedNodes>
   <Categories>
     <Category>Fields</Category>
