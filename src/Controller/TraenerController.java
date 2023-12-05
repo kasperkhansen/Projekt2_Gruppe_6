@@ -9,23 +9,25 @@ import java.util.Comparator;
 
 import java.time.LocalDate;
 
+import static Controller.MedlemController.alleMedlemmer;
 import static Controller.MedlemController.getMedlemMedId;
 
 public class TraenerController {
 
-    public static void registrerResultat(int id) {
+    public static void registrerResultat() {
+        int id = Input.getIdInput();
 
         Medlem medlem = getMedlemMedId(id);
 
         if (medlem != null) {
             int nyDisciplinTid = Input.svoemmeDisciplinValg();
             int nyDisciplinType = Input.konkurrenceValg();
-            double nyTid = Input.svoemmeTid();
 
             if (nyDisciplinType == 1) {
                 if (medlem.getMedlemsskabsNr()==1){
                     String hvilketStaevne = Input.stringInput("Indtast stævne: ");
                     int hvilkenPlacering = Input.intInput("Indtast placering: ");
+                    double nyTid = Input.svoemmeTid();
                     switch (nyDisciplinTid) {
                         case 1:
                             medlem.brystKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
@@ -40,7 +42,8 @@ public class TraenerController {
                 }
             else {
                 if (medlem.getMedlemsskabsNr()!=3) {
-                    LocalDate hvilkenDato = Input.dateInput("Indtast dato: ");
+                    LocalDate hvilkenDato = Input.dateInput("Indtast dato for stævne: ");
+                    double nyTid = Input.svoemmeTid();
                     switch (nyDisciplinTid) {
                         case 1:
                             medlem.brystTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
@@ -83,5 +86,11 @@ public class TraenerController {
     }
 
     public void registrerKonkurrenceSvoemmeresRsultat() {
+    }
+
+    public static void main(String[] args) {
+        Medlem b = new Medlem("Bent", 2,  LocalDate.of(2003, 1, 1), 22222222);
+        alleMedlemmer.add(b);
+        registrerResultat();
     }
 }

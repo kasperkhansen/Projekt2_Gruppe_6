@@ -1,0 +1,12 @@
+navn: jens
+medlemskabsNr: 1
+alder: 23
+foedselsdato: 2000-01-01
+traening resultater: 
+antal: 0
+antal: 0
+antal: 0
+konkurrence resultater: 
+antal: 0
+antal: 0
+antal: 0
