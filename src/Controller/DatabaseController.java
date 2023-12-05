@@ -46,13 +46,12 @@ public class DatabaseController {
 
                 System.out.println("Member data saved to file: " + file.getName());
 
-            } else {
-                if (file.getName().equals(m.getId() + ".txt")) {
+            } else if (file.exists()) {
                     System.out.println("File already exists. Updating file: " + file.getName());
                     deleteFile(m.getId() + ".txt");
                     writeFile(m, file);
-                }
-
+            } else {
+                System.out.println();
             }
         } catch (IOException e) {
             System.err.println("Error saving member: " + m.getNavn());

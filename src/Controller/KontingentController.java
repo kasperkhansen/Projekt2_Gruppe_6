@@ -30,6 +30,7 @@ public class KontingentController {
 
         while (true) {
             MedlemController.printAlleMedlemmerMobilNr();
+
             int MedlemId = Input.getIdInput();
             Medlem medlem = getMedlemMedId(MedlemId);
             if (medlem == null) {

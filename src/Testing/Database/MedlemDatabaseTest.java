@@ -68,15 +68,6 @@ public class MedlemDatabaseTest {
             System.out.println("Loaded "+ m.getNavn()+": " + m.toString());
             System.out.println();
         }
-
-    }
-
-    private static ArrayList<Medlem> getMembersOfFiles() {
-        ArrayList<Medlem> loadedMembers = new ArrayList<>();
-        for (File file : DatabaseController.listOfFiles) {
-            loadedMembers.add(DatabaseController.getMedlemFromFile(file));
-        }
-        return loadedMembers;
     }
 
     private static void testAlleMedlemmer() {
@@ -104,5 +95,13 @@ public class MedlemDatabaseTest {
         // Add specific assertions here to verify the expected outcomes of the operations
 
         System.out.println("testAlleMedlemmer passed successfully.");
+    }
+
+    private static ArrayList<Medlem> getMembersOfFiles() {
+        ArrayList<Medlem> loadedMembers = new ArrayList<>();
+        for (File file : DatabaseController.listOfFiles) {
+            loadedMembers.add(DatabaseController.getMedlemFromFile(file));
+        }
+        return loadedMembers;
     }
 }

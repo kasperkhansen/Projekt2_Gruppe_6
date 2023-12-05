@@ -23,6 +23,7 @@ public class MedlemController {
         if (!alleMedlemmer.contains(medlem)) {
             DatabaseController.saveMedlemAsFile(medlem);
             alleMedlemmer.add(medlem);
+            DatabaseController.loadFilesToArr();
             System.out.println("Medlem tilføjet: " + medlem.getNavn());
         }
     }
