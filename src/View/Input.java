@@ -65,8 +65,8 @@ public abstract class Input {
             System.out.println("Vælg træning eller konkurrence: ");
             System.out.println("--------------------");
 
-            System.out.println("tast 1 for Træning");
-            System.out.println("tast 2 for Konkurrence");
+            System.out.println("tast 1 for Konkurrence");
+            System.out.println("tast 2 for Træning");
             int konkurrenceValg = intInput("Valg: ");
 
             if (konkurrenceValg < 3 && konkurrenceValg > 0) {
