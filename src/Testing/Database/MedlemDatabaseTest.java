@@ -90,7 +90,11 @@ public class MedlemDatabaseTest {
         // Mock or simulate user input as needed for these methods
 
         KontingentController.opretBetaling(MedlemController.alleMedlemmer.get(0));
+        System.out.println("--------------------------\n");
+        System.out.println("skiftMedlemskabMedInputScan");
         MedlemController.skiftMedlemskabMedInputScan();
+        System.out.println("--------------------------\n");
+        System.out.println("betal engangsbillet");
         MedlemController.betalEngangsbillet();
 
 

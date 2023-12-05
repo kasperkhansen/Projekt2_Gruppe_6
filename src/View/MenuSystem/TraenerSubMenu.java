@@ -68,6 +68,7 @@ public class TraenerSubMenu {
                 default:
                     System.out.println("Ugyldigt input, prøv igen");
             }
+
         }
     }
 

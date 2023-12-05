@@ -7,12 +7,6 @@ import java.time.LocalDate;
 
 import static View.Input.*;
 
-/*
-
-
-Registrere medlemmer.
-
- */
 
 public class FormandSubMenu {
 

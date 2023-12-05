@@ -7,7 +7,6 @@ import Model.Traeningsresultat;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseController {
 
@@ -43,29 +42,16 @@ public class DatabaseController {
             // check if file exists
             if (file.createNewFile()) {
                 System.out.println("File created: " + file.getName());
-                FileWriter fileWriter = new FileWriter(file);
-
-                // write file with structure to preserve all Medlem instance variables as strings
-                fileWriter.write("navn: "+m.getNavn() + "\n");
-                fileWriter.write("medlemskabsNr: "+m.getMedlemskabNr() + "\n");
-                fileWriter.write("alder: "+m.getAlder() + "\n");
-                fileWriter.write("foedselsdato: "+m.getFoedselsdato() + "\n");
-
-                // document Traening and Konkurrence results of Medlem
-                fileWriter.write("traening resultater: \n");
-                writeTraeningsTiderToFile(m.getButterflyTraening(), fileWriter);
-                writeTraeningsTiderToFile(m.getCrawlTraening(), fileWriter);
-                writeTraeningsTiderToFile(m.getBrystTraening(), fileWriter);
-
-                fileWriter.write("konkurrence resultater: \n");
-                writeKonkurrenceTiderToFile(m.getButterflyKonkurrence(), fileWriter);
-                writeKonkurrenceTiderToFile(m.getCrawlKonkurrence(), fileWriter);
-                writeKonkurrenceTiderToFile(m.getBrystKonkurrence(), fileWriter);
-
+                writeFile(m, file);
 
                 System.out.println("Member data saved to file: " + file.getName());
-                fileWriter.close();
+
             } else {
+                if (file.getName().equals(m.getId() + ".txt")) {
+                    System.out.println("File already exists. Updating file: " + file.getName());
+                    deleteFile(m.getId() + ".txt");
+                    writeFile(m, file);
+                }
 
             }
         } catch (IOException e) {
@@ -73,6 +59,27 @@ public class DatabaseController {
         }
     }
 
+    private static void writeFile(Medlem m, File file) throws IOException {
+        FileWriter fileWriter = new FileWriter(file);
+
+        // write file with structure to preserve all Medlem instance variables as strings
+        fileWriter.write("navn: "+ m.getNavn() + "\n");
+        fileWriter.write("medlemskabsNr: "+ m.getMedlemsskabNr() + "\n");
+        fileWriter.write("alder: "+ m.getAlder() + "\n");
+        fileWriter.write("foedselsdato: "+ m.getFoedselsdato() + "\n");
+
+        // document Traening and Konkurrence results of Medlem
+        fileWriter.write("traening resultater: \n");
+        writeTraeningsTiderToFile(m.getButterflyTraening(), fileWriter);
+        writeTraeningsTiderToFile(m.getCrawlTraening(), fileWriter);
+        writeTraeningsTiderToFile(m.getBrystTraening(), fileWriter);
+
+        fileWriter.write("konkurrence resultater: \n");
+        writeKonkurrenceTiderToFile(m.getButterflyKonkurrence(), fileWriter);
+        writeKonkurrenceTiderToFile(m.getCrawlKonkurrence(), fileWriter);
+        writeKonkurrenceTiderToFile(m.getBrystKonkurrence(), fileWriter);
+        fileWriter.close();
+    }
 
 
     // Load alleMedlemmer arraylist of MedlemController from files for each member

@@ -1,6 +1,4 @@
 package Model;
-import Controller.DatabaseController;
-import Controller.MedlemController;
 import View.Input;
 
 import java.time.LocalDate;
@@ -150,17 +148,16 @@ public class Medlem {
         return id;
     }
 
-
     //--------------------------------------------------set metoder---------------------------------------------------------
     @Override
     public String toString() {
-        return " " + navn + medlemsskab+  alder + foedselsdato;
+        return " " + navn +", "+ medlemsskab.get(0).toString() + ", "+  alder +", "+ foedselsdato + ", id: " + id;
     }
 
-
-    public int getMedlemskabNr() {
+    public int getMedlemsskabNr() {
         return medlemsskabsNr;
     }
+
 
 
     // get metoder til Traening og Konkurrence
