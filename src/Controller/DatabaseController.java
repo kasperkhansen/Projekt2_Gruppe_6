@@ -29,19 +29,51 @@ public class DatabaseController {
     // Save alleMedlemmer arraylist of MedlemController to files for each member
     public static void saveArrToFileDatabase() {
         for (Medlem medlem : MedlemController.alleMedlemmer) {
-            try {
-                File file = new File(DatabaseController.DATABASE_PATH + medlem.getId() + ".txt");
-                if (file.createNewFile()) {
-                    System.out.println("File created: " + medlem.getId()+ ".txt");
-                } else {
-                    System.out.println("File already exists.");
-                }
-            } catch (IOException e) {
-                System.err.println("Error saving member: " + medlem.getNavn());
-            }
+            saveMedlemAsFile(medlem);
         }
         updateListOfFiles();
     }
+
+    // Save a Medlem as a file
+    public static void saveMedlemAsFile(Medlem m) {
+
+        try {
+            File file = new File(DatabaseController.DATABASE_PATH + m.getId() + ".txt");
+
+            // check if file exists
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getName());
+                FileWriter fileWriter = new FileWriter(file);
+
+                // write file with structure to preserve all Medlem instance variables as strings
+                fileWriter.write("navn: "+m.getNavn() + "\n");
+                fileWriter.write("medlemskabsNr: "+m.getMedlemskabNr() + "\n");
+                fileWriter.write("alder: "+m.getAlder() + "\n");
+                fileWriter.write("foedselsdato: "+m.getFoedselsdato() + "\n");
+
+                // document Traening and Konkurrence results of Medlem
+                fileWriter.write("traening resultater: \n");
+                writeTraeningsTiderToFile(m.getButterflyTraening(), fileWriter);
+                writeTraeningsTiderToFile(m.getCrawlTraening(), fileWriter);
+                writeTraeningsTiderToFile(m.getBrystTraening(), fileWriter);
+
+                fileWriter.write("konkurrence resultater: \n");
+                writeKonkurrenceTiderToFile(m.getButterflyKonkurrence(), fileWriter);
+                writeKonkurrenceTiderToFile(m.getCrawlKonkurrence(), fileWriter);
+                writeKonkurrenceTiderToFile(m.getBrystKonkurrence(), fileWriter);
+
+
+                System.out.println("Member data saved to file: " + file.getName());
+                fileWriter.close();
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.err.println("Error saving member: " + m.getNavn());
+        }
+    }
+
+
 
     // Load alleMedlemmer arraylist of MedlemController from files for each member
     public static void loadFilesToArr() {
@@ -57,9 +89,9 @@ public class DatabaseController {
     }
 
     // 1
-    private static List<Medlem> loadFiles() throws IOException {
+    private static ArrayList<Medlem> loadFiles() throws IOException {
         updateListOfFiles();
-        List<Medlem> loadedMembers = new ArrayList<>();
+        ArrayList<Medlem> loadedMembers = new ArrayList<>();
         for (File file : listOfFiles) {
             try {
                 Medlem medlem = getMedlemFromFile(file); // Directly get Medlem object
@@ -73,6 +105,24 @@ public class DatabaseController {
         }
         return loadedMembers;
     }
+
+
+
+    // Update the list of files
+    private static void updateListOfFiles() {
+        File folder = new File(DATABASE_PATH);
+        listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
+    }
+
+    public static void updaterMedlemFile(Medlem medlem) {
+        System.out.println("Opdaterer medlem file: " + medlem.getNavn());
+        String IDtxt = medlem.getId() + ".txt";
+        Medlem m = getMedlemFromFile(new File(DatabaseController.DATABASE_PATH + IDtxt));
+        deleteFile(IDtxt);
+        m.setMedlemskab(m.getMedlemsskabsNr());
+        saveMedlemAsFile(m);
+    }
+
 
     // 2 Get a Medlem object from a file
     private static Medlem getMedlemFromFile(File file) {
@@ -95,6 +145,7 @@ public class DatabaseController {
             }
 
             return new Medlem(navn, medlemskabNr, foedselsdato, id);
+
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + file.getName());
             return null;
@@ -121,77 +172,6 @@ public class DatabaseController {
         }
     }
 
-    // Save a Medlem as a file
-    public static void saveMedlemAsFile(Medlem m, String fileNameMedlemID) {
-
-        try {
-            File file = new File(fileNameMedlemID);
-
-            // check if file exists
-            if (file.createNewFile()) {
-                System.out.println("File created: " + file.getName());
-                FileWriter fileWriter = new FileWriter(file);
-
-                // write file with structure to preserve all Medlem instance variables as strings
-                fileWriter.write("navn: "+m.getNavn() + "\n");
-                fileWriter.write("medlemskabsNr: "+m.getMedlemskabNr() + "\n");
-                fileWriter.write("alder: "+m.getAlder() + "\n");
-                fileWriter.write("foedselsdato: "+m.getFoedselsdato() + "\n");
-                // document Traening and Konkurrence results of Medlem
-                fileWriter.write("traening resultater: \n");
-                writeTraeningsTiderToFile(m.getButterflyTraening(), fileWriter);
-                writeTraeningsTiderToFile(m.getCrawlTraening(), fileWriter);
-                writeTraeningsTiderToFile(m.getBrystTraening(), fileWriter);
-
-                fileWriter.write("konkurrence resultater: \n");
-                writeKonkurrenceTiderToFile(m.getButterflyKonkurrence(), fileWriter);
-                writeKonkurrenceTiderToFile(m.getCrawlKonkurrence(), fileWriter);
-                writeKonkurrenceTiderToFile(m.getBrystKonkurrence(), fileWriter);
-
-
-                System.out.println("Member data saved to file: " + file.getName());
-                fileWriter.close();
-            } else {
-                System.out.println("File already exists.");
-            }
-        } catch (IOException e) {
-            System.err.println("Error saving member: " + m.getNavn());
-        }
-    }
-
-    private static void writeTraeningsTiderToFile(ArrayList<Traeningsresultat> resultater, FileWriter fileWriter) throws IOException {
-        try {
-            for (Traeningsresultat resultat : resultater) {
-                Double tid = resultat.getTid();
-                fileWriter.write(tid + ", ");
-            }
-            fileWriter.write("\n");
-        } catch (NullPointerException e) {
-            fileWriter.write("antal: 0\n");
-        }
-    }
-    private static void writeKonkurrenceTiderToFile(ArrayList<Konkurrenceresultat> resultater, FileWriter fileWriter) throws IOException {
-        try {
-            for (Konkurrenceresultat resultat : resultater) {
-                Double tid = resultat.getTid();
-                fileWriter.write(tid + ", ");
-            }
-            fileWriter.write("\n");
-        } catch (NullPointerException e) {
-            fileWriter.write("antal: 0\n");
-        }
-    }
-
-
-    public static void updaterMedlemFile(Medlem medlem, int nytMedlemskabNr) {
-        System.out.println("Opdaterer medlem file: " + medlem.getNavn());
-        String IDtxt = medlem.getId() + ".txt";
-        Medlem m = getMedlemFromFile(new File(DatabaseController.DATABASE_PATH + IDtxt));
-        deleteFile(IDtxt);
-        m.setMedlemskab(nytMedlemskabNr);
-        saveMedlemAsFile(m, DatabaseController.DATABASE_PATH + IDtxt);
-    }
-
     // Get the values from a file
     private static void getValues (File file) throws IOException {
         FileReader fileReader = new FileReader(file);
@@ -212,11 +192,32 @@ public class DatabaseController {
         }
     }
 
-    // Update the list of files
-    private static void updateListOfFiles() {
-        File folder = new File(DATABASE_PATH);
-        listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
+
+    // Write the Traeningsresultat and Konkurrenceresultat to file
+    private static void writeTraeningsTiderToFile(ArrayList<Traeningsresultat> resultater, FileWriter fileWriter) throws IOException {
+        try {
+            for (Traeningsresultat resultat : resultater) {
+                Double tid = resultat.getTid();
+                fileWriter.write(tid + ", ");
+            }
+            fileWriter.write("\n");
+        } catch (NullPointerException e) {
+
+        }
     }
+    private static void writeKonkurrenceTiderToFile(ArrayList<Konkurrenceresultat> resultater, FileWriter fileWriter) throws IOException {
+        try {
+            for (Konkurrenceresultat resultat : resultater) {
+                Double tid = resultat.getTid();
+                fileWriter.write(tid + ", ");
+            }
+            fileWriter.write("\n");
+        } catch (NullPointerException e) {
+
+        }
+    }
+
+
 
     private static void deleteFile(String iDtxt) {
         File file = new File(DatabaseController.DATABASE_PATH + iDtxt);
@@ -226,7 +227,6 @@ public class DatabaseController {
             System.out.println("Error deleting file: " + file.getName());
         }
     }
-
 
     public static void printDatabase () {
         System.out.println("Printer database...");

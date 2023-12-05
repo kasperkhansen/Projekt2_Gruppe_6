@@ -21,9 +21,9 @@ public class MedlemController {
 
     public static void tilfoejMedlem(Medlem medlem) {
         if (!alleMedlemmer.contains(medlem)) {
-            saveMedlemInFile(medlem);
+            DatabaseController.saveMedlemAsFile(medlem);
             alleMedlemmer.add(medlem);
-            System.out.println("(debug) Medlem tilføjet: " + medlem.getNavn());
+            System.out.println("Medlem tilføjet: " + medlem.getNavn());
         }
     }
 
@@ -44,7 +44,7 @@ public class MedlemController {
                     System.out.println("Dette er det nuværende medlemskab. Vælg et andet for at skifte.");
                 }
             } while (nytMedlemskabNr == medlem.getMedlemsskabsNr());
-            DatabaseController.updaterMedlemFile(medlem, nytMedlemskabNr);
+
 
             String valgtMedlemskab;
             switch (nytMedlemskabNr) {
@@ -67,7 +67,7 @@ public class MedlemController {
                     System.out.println("Ugyldig indtastning, prøv igen");
                     return;
             }
-
+            DatabaseController.updaterMedlemFile(medlem);
         } else {
             System.out.println("Ingen medlem fundet med dette navn");
         }
@@ -101,15 +101,6 @@ public class MedlemController {
     }
 
     // 2 medlem Methods ---------------------------------------------
-    private static void saveMedlemInFile(Medlem medlem) {
-        String IDtxt = medlem.getId() + ".txt";
-        try {
-            DatabaseController.saveMedlemAsFile(medlem, DatabaseController.DATABASE_PATH + IDtxt);
-        } catch (Exception e) {
-            System.out.println("Error saving member: " + medlem.getNavn());
-        }
-    }
-
     public static void fjernMedlem(Medlem medlem) {
         alleMedlemmer.remove(medlem);
         System.out.println("Medlem fjernet: " + medlem.getNavn());

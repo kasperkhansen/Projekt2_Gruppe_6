@@ -24,8 +24,8 @@ public class Medlem {
 
     public final ArrayList<Konkurrenceresultat> brystKonkurrence = new ArrayList<>();
 
-    private int medlemsskabsNr;
 
+    private int medlemsskabsNr;
 
     private int alder;
     public final LocalDate foedselsdato;

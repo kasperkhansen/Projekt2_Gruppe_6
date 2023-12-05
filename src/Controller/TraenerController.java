@@ -14,7 +14,9 @@ import static Controller.MedlemController.getMedlemMedId;
 public class TraenerController {
 
     public static void registrerResultat(int id) {
+
         Medlem medlem = getMedlemMedId(id);
+
         if (medlem != null) {
             int nyDisciplinTid = Input.svoemmeDisciplinValg();
             int nyDisciplinType = Input.konkurrenceValg();
@@ -57,15 +59,15 @@ public class TraenerController {
     }
 
     class SvoemmedisciplinComparator implements Comparator<Traeningsresultat>{
-    @Override
-    public int compare(Traeningsresultat o1, Traeningsresultat o2) {
-        if (o1.getTid() > o2.getTid())
-            return 1;
-        if (o1.getTid() == o2.getTid())
-            return 0;
-        else return -1;
+        @Override
+        public int compare(Traeningsresultat o1, Traeningsresultat o2) {
+            if (o1.getTid() > o2.getTid())
+                return 1;
+            if (o1.getTid() == o2.getTid())
+                return 0;
+            else return -1;
+        }
     }
-}
 
     public void seTopFemSvoemmereCrawl() {
         SvoemmedisciplinComparator CrawlSammenligner = new SvoemmedisciplinComparator();
