@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Medlem;
 
+import java.time.Period;
 import java.util.ArrayList;
 
 import Model.KontingentBetaling;
@@ -60,8 +61,9 @@ public class KontingentController {
 
         int nr = medlem.getId();
 
-        System.out.println("Betalingen for " +medlem.getNavn()+ " er registreret");
-       // System.out.println(nyBetaling.besked());
+        System.out.println("Betalingen for " + medlem.getNavn() + " er registreret");
+        medlem.setSidstBetalt(LocalDate.now());
+        // System.out.println(nyBetaling.besked());
     }
 
     public void seOverblik() {
@@ -70,29 +72,40 @@ public class KontingentController {
         }
     }
 
-    public void overblikOverKontingentBetalinger() {
-     //    updateLists();
-        System.out.println("--------------------------\n");
-        System.out.println("Overblik over kontingent betalinger: ");
-        System.out.println("Medlemmer med kontingent betalt: ");
-        for (Medlem medlem : medlemmerMedKontingentBetalt) {
-            System.out.println(medlem.getNavn());
-        }
-        System.out.println();
-        System.out.println("Medlemmer uden kontingent betalt: ");
-        for (Medlem medlem : medlemmerUdenKontingentBetalt) {
-            System.out.println(medlem.getNavn());
-        }
-        System.out.println();
-        System.out.println("Antal medlemmer med kontingent betalt: " + medlemmerMedKontingentBetalt.size());
-        System.out.println("Antal medlemmer uden kontingent betalt: " + medlemmerUdenKontingentBetalt.size());
-        System.out.println("--------------------------\n");
+    public void overblikOverKontingentBetalinger(List<Medlem> alleMedlemmer) {
+
+        LocalDate now = LocalDate.now();
+        for (Medlem medlem : alleMedlemmer) {
+            LocalDate sidstBetalt = medlem.getSidstBetalt();
+            Period period = Period.between(sidstBetalt, now);
+            if (period.getYears() >= 1) {
+                medlemmerUdenKontingentBetalt.add(medlem);
+            } else {
+                medlemmerMedKontingentBetalt.add(medlem);
+            }
+
+            //    updateLists();
+            System.out.println("--------------------------\n");
+            System.out.println("Overblik over kontingent betalinger: ");
+            System.out.println("Medlemmer med kontingent betalt: ");
+            for (Medlem m : medlemmerMedKontingentBetalt) {
+                System.out.println(m.getNavn());
+            }
+            System.out.println();
+            System.out.println("Medlemmer uden kontingent betalt: ");
+            for (Medlem m : medlemmerUdenKontingentBetalt) {
+                System.out.println(m.getNavn());
+            }
+            System.out.println();
+            System.out.println("Antal medlemmer med kontingent betalt: " + medlemmerMedKontingentBetalt.size());
+            System.out.println("Antal medlemmer uden kontingent betalt: " + medlemmerUdenKontingentBetalt.size());
+            System.out.println("--------------------------\n");
 
         }
 
 
-    public static void koebEnGangsBillet() {
-    }
+    /*public static void koebEnGangsBillet() {
+    }*/
 
 
 
@@ -105,4 +118,5 @@ public class KontingentController {
             }
         }
     } */
+    }
 }
