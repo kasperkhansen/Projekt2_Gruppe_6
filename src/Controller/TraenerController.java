@@ -61,7 +61,7 @@ public class TraenerController {
         }
     }
 
-    class SvoemmedisciplinComparator implements Comparator<Traeningsresultat>{
+   static class SvoemmedisciplinComparator implements Comparator<Traeningsresultat>{
         @Override
         public int compare(Traeningsresultat o1, Traeningsresultat o2) {
             if (o1.getTid() > o2.getTid())
@@ -72,17 +72,20 @@ public class TraenerController {
         }
     }
 
-    public void seTopFemSvoemmereCrawl() {
+    public static void seTopFemSvoemmereCrawl() {
         SvoemmedisciplinComparator CrawlSammenligner = new SvoemmedisciplinComparator();
         Collections.sort(Medlem.crawlTraening, CrawlSammenligner);
+        System.out.println(Medlem.crawlTraening);
     }
-    public void seTopFemSvoemmereBryst() {
+    public static void seTopFemSvoemmereBryst() {
             SvoemmedisciplinComparator BrystSammenligner = new SvoemmedisciplinComparator();
             Collections.sort(Medlem.brystTraening, BrystSammenligner);
+        System.out.println(Medlem.brystTraening);
     }
-    public void seTopFemSvoemmereButterfly(){
+    public static void seTopFemSvoemmereButterfly(){
         SvoemmedisciplinComparator ButterflySammenligner = new SvoemmedisciplinComparator();
         Collections.sort(Medlem.butterflyTraening, ButterflySammenligner);
+        System.out.println(Medlem.butterflyTraening);
     }
 
 
