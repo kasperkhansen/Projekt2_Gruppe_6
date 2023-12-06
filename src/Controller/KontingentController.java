@@ -59,10 +59,30 @@ public class KontingentController {
         betalinger.add(nyBetaling);
 
         int kontingentBeløb = nyBetaling.beregnKontingent();
+        String medlemskabstype = "";
+        int pris = 0;
 
-        int nr = medlem.getId();
+        if (aktivMedlem) {
+            if (seniorMedlem) {
+                if (pensionistRabat) {
+                    medlemskabstype = "Aktivt senior med pensionistrabat";
+                    pris = nyBetaling.beregnRabat(nyBetaling.aktivSeniorKontingent);
+                } else {
+                    medlemskabstype = "Aktivt senior medlemskab";
+                    pris = nyBetaling.aktivSeniorKontingent;
+                }
+            } else {
+                medlemskabstype = "Aktivt junior medlemskab";
+                pris = nyBetaling.aktivJuniorKontingent;
+            }
+        } else {
+            medlemskabstype = "Passivt medlemskab";
+            pris = nyBetaling.passivKontingent;
+        }
 
-        System.out.println("Betalingen for " + medlem.getNavn() + " er registreret");
+        System.out.println(medlemskabstype + " for " + medlem.getNavn() + " er betalt.");
+        System.out.println("Total: " + kontingentBeløb + "kr");
+
         medlem.setKontingentBetalt(true); // marker kontingentet som betalt
         medlem.setSidstBetalt(LocalDate.now());
         // System.out.println(nyBetaling.besked());
