@@ -31,6 +31,7 @@ public class Medlem {
     private final int id;
     public boolean erSenior = false;
     public boolean erPensionist = false;
+    private boolean kontingentBetalt;
 
     LocalDate sidstBetalt;
 
@@ -43,6 +44,7 @@ public class Medlem {
         this.alder = udregnAlder();
         this.id = id;
         this.sidstBetalt = LocalDate.now();
+        this.kontingentBetalt = false;
     }
 
     // -----------------------------------------alder metoder------------------------------------------------------------
@@ -70,6 +72,10 @@ public class Medlem {
         return erPensionist;
     }
 
+    public boolean harBetaltKontingent() {
+        return kontingentBetalt;
+    }
+
 
     //-----------------------------------------medlemsskab metoder ------------------------------------------------------
     public void setMedlemskab(int medlemsskabNr) { // options: aktiv + konkurrence, aktiv + motionist, passiv = 3 options
@@ -81,6 +87,10 @@ public class Medlem {
             // options to chose: aktiv + konkurrence, aktiv + motionist, passiv = 3 options
         addMedlemskab(medlemsskabNr);
 
+    }
+
+    public void setKontingentBetalt(boolean kontingentBetalt) {
+        this.kontingentBetalt = kontingentBetalt;
     }
 
     private void addMedlemskab(int medlemsskabNr) {
@@ -142,7 +152,7 @@ public class Medlem {
 
     public int getAlder() {
         return alder;
-    }
+        }
 
     public LocalDate getFoedselsdato() {
         return foedselsdato;
@@ -159,12 +169,9 @@ public class Medlem {
     }
 
 
-
     public int getMedlemskabNr() {
         return medlemsskabsNr;
     }
-
-
 
     // get metoder til Traening og Konkurrence
     public ArrayList<Traeningsresultat> getButterflyTraening() {

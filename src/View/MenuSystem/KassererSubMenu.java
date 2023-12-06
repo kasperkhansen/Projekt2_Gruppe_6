@@ -5,16 +5,18 @@ import static View.Input.intInput;
 
 import Controller.DatabaseController;
 import Controller.KontingentController;
+import Controller.MedlemController;
 import Model.Medlem;
 import View.Input;
 
 import static View.Input.booleanInput;
 
 public class KassererSubMenu {
-
+    private KontingentController kontingentController;
 
 
     public KassererSubMenu () {
+        kontingentController = new KontingentController();
         displaySubMenu();
     }
 
@@ -41,7 +43,7 @@ public class KassererSubMenu {
                     break;
                 case 2:
                     //kontingentController.overblikOverKontingentBetalinger();
-                    System.out.println("kontingentController.seOverblik();");
+                    kontingentController.overblikOverKontingentBetalinger(MedlemController.getAlleMedlemmer());
                     break;
                 case 3:
                     UserMenu.displayMenu();

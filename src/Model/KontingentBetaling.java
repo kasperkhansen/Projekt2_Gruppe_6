@@ -27,10 +27,6 @@ public class KontingentBetaling {
         this.betaltKontingent=true;
     }
 
-    public boolean erBetalt () {
-        return betaltKontingent;
-    }
-
     public int beregnKontingent () {
         if (aktivMedlem) {
             if (seniorMedlem) {
