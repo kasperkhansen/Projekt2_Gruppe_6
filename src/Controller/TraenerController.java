@@ -37,10 +37,13 @@ public class TraenerController {
                     switch (nyDisciplinTid) {
                         case 1:
                             medlem.brystKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
+                            break;
                         case 2:
                             medlem.crawlKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
+                             break;
                         case 3:
                             medlem.butterflyKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
+                            break;
                     }
                 }  else {
                     System.out.println("Dette medlem er ikke en konkurrencesvømmer");
@@ -53,10 +56,13 @@ public class TraenerController {
                     switch (nyDisciplinTid) {
                         case 1:
                             medlem.brystTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
+                            break;
                         case 2:
                             medlem.crawlTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
+                            break;
                         case 3:
                             medlem.butterflyTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
+                            break;
                 }
                 } else {
                     System.out.println("Dette medlem er ikke et aktivt medlem");
