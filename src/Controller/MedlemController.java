@@ -1,9 +1,10 @@
 package Controller;
 import Model.*;
 import View.Input;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 
+import static Controller.DatabaseController.getMedlemByMobileNumber;
 import static javax.swing.UIManager.get;
 
 public class MedlemController {
@@ -17,9 +18,18 @@ public class MedlemController {
     // medlem
     public static void registrerMedlem() {
         System.out.println("Registrerer medlem...");
+        while (true) {
+            int mobilNumner = Input.getIdInput(); // Assuming this method gets the mobile number
+            if (doesMemberExist(mobilNumner)) {
+                System.out.println("Mobil nummer eksisterer allerede. Er det dig? Eller vil du registrer nyt Medlem med andet Mobil nummer");
 
-        tilfoejMedlem(new Medlem(Input.getNameInput("Indtast navn", "Ugyldigt navn, prøv igen"), Input.medlemskabInput(), Input.getBirthDateInput(), Input.getIdInput()));
+            } else {
+                tilfoejMedlem(new Medlem(Input.getNameInput("Indtast navn", "Ugyldigt navn, prøv igen"), Input.medlemskabInput(), Input.getBirthDateInput(), Input.getIdInput()));
+                break;
+            }
+        }
     }
+
 
     public static void tilfoejMedlem(Medlem medlem) {
         if (!alleMedlemmer.contains(medlem)) {
@@ -126,6 +136,11 @@ public class MedlemController {
         fjernMedlem(medlem);
         tilfoejMedlem(medlem);
     }
+
+    public static boolean doesMemberExist(int mobileNumber) {
+        return getMedlemByMobileNumber(mobileNumber) != null;
+    }
+
 
     // 3 print methods ---------------------------------------------
     public static void printAlleMedlemmer() {

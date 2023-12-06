@@ -13,6 +13,8 @@ public class DatabaseController {
     public static final String DATABASE_PATH = "src/Database/";
     public static File[] listOfFiles;
 
+    static ArrayList<Medlem> loadedMembers = new ArrayList<>();
+
     // instance variables of medlem
     private static String navn;
     private static int medlemskabNr;
@@ -27,10 +29,20 @@ public class DatabaseController {
 
     // Save alleMedlemmer arraylist of MedlemController to files for each member
     public static void saveArrToFileDatabase() {
-        for (Medlem medlem : MedlemController.alleMedlemmer) {
-            saveMedlemAsFile(medlem);
-        }
         updateListOfFiles();
+        for (Medlem medlem : MedlemController.alleMedlemmer) {
+
+            // check if file exists
+            if (loadedMembers.contains(medlem)) {
+                System.out.println("File already exists. Updating file: " + medlem.getId() + ".txt");
+                deleteFile(medlem.getId() + ".txt");
+                saveMedlemAsFile(medlem);
+            } else {
+                System.out.println("File does not exist. Creating file: " + medlem.getId() + ".txt");
+                saveMedlemAsFile(medlem);
+            }
+            updateListOfFiles();
+        }
     }
 
     // Save a Medlem as a file
@@ -39,27 +51,19 @@ public class DatabaseController {
         try {
             File file = new File(DatabaseController.DATABASE_PATH + m.getId() + ".txt");
 
-            // check if file exists
-            if (file.createNewFile()) {
-                System.out.println("File created: " + file.getName());
-                writeFile(m, file);
+            // metode skriver ovenpå filen, hvis eksisterer
+            try (FileWriter fileWriter = new FileWriter(file, false)) {
 
+                writeFile(m, fileWriter);
                 System.out.println("Member data saved to file: " + file.getName());
-
-            } else if (file.exists()) {
-                    System.out.println("File already exists. Updating file: " + file.getName());
-                    deleteFile(m.getId() + ".txt");
-                    writeFile(m, file);
-            } else {
-                System.out.println();
             }
+
         } catch (IOException e) {
             System.err.println("Error saving member: " + m.getNavn());
         }
     }
 
-    private static void writeFile(Medlem m, File file) throws IOException {
-        FileWriter fileWriter = new FileWriter(file);
+    private static void writeFile(Medlem m, FileWriter fileWriter) throws IOException {
 
         // write file with structure to preserve all Medlem instance variables as strings
         fileWriter.write("navn: "+ m.getNavn() + "\n");
@@ -84,7 +88,7 @@ public class DatabaseController {
     // Load alleMedlemmer arraylist of MedlemController from files for each member
     public static void loadFilesToArr() {
         try {
-            ArrayList<Medlem> loadedMembers = loadFiles(); // Load members from files
+            loadedMembers = getLoadedMedlemmerFromFiles(); // Load members from files
             if (!loadedMembers.isEmpty()) {
                 MedlemController.alleMedlemmer.clear(); // Clear list only if files are loaded successfully
                 MedlemController.alleMedlemmer.addAll(loadedMembers);
@@ -95,7 +99,7 @@ public class DatabaseController {
     }
 
     // 1
-    private static ArrayList<Medlem> loadFiles() throws IOException {
+    private static ArrayList<Medlem> getLoadedMedlemmerFromFiles() throws IOException {
         updateListOfFiles();
         ArrayList<Medlem> loadedMembers = getMembersOfFiles();
         for (File file : listOfFiles) {
@@ -111,8 +115,6 @@ public class DatabaseController {
         }
         return loadedMembers;
     }
-
-
 
     // Update the list of files
     private static void updateListOfFiles() {
