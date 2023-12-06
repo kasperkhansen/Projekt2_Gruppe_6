@@ -13,7 +13,7 @@ public class DatabaseController {
     public static final String DATABASE_PATH = "src/Database/";
     public static File[] listOfFiles;
 
-    static ArrayList<Medlem> loadedMembers = new ArrayList<>();
+    public static ArrayList<Medlem> loadedMembers = new ArrayList<>();
 
     // instance variables of medlem
     private static String navn;
@@ -87,34 +87,15 @@ public class DatabaseController {
 
     // Load alleMedlemmer arraylist of MedlemController from files for each member
     public static void loadFilesToArr() {
-        try {
-            loadedMembers = getLoadedMedlemmerFromFiles(); // Load members from files
-            if (!loadedMembers.isEmpty()) {
-                MedlemController.alleMedlemmer.clear(); // Clear list only if files are loaded successfully
-                MedlemController.alleMedlemmer.addAll(loadedMembers);
-            }
-        } catch (IOException e) {
-            System.err.println("Error loading files: " + e.getMessage());
+        loadedMembers = getMedlemmerAfFiles(); // Load members from files
+        if (!loadedMembers.isEmpty()) {
+            MedlemController.alleMedlemmer.clear(); // Clear list only if files are loaded successfully
+            MedlemController.alleMedlemmer.addAll(loadedMembers);
         }
     }
 
     // 1
-    private static ArrayList<Medlem> getLoadedMedlemmerFromFiles() throws IOException {
-        updateListOfFiles();
-        ArrayList<Medlem> loadedMembers = getMembersOfFiles();
-        for (File file : listOfFiles) {
-            try {
-                Medlem medlem = getMedlemFromFile(file); // Directly get Medlem object
-                if (medlem != null) {
-                    loadedMembers.add(medlem);
-                }
-            } catch (Exception e) {
-                System.err.println("Error loading file: " + file.getName() + " - " + e.getMessage());
-                // Hvis error ved fil, så fortsættes til andre filer
-            }
-        }
-        return loadedMembers;
-    }
+
 
     // Update the list of files
     private static void updateListOfFiles() {
@@ -132,8 +113,22 @@ public class DatabaseController {
     }
 
 
-    // 2 Get a Medlem object from a file
-    public static Medlem getMedlemFromFile(File file) {
+    // 2 Get Medlem(s) fra File(s)
+
+    private static ArrayList<Medlem> getMedlemmerAfFiles() {
+        updateListOfFiles();
+       try {
+           for (File file : listOfFiles) {
+               loadedMembers.add(getMedlemFromFile(file));
+           }
+           return loadedMembers;
+       } catch (NullPointerException e) {
+           System.err.println("Error loading members");
+           return null;
+       }
+    }
+
+    private static Medlem getMedlemFromFile(File file) {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String navn = "";
             int medlemskabNr = 0;
@@ -164,7 +159,6 @@ public class DatabaseController {
         }
     }
 
-    // Get a Medlem object from ID
     public static Medlem getMedlemByMobileNumber(int mobileNummber) {
         updateListOfFiles();
         try {
@@ -181,13 +175,6 @@ public class DatabaseController {
         }
     }
 
-    private static ArrayList<Medlem> getMembersOfFiles() {
-        ArrayList<Medlem> loadedMembers = new ArrayList<>();
-        for (File file : DatabaseController.listOfFiles) {
-            loadedMembers.add(DatabaseController.getMedlemFromFile(file));
-        }
-        return loadedMembers;
-    }
 
     // Get the values from a file
     private static void getValues (File file) throws IOException {
@@ -235,7 +222,6 @@ public class DatabaseController {
     }
 
 
-
     private static void deleteFile(String iDtxt) {
         File file = new File(DatabaseController.DATABASE_PATH + iDtxt);
         if (file.delete()) {
@@ -248,7 +234,7 @@ public class DatabaseController {
     public static void printDatabase () {
         System.out.println("Printer database...");
         try {
-            loadFiles();
+            updateListOfFiles();
             for (File file : listOfFiles) {
                 getValues(file);
                 System.out.println("File: " + file.getName());

@@ -60,7 +60,7 @@ public class MedlemDatabaseTest {
             System.out.println("error: Number of files in database does not match number of members in arraylist.");
         }
 
-        ArrayList<Medlem> loadedMembers = getMembersOfFiles();
+        ArrayList<Medlem> loadedMembers = DatabaseController.loadedMembers;
 
         int i = 0;
         for (Medlem m : loadedMembers) {
@@ -97,11 +97,4 @@ public class MedlemDatabaseTest {
         System.out.println("testAlleMedlemmer passed successfully.");
     }
 
-    private static ArrayList<Medlem> getMembersOfFiles() {
-        ArrayList<Medlem> loadedMembers = new ArrayList<>();
-        for (File file : DatabaseController.listOfFiles) {
-            loadedMembers.add(DatabaseController.getMedlemFromFile(file));
-        }
-        return loadedMembers;
-    }
 }

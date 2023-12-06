@@ -17,7 +17,7 @@ import static Controller.MedlemController.getMedlemMedId;
 import static View.Input.booleanInput;
 
 public class KontingentController {
-    private static ArrayList<Medlem> alleMedlemmer = MedlemController.getAlleMedlemmer();
+
 
     private static ArrayList<Medlem> medlemmerMedKontingentBetalt = new ArrayList<>();
     private static ArrayList<Medlem> medlemmerUdenKontingentBetalt = new ArrayList<>();
@@ -29,6 +29,7 @@ public class KontingentController {
         System.out.println("Registrerer kontingent betaling...");
 
         while (true) {
+            System.out.println("test allemedlemmer arraylist size: " + MedlemController.alleMedlemmer.size());
             MedlemController.printAlleMedlemmerMobilNr();
 
             int MedlemId = Input.getIdInput();

@@ -1,6 +1,9 @@
 package Controller;
 import Model.*;
 import View.Input;
+import View.MenuSystem.FormandSubMenu;
+import View.MenuSystem.MedlemSubMenu;
+import View.MenuSystem.UserMenu;
 
 import java.util.ArrayList;
 
@@ -18,18 +21,39 @@ public class MedlemController {
     // medlem
     public static void registrerMedlem() {
         System.out.println("Registrerer medlem...");
+        int choice;
         while (true) {
             int mobilNumner = Input.getIdInput(); // Assuming this method gets the mobile number
             if (doesMemberExist(mobilNumner)) {
-                System.out.println("Mobil nummer eksisterer allerede. Er det dig? Eller vil du registrer nyt Medlem med andet Mobil nummer");
-
+                System.out.println("Mobil nummer eksisterer allerede.");
+                System.out.println();
+                System.out.println("1. Prøv igen");
+                System.out.println("2. Gå tilbage til Formand menu");
+                System.out.println("3. Opstart igen");
+                System.out.println("3. Afslut");
+                choice = Input.intInput("Valg: ");
+                switch (choice) {
+                    case 1:
+                        break;
+                    case 2:
+                        FormandSubMenu formandSubMenu = new FormandSubMenu();
+                        break;
+                    case 3:
+                        UserMenu.displayMenu();
+                        break;
+                    case 4:
+                        System.out.println("Afslutter...");
+                        System.exit(0);
+                        break;
+                    default:
+                        System.out.println("Ugyldigt input, prøv igen");
+                }
             } else {
                 tilfoejMedlem(new Medlem(Input.getNameInput("Indtast navn", "Ugyldigt navn, prøv igen"), Input.medlemskabInput(), Input.getBirthDateInput(), Input.getIdInput()));
                 break;
             }
         }
     }
-
 
     public static void tilfoejMedlem(Medlem medlem) {
         if (!alleMedlemmer.contains(medlem)) {

@@ -109,7 +109,9 @@ public abstract class Input {
         while (true) {
             System.out.println(message);
             try {
+
                 return scanner.next();
+
             } catch (Exception e) {
                 System.out.println(errorMessage);
             }
