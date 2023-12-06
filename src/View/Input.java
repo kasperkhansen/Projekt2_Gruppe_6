@@ -108,7 +108,16 @@ public abstract class Input {
     public static String getNameInput(String message) {
         while (true) {
             System.out.println(message);
+
             try {
+                scanner.nextLine();
+                String input = scanner.nextLine();
+
+                if (input.contains(" ")) {
+                    System.out.println("Indtast kun et fornavn. Prøv igen.");
+                } else {
+                    return input;
+                }
                 return scanner.next();
             } catch (Exception e) {
                 System.out.println("Error: " + e);
