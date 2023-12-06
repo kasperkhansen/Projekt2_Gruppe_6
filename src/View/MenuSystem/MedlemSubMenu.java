@@ -24,7 +24,7 @@ public class MedlemSubMenu {
         while (true) {
             System.out.println("\nVælg en mulighed:");
             System.out.println("1. Ændring af medlemskab");
-            System.out.println("2. Køb enganges billet");
+            System.out.println("2. Køb engangs billet");
             System.out.println("3. Gå tilbage til Bruger menu");
             System.out.println("4. Afslut");
 
