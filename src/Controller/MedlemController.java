@@ -141,11 +141,11 @@ public class MedlemController {
 
 
 
-    public void fillStaevneCrawl(){
-        for (Medlem m : TraenerController.BedsteStaevneTiderCrawl) {
-            m..get(0);
-        }
-    }
+ //   public void fillStaevneCrawl(){
+       // for (Medlem m : TraenerController.BedsteStaevneTiderCrawl) {
+           // m..get(0);
+       // }
+    //}
 
     public void fillStaevneBryst(){
         for (Medlem m : TraenerController.BedsteStaevneTiderBryst) {

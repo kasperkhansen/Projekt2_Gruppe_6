@@ -63,7 +63,7 @@ public class DatabaseController {
 
         // write file with structure to preserve all Medlem instance variables as strings
         fileWriter.write("navn: "+ m.getNavn() + "\n");
-        fileWriter.write("medlemskabsNr: "+ m.getMedlemsskabNr() + "\n");
+        fileWriter.write("medlemskabsNr: "+ m.getMedlemsskabsNr() + "\n");
         fileWriter.write("alder: "+ m.getAlder() + "\n");
         fileWriter.write("foedselsdato: "+ m.getFoedselsdato() + "\n");
 

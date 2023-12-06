@@ -2,11 +2,11 @@ navn: paul
 medlemskabsNr: 1
 alder: 31
 foedselsdato: 1992-01-01
-traening resultater:
+traening resultater: 
 
 
 
-konkurrence resultater:
+konkurrence resultater: 
 
 
 
