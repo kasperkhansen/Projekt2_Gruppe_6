@@ -4,6 +4,8 @@ import View.Input;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import static javax.swing.UIManager.get;
+
 public class MedlemController {
     public static ArrayList<Medlem> alleMedlemmer = new ArrayList<>();
 
@@ -139,34 +141,41 @@ public class MedlemController {
         }
     }
 
+//---------------------------------------Fill metoder------------------------------------------------------------------
+
     public void fillStaevneCrawl(){
         for (Medlem m : TraenerController.BedsteStaevneTiderCrawl) {
-            m.brystKonkurrence.get(0);
+            m.crawlKonkurrence.get(0);
         }
     }
 
     public void fillStaevneBryst(){
         for (Medlem m : TraenerController.BedsteStaevneTiderBryst) {
+            m.brystKonkurrence.get(0);
         }
     }
 
     public void fillStaevneButterfly(){
         for (Medlem m : TraenerController.BedsteStaevneTiderButterfly){
+            m.butterflyKonkurrence.get(0);
         }
     }
 
     public void fillTraeningCrawl(){
         for (Medlem m : TraenerController.BedsteTraeningsTiderCrawl) {
+            m.crawlTraening.get(0);
         }
     }
 
     public void fillTraeningBryst(){
         for (Medlem m : TraenerController.BedsteTraeningsTiderBryst) {
+            m.brystTraening.get(0);
         }
     }
 
     public void fillTraeningButterfly(){
         for (Medlem m : TraenerController.BedsteTraeningsTiderButterfly) {
+            m.butterflyTraening.get(0);
         }
 
 
