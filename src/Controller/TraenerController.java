@@ -1,14 +1,11 @@
 package Controller;
-
+import Comparatorer.*;
 import Model.*;
 import View.Input;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import Controller.MedlemController;
 import java.time.LocalDate;
-import static Controller.MedlemController.alleMedlemmer;
+
 import static Controller.MedlemController.getMedlemMedId;
 
 public class TraenerController {
@@ -45,7 +42,7 @@ public class TraenerController {
                 }  else {
                     System.out.println("Dette medlem er ikke en konkurrencesvømmer");
                 }
-                }
+            }
             else {
                 if (medlem.getMedlemsskabsNr()!=3) {
                     LocalDate hvilkenDato = Input.dateInput("Indtast træningsdato: ");
@@ -57,7 +54,10 @@ public class TraenerController {
                             medlem.crawlTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
                         case 3:
                             medlem.butterflyTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
-                }
+
+                    }
+
+                    DatabaseController.updaterMedlemFile(medlem);
                 } else {
                     System.out.println("Dette medlem er ikke et aktivt medlem");
                 }
@@ -65,86 +65,84 @@ public class TraenerController {
         } else {
             System.out.println("Ingen medlem fundet med dette navn");
         }
+
     }
 
-   static class SvoemmedisciplinComparator implements Comparator<Traeningsresultat>{
-        @Override
-        public int compare(Traeningsresultat o1, Traeningsresultat o2) {
-            if (o1.getTid() > o2.getTid())
-                return 1;
-            if (o1.getTid() == o2.getTid())
-                return 0;
-            else return -1;
+//-----------------------------------sortering metoder------------------------------------------------------------------
+
+    public static void sortListsBrystKonkurrence(ArrayList<Medlem> list){
+        Comparatorer.BrystKonkurrenceComparator brystKonkurrenceResultatSorter = new Comparatorer.BrystKonkurrenceComparator();
+        list.sort(brystKonkurrenceResultatSorter);
+    }
+
+    public static void sortListsBrystTraening(ArrayList<Medlem> list){
+        Comparatorer.BrystTraeningsComparator brystTraeningResultatSorter = new BrystTraeningsComparator();
+        list.sort(brystTraeningResultatSorter);
+    }
+
+    public static void sortListsCrawlKonkurrence(ArrayList<Medlem> list){
+        Comparatorer.CrawlKonkurrenceComparator crawlKonurrenceResultatSorter = new CrawlKonkurrenceComparator();
+        list.sort(crawlKonurrenceResultatSorter);
+    }
+
+    public static void sortListsCrawlTraening(ArrayList<Medlem> list){
+        Comparatorer.CrawlTraeningsComparator crawlTraeningsResultatSorter = new CrawlTraeningsComparator();
+        list.sort(crawlTraeningsResultatSorter);
+    }
+
+    public static void sortListsButterflyKonkurrence(ArrayList<Medlem> list){
+        Comparatorer.ButterflyKonkurrenceComparator buterflyKonkurrenceResultatSorter = new ButterflyKonkurrenceComparator();
+        list.sort(buterflyKonkurrenceResultatSorter);
+    }
+
+    public static void sortListsButterflyTraening(ArrayList<Medlem> list){
+        Comparatorer.ButterflyTraeningsComparator butterflyTraeningResultatSorter = new ButterflyTraeningsComparator();
+        list.sort(butterflyTraeningResultatSorter);
+    }
+
+
+    //--------------------------get tider get metoder-------------------------------------------------------------------
+
+    public static ArrayList<Medlem> getBedsteStaevneTidCrawl(){
+
+        double tid1;
+        double tid2;
+        double tid3;
+        double tid4;
+        double tid5;
+        ArrayList<Medlem> arrayList = new ArrayList<>();
+        MedlemController.fillStaevneCrawlMedMedlemmerMedTider();
+        sortListsCrawlKonkurrence(BedsteStaevneTiderCrawl);
+
+        for (int i = 0; i<5; i++){
+        BedsteStaevneTiderCrawl.get(0);
+        arrayList.add(BedsteStaevneTiderCrawl.get(i));
         }
+        return arrayList;
     }
 
-    public static void seTopFemSvoemmereCrawl() {
-        SvoemmedisciplinComparator CrawlSammenligner = new SvoemmedisciplinComparator();
-        Collections.sort(Medlem.crawlTraening, CrawlSammenligner);
-        System.out.println(Medlem.crawlTraening);
-    }
-    public static void seTopFemSvoemmereBryst() {
-            SvoemmedisciplinComparator BrystSammenligner = new SvoemmedisciplinComparator();
-            Collections.sort(Medlem.brystTraening, BrystSammenligner);
-        System.out.println(Medlem.brystTraening);
-    }
-    public static void seTopFemSvoemmereButterfly(){
-        SvoemmedisciplinComparator ButterflySammenligner = new SvoemmedisciplinComparator();
-        Collections.sort(Medlem.butterflyTraening, ButterflySammenligner);
-        System.out.println(Medlem.butterflyTraening);
+    public void getBedsteStaevneTidBryst(){
+        MedlemController.fillStaevneBrystMedMedlemmerMedTider();
+        sortListsBrystKonkurrence(BedsteStaevneTiderBryst);
     }
 
-
-    public static void main(String[] args) {
-        Medlem b = new Medlem("Bent", 2,  LocalDate.of(2003, 1, 1), 22222222);
-        alleMedlemmer.add(b);
-        registrerResultat();
-    }
-    static class SvoemmedisciplinKonkurrenceResultatComparator implements Comparator<Konkurrenceresultat>{
-        @Override
-        public int compare(Konkurrenceresultat o1, Konkurrenceresultat o2) {
-            if (o1.getTid() > o2.getTid())
-                return 1;
-            if (o1.getTid() == o2.getTid())
-                return 0;
-            else return -1;
-        }
-    }
-    public void seTopFemSteavneResultatCrawl() {
-        SvoemmedisciplinKonkurrenceResultatComparator staevneCrawlSammenligner = new SvoemmedisciplinKonkurrenceResultatComparator();
-        Collections.sort(Medlem.crawlKonkurrence, staevneCrawlSammenligner);
+    public void getBedsteStaevneTidButterfly(){
+        MedlemController.fillStaevneButterflyMedMedlemmerMedTider();
+        sortListsButterflyKonkurrence(BedsteStaevneTiderButterfly);
     }
 
-    public void seTopFemSteavneResultatBryst() {
-        SvoemmedisciplinKonkurrenceResultatComparator steavneBrystSammenligner = new SvoemmedisciplinKonkurrenceResultatComparator();
-        Collections.sort(Medlem.brystKonkurrence, steavneBrystSammenligner);
+    public void getBedsteTraeningsTidCrawl(){
+        MedlemController.fillTraeningCrawlMedMedlemmerMedTider();
+        sortListsCrawlTraening(BedsteTraeningsTiderCrawl);
     }
 
-    public void seTopFemSteavneResultatButterfly() {
-        SvoemmedisciplinKonkurrenceResultatComparator steavneButterflySammenligner = new SvoemmedisciplinKonkurrenceResultatComparator();
-        Collections.sort(Medlem.butterflyKonkurrence, steavneButterflySammenligner);
-    }
-
-    /*public String getBedsteStaevneTidCrawl() {
-        for (Medlem m: BedsteStaevneTiderCrawl) {
-            seTopFemSteavneResultatCrawl();
-            return;
-        }
-    }
-    public getBedsteStaevneTidBryst(){
-    }
-
-    public getBedsteStaevneTidButterfly(){
-    }
-
-    public getBedsteTraeningsTidCrawl(){
-    }
-
-    public getBedsteTraeningsTidBryst(){
+    public void getBedsteTraeningsTidBryst(){
+        MedlemController.fillTraeningBrystMedMedlemmerMedTider();
+        sortListsBrystTraening(BedsteTraeningsTiderBryst);
     }
 
     public getBedsteTraeningsTidButterfly(){
     }
 
-     */
+
 }

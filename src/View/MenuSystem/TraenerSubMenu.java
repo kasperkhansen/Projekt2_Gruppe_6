@@ -40,17 +40,18 @@ public class TraenerSubMenu {
                     //System.out.println("traenerController.registrerTraeningsResultater();");
                     break;
                 case 2:
-                    TraenerController.seTopFemSvoemmereCrawl();
+                    //TraenerController.seTopFemSvoemmereCrawl();
                     DatabaseController.saveArrToFileDatabase();
                     //System.out.println("traenerController.seTopFemSvoemmere();");
 
                     break;
                 case 3:
-                    TraenerController.seTopFemSvoemmereBryst();
+                    //TraenerController.seTopFemSvoemmereBryst();
+                    System.out.println(TraenerController.getBedsteStaevneTidCrawl());
 
                     break;
                 case 4:
-                    TraenerController.seTopFemSvoemmereButterfly();
+                    //TraenerController.seTopFemSvoemmereButterfly();
                     break;
 
                 case 5:

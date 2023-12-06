@@ -182,39 +182,45 @@ public class MedlemController {
 
 //---------------------------------------Fill metoder------------------------------------------------------------------
 
-    public void fillStaevneCrawl(){
-        for (Medlem m : TraenerController.BedsteStaevneTiderCrawl) {
-            m.crawlKonkurrence.get(0);
+    public static void fillStaevneCrawlMedMedlemmerMedTider(){
+        for (Medlem m : alleMedlemmer) {
+            if (m.crawlKonkurrence.get(0)!=null)
+                TraenerController.BedsteStaevneTiderCrawl.add(m);
         }
     }
 
-    public void fillStaevneBryst(){
-        for (Medlem m : TraenerController.BedsteStaevneTiderBryst) {
-            m.brystKonkurrence.get(0);
+    public static void fillStaevneBrystMedMedlemmerMedTider(){
+        for (Medlem m : alleMedlemmer) {
+            if (m.brystKonkurrence.get(0)!=null)
+                TraenerController.BedsteStaevneTiderBryst.add(m);
         }
     }
 
-    public void fillStaevneButterfly(){
-        for (Medlem m : TraenerController.BedsteStaevneTiderButterfly){
-            m.butterflyKonkurrence.get(0);
+    public static void fillStaevneButterflyMedMedlemmerMedTider(){
+        for (Medlem m : alleMedlemmer) {
+            if (m.butterflyKonkurrence.get(0)!=null)
+                TraenerController.BedsteStaevneTiderButterfly.add(m);
         }
     }
 
-    public void fillTraeningCrawl(){
-        for (Medlem m : TraenerController.BedsteTraeningsTiderCrawl) {
-            m.crawlTraening.get(0);
+    public static void fillTraeningCrawlMedMedlemmerMedTider(){
+        for (Medlem m : alleMedlemmer) {
+            if (m.crawlTraening.get(0)!=null)
+                TraenerController.BedsteTraeningsTiderCrawl.add(m);
         }
     }
 
-    public void fillTraeningBryst(){
-        for (Medlem m : TraenerController.BedsteTraeningsTiderBryst) {
-            m.brystTraening.get(0);
+    public static void fillTraeningBrystMedMedlemmerMedTider(){
+        for (Medlem m : alleMedlemmer) {
+            if (m.brystTraening.get(0)!=null)
+                TraenerController.BedsteTraeningsTiderBryst.add(m);
         }
     }
 
-    public void fillTraeningButterfly(){
-        for (Medlem m : TraenerController.BedsteTraeningsTiderButterfly) {
-            m.butterflyTraening.get(0);
+    public static void fillTraeningButterflyMedMedlemmerMedTider(){
+        for (Medlem m : alleMedlemmer) {
+            if (m.butterflyTraening.get(0)!=null)
+                TraenerController.BedsteTraeningsTiderButterfly.add(m);
         }
 
 
