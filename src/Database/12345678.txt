@@ -1,7 +1,7 @@
-navn: jens
+navn: paul
 medlemskabsNr: 1
-alder: 23
-foedselsdato: 2000-01-01
+alder: 31
+foedselsdato: 1992-01-01
 traening resultater: 
 
 

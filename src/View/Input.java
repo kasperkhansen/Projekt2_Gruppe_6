@@ -2,6 +2,7 @@ package View;
 
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public abstract class Input {
 
@@ -64,8 +65,8 @@ public abstract class Input {
             System.out.println("Vælg træning eller konkurrence: ");
             System.out.println("--------------------");
 
-            System.out.println("tast 1 for Træning");
-            System.out.println("tast 2 for Konkurrence");
+            System.out.println("tast 1 for Konkurrence");
+            System.out.println("tast 2 for Træning");
             int konkurrenceValg = intInput("Valg: ");
 
             if (konkurrenceValg < 3 && konkurrenceValg > 0) {
@@ -81,7 +82,17 @@ public abstract class Input {
             System.out.println("Indtast tid i format 00.00");
             System.out.println("--------------------");
 
-            double svoemmeTid = doubleInput("Indtast tid: ");
+            try {
+                String tidInput = stringInput("Indtast tid i format 00.00");
+
+                if (Pattern.matches("\\d+\\.\\d+", tidInput)) {
+                    return Double.parseDouble(tidInput);
+                } else {
+                    System.out.println("Ugyldig format, prøv igen.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Ugyldig format, prøv igen.");
+            }
         }
     }
 
@@ -141,6 +152,10 @@ public abstract class Input {
         return scanDate();
     }
 
+    public static LocalDate dateInput(){
+        return scanDate();
+    }
+
     private static LocalDate scanDate() {
 
         while (true) {
@@ -166,6 +181,7 @@ public abstract class Input {
             }
         }
     }
+
 
 
 }

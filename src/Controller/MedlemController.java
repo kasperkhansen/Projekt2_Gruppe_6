@@ -21,9 +21,10 @@ public class MedlemController {
 
     public static void tilfoejMedlem(Medlem medlem) {
         if (!alleMedlemmer.contains(medlem)) {
-            saveMedlemInFile(medlem);
+            DatabaseController.saveMedlemAsFile(medlem);
             alleMedlemmer.add(medlem);
-            System.out.println("(debug) Medlem tilføjet: " + medlem.getNavn());
+            DatabaseController.loadFilesToArr();
+            System.out.println("Medlem tilføjet: " + medlem.getNavn());
         }
     }
 
@@ -44,7 +45,7 @@ public class MedlemController {
                     System.out.println("Dette er det nuværende medlemskab. Vælg et andet for at skifte.");
                 }
             } while (nytMedlemskabNr == medlem.getMedlemsskabsNr());
-            DatabaseController.updaterMedlemFile(medlem, nytMedlemskabNr);
+
 
             String valgtMedlemskab;
             switch (nytMedlemskabNr) {
@@ -67,7 +68,7 @@ public class MedlemController {
                     System.out.println("Ugyldig indtastning, prøv igen");
                     return;
             }
-
+            DatabaseController.updaterMedlemFile(medlem);
         } else {
             System.out.println("Ingen medlem fundet med dette navn");
         }
@@ -101,15 +102,6 @@ public class MedlemController {
     }
 
     // 2 medlem Methods ---------------------------------------------
-    private static void saveMedlemInFile(Medlem medlem) {
-        String IDtxt = medlem.getId() + ".txt";
-        try {
-            DatabaseController.saveMedlemAsFile(medlem, DatabaseController.DATABASE_PATH + IDtxt);
-        } catch (Exception e) {
-            System.out.println("Error saving member: " + medlem.getNavn());
-        }
-    }
-
     public static void fjernMedlem(Medlem medlem) {
         alleMedlemmer.remove(medlem);
         System.out.println("Medlem fjernet: " + medlem.getNavn());
@@ -124,6 +116,10 @@ public class MedlemController {
         return null;
     }
 
+    public static ArrayList<Medlem> getAlleMedlemmer() {
+        return alleMedlemmer;
+    }
+
     public static void opdaterMedlem(Medlem medlem) {
         fjernMedlem(medlem);
         tilfoejMedlem(medlem);
@@ -134,6 +130,52 @@ public class MedlemController {
         for (Medlem medlem : alleMedlemmer) {
             System.out.print(medlem.toString());
         }
+        System.out.println();
     }
+
+    public static void printAlleMedlemmerMobilNr() {
+        for (Medlem medlem : alleMedlemmer) {
+            System.out.println(medlem.getNavn() + " " + medlem.getId());
+        }
+    }
+
+
+
+    public void fillStaevneCrawl(){
+        for (Medlem m : TraenerController.BedsteStaevneTiderCrawl) {
+            m..get(0);
+        }
+    }
+
+    public void fillStaevneBryst(){
+        for (Medlem m : TraenerController.BedsteStaevneTiderBryst) {
+        }
+    }
+
+    public void fillStaevneButterfly(){
+        for (Medlem m : TraenerController.BedsteStaevneTiderButterfly){
+        }
+    }
+
+    public void fillTraeningCrawl(){
+        for (Medlem m : TraenerController.BedsteTraeningsTiderCrawl) {
+        }
+    }
+
+    public void fillTraeningBryst(){
+        for (Medlem m : TraenerController.BedsteTraeningsTiderBryst) {
+        }
+    }
+
+    public void fillTraeningButterfly(){
+        for (Medlem m : TraenerController.BedsteTraeningsTiderButterfly) {
+        }
+
+
+    }
+
+
+
+
 
 }

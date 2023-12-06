@@ -3,27 +3,37 @@ package Controller;
 import Model.*;
 import View.Input;
 
-
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
+import Controller.MedlemController;
 import java.time.LocalDate;
-
+import static Controller.MedlemController.alleMedlemmer;
 import static Controller.MedlemController.getMedlemMedId;
 
 public class TraenerController {
 
-    public static void registrerResultat(int id) {
+    static ArrayList<Medlem> BedsteTraeningsTiderCrawl = new ArrayList<Medlem>();
+    static ArrayList<Medlem> BedsteTraeningsTiderBryst = new ArrayList<Medlem>();
+    static ArrayList<Medlem> BedsteTraeningsTiderButterfly = new ArrayList<Medlem>();
+    static ArrayList<Medlem> BedsteStaevneTiderCrawl = new ArrayList<Medlem>();
+    static ArrayList<Medlem> BedsteStaevneTiderBryst = new ArrayList<Medlem>();
+    static ArrayList<Medlem> BedsteStaevneTiderButterfly = new ArrayList<Medlem>();
+
+    public static void registrerResultat() {
+        int id = Input.getIdInput();
+
         Medlem medlem = getMedlemMedId(id);
+
         if (medlem != null) {
             int nyDisciplinTid = Input.svoemmeDisciplinValg();
             int nyDisciplinType = Input.konkurrenceValg();
-            double nyTid = Input.svoemmeTid();
 
             if (nyDisciplinType == 1) {
                 if (medlem.getMedlemsskabsNr()==1){
                     String hvilketStaevne = Input.stringInput("Indtast stævne: ");
                     int hvilkenPlacering = Input.intInput("Indtast placering: ");
+                    double nyTid = Input.svoemmeTid();
                     switch (nyDisciplinTid) {
                         case 1:
                             medlem.brystKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
@@ -38,7 +48,8 @@ public class TraenerController {
                 }
             else {
                 if (medlem.getMedlemsskabsNr()!=3) {
-                    LocalDate hvilkenDato = Input.dateInput("Indtast dato: ");
+                    LocalDate hvilkenDato = Input.dateInput("Indtast træningsdato: ");
+                    double nyTid = Input.svoemmeTid();
                     switch (nyDisciplinTid) {
                         case 1:
                             medlem.brystTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
@@ -55,31 +66,85 @@ public class TraenerController {
             System.out.println("Ingen medlem fundet med dette navn");
         }
     }
-class SvoemmedisciplinComparator implements Comparator<Traeningsresultat>{
-    @Override
-    public int compare(Traeningsresultat o1, Traeningsresultat o2) {
-        if (o1.getTraeningsTid() > o2.getTraeningsTid())
-            return 1;
-        if (o1.getTraeningsTid() == o2.getTraeningsTid())
-            return 0;
-        else return -1;
-    }
-}
 
-    public void seTopFemSvoemmereCrawl() {
+   static class SvoemmedisciplinComparator implements Comparator<Traeningsresultat>{
+        @Override
+        public int compare(Traeningsresultat o1, Traeningsresultat o2) {
+            if (o1.getTid() > o2.getTid())
+                return 1;
+            if (o1.getTid() == o2.getTid())
+                return 0;
+            else return -1;
+        }
+    }
+
+    public static void seTopFemSvoemmereCrawl() {
         SvoemmedisciplinComparator CrawlSammenligner = new SvoemmedisciplinComparator();
         Collections.sort(Medlem.crawlTraening, CrawlSammenligner);
+        System.out.println(Medlem.crawlTraening);
     }
-    public void seTopFemSvoemmereBryst() {
+    public static void seTopFemSvoemmereBryst() {
             SvoemmedisciplinComparator BrystSammenligner = new SvoemmedisciplinComparator();
             Collections.sort(Medlem.brystTraening, BrystSammenligner);
+        System.out.println(Medlem.brystTraening);
     }
-
-    public void seTopFemSvoemmereButterfly(){
+    public static void seTopFemSvoemmereButterfly(){
         SvoemmedisciplinComparator ButterflySammenligner = new SvoemmedisciplinComparator();
         Collections.sort(Medlem.butterflyTraening, ButterflySammenligner);
+        System.out.println(Medlem.butterflyTraening);
     }
 
-    public void registrerKonkurrenceSvoemmeresRsultat() {
+
+    public static void main(String[] args) {
+        Medlem b = new Medlem("Bent", 2,  LocalDate.of(2003, 1, 1), 22222222);
+        alleMedlemmer.add(b);
+        registrerResultat();
     }
+    static class SvoemmedisciplinKonkurrenceResultatComparator implements Comparator<Konkurrenceresultat>{
+        @Override
+        public int compare(Konkurrenceresultat o1, Konkurrenceresultat o2) {
+            if (o1.getTid() > o2.getTid())
+                return 1;
+            if (o1.getTid() == o2.getTid())
+                return 0;
+            else return -1;
+        }
+    }
+    public void seTopFemSteavneResultatCrawl() {
+        SvoemmedisciplinKonkurrenceResultatComparator staevneCrawlSammenligner = new SvoemmedisciplinKonkurrenceResultatComparator();
+        Collections.sort(Medlem.crawlKonkurrence, staevneCrawlSammenligner);
+    }
+
+    public void seTopFemSteavneResultatBryst() {
+        SvoemmedisciplinKonkurrenceResultatComparator steavneBrystSammenligner = new SvoemmedisciplinKonkurrenceResultatComparator();
+        Collections.sort(Medlem.brystKonkurrence, steavneBrystSammenligner);
+    }
+
+    public void seTopFemSteavneResultatButterfly() {
+        SvoemmedisciplinKonkurrenceResultatComparator steavneButterflySammenligner = new SvoemmedisciplinKonkurrenceResultatComparator();
+        Collections.sort(Medlem.butterflyKonkurrence, steavneButterflySammenligner);
+    }
+
+    /*public String getBedsteStaevneTidCrawl() {
+        for (Medlem m: BedsteStaevneTiderCrawl) {
+            seTopFemSteavneResultatCrawl();
+            return;
+        }
+    }
+    public getBedsteStaevneTidBryst(){
+    }
+
+    public getBedsteStaevneTidButterfly(){
+    }
+
+    public getBedsteTraeningsTidCrawl(){
+    }
+
+    public getBedsteTraeningsTidBryst(){
+    }
+
+    public getBedsteTraeningsTidButterfly(){
+    }
+
+     */
 }

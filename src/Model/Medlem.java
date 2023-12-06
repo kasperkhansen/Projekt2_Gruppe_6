@@ -1,11 +1,10 @@
 package Model;
-import Controller.DatabaseController;
-import Controller.MedlemController;
 import View.Input;
-
+import javax.sound.midi.Soundbank;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 public class Medlem {
     public static KontingentBetaling getKontingentBetaling;
@@ -14,24 +13,26 @@ public class Medlem {
 
     public static final ArrayList<Traeningsresultat> butterflyTraening = new ArrayList<>();
 
-    public final ArrayList<Konkurrenceresultat> butterflyKonkurrence = new ArrayList<>();
+    public static final ArrayList<Konkurrenceresultat> butterflyKonkurrence = new ArrayList<>();
 
     public static final ArrayList<Traeningsresultat> crawlTraening = new ArrayList<>();
 
-    public final ArrayList<Konkurrenceresultat> crawlKonkurrence = new ArrayList<>();
+    public static final ArrayList<Konkurrenceresultat> crawlKonkurrence = new ArrayList<>();
 
     public static final ArrayList<Traeningsresultat> brystTraening = new ArrayList<>();
 
-    public final ArrayList<Konkurrenceresultat> brystKonkurrence = new ArrayList<>();
+    public static final ArrayList<Konkurrenceresultat> brystKonkurrence = new ArrayList<>();
+
 
     private int medlemsskabsNr;
-
 
     private int alder;
     public final LocalDate foedselsdato;
     private final int id;
     public boolean erSenior = false;
     public boolean erPensionist = false;
+
+    LocalDate sidstBetalt;
 
     // 3 options: "aktiv + konkurrence", "aktiv + motionist", "passiv"
     public Medlem(String navn, int medlemsskabNr, LocalDate foedselsdato, int id){
@@ -41,9 +42,8 @@ public class Medlem {
         this.foedselsdato = foedselsdato;
         this.alder = udregnAlder();
         this.id = id;
+        this.sidstBetalt = LocalDate.now();
     }
-
-
 
     // -----------------------------------------alder metoder------------------------------------------------------------
     int udregnAlder () {
@@ -126,6 +126,7 @@ public class Medlem {
 
     //Tjekke om id tæller op ved flere objekter
 
+
     //--------------------------------------------------get metoder---------------------------------------------------------
     public String getNavn() {
         return navn;
@@ -151,12 +152,12 @@ public class Medlem {
         return id;
     }
 
-
     //--------------------------------------------------set metoder---------------------------------------------------------
     @Override
     public String toString() {
-        return " " + navn + medlemsskab+  alder + foedselsdato;
+        return " " + navn +", "+ medlemsskab.get(0).toString() + ", "+  alder +", "+ foedselsdato + ", id: " + id;
     }
+
 
 
     public int getMedlemskabNr() {
@@ -164,28 +165,38 @@ public class Medlem {
     }
 
 
+
     // get metoder til Traening og Konkurrence
-    public ArrayList<Integer> getButterflyTraening() {
-        return null;
+    public ArrayList<Traeningsresultat> getButterflyTraening() {
+        return butterflyTraening;
     }
 
-    public ArrayList<Integer> getCrawlTraening() {
-        return null;
+    public ArrayList<Traeningsresultat> getCrawlTraening() {
+        return crawlTraening;
     }
 
-    public ArrayList<Integer> getBrystTraening() {
-        return null;
+    public ArrayList<Traeningsresultat> getBrystTraening() {
+        return brystTraening;
     }
 
-    public ArrayList<Integer> getButterflyKonkurrence() {
-        return null;
+    public ArrayList<Konkurrenceresultat> getButterflyKonkurrence() {
+        return butterflyKonkurrence;
     }
 
-    public ArrayList<Integer> getCrawlKonkurrence() {
-        return null;
+    public ArrayList<Konkurrenceresultat> getCrawlKonkurrence() {
+        return crawlKonkurrence;
     }
 
-    public ArrayList<Integer> getBrystKonkurrence() {
-        return null;
+    public ArrayList<Konkurrenceresultat> getBrystKonkurrence() {
+        return brystKonkurrence;
     }
+
+    public void setSidstBetalt(LocalDate sidstBetalt) {
+        this.sidstBetalt = sidstBetalt;
+    }
+
+    public LocalDate getSidstBetalt() {
+        return sidstBetalt;
+    }
+
 }
