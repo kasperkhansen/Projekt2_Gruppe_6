@@ -1,0 +1,12 @@
+navn: 
+medlemskabsNr: 3
+alder: 63
+foedselsdato: 1960-10-03
+traening resultater: 
+
+
+
+konkurrence resultater: 
+
+
+

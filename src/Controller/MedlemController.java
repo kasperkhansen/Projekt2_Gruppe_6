@@ -93,7 +93,7 @@ public class MedlemController {
                 case 2:
                     medlem.setMedlemskab(2);
                     valgtMedlemskab = "Aktiv - motionist.";
-                    System.out.println("Medlemskab for medlem med ID" + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
+                    System.out.println("Medlemskab for medlem med ID " + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
                     break;
                 case 3:
                     medlem.setMedlemskab(3);
