@@ -114,7 +114,7 @@ public abstract class Input {
                 String input = scanner.nextLine();
 
                 if (input.contains(" ")) {
-                    System.out.println("Indtast kun et fornavn. Prøv igen.");
+                    System.out.println("Indtast kun et fornavn, prøv igen.");
                 } else {
                     return input;
                 }
