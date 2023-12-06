@@ -88,17 +88,17 @@ public class MedlemController {
                 case 1:
                     medlem.setMedlemskab(1);
                     valgtMedlemskab = "Aktiv - konkurrence.";
-                    System.out.println("Medlemskab for " + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
+                    System.out.println("Medlemskab for medlem med ID " + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
                     break;
                 case 2:
                     medlem.setMedlemskab(2);
                     valgtMedlemskab = "Aktiv - motionist.";
-                    System.out.println("Medlemskab for " + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
+                    System.out.println("Medlemskab for medlem med ID" + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
                     break;
                 case 3:
                     medlem.setMedlemskab(3);
                     valgtMedlemskab = "Passivt.";
-                    System.out.println("Medlemskab for " + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
+                    System.out.println("Medlemskab for medlem med ID" + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
                     break;
                 default:
                     System.out.println("Ugyldig indtastning, prøv igen");
@@ -113,24 +113,25 @@ public class MedlemController {
     // betal
     public static void betalEngangsbillet() {
         System.out.println("Betal engangsbillet i proces...");
+
         if (!alleMedlemmer.isEmpty()) {
-            String søgtNavn = Input.getNameInput("Indtast navn", "Ugyldigt navn, prøv igen");
+            int søgtId = Input.getIdInput();
             boolean medlemFundet = false;
 
             for (Medlem med : alleMedlemmer) {
-                if (med.getNavn().equals(søgtNavn)) {
+                if (med.getId() == søgtId) {
                     medlemFundet = true;
 
                     if (med.erPassivtMedlemskab()) {
-                        System.out.println("Engangsbillet til " + søgtNavn + " er købt");
+                        System.out.println("Engangsbillet til medlem med ID " + søgtId + " er købt.");
                     } else {
-                        System.out.println(søgtNavn + " er ikke passivt medlem.");
+                        System.out.println("Medlem med ID" + søgtId + " er ikke passivt medlem.");
                     }
                     break;
                 }
             }
             if (!medlemFundet) {
-                System.out.println("Ingen medlem fundet med dette navn: " + søgtNavn);
+                System.out.println("Ingen medlem fundet med dette navn: " + søgtId);
             }
         } else {
             System.out.println("Ingen medlemmer i listen");

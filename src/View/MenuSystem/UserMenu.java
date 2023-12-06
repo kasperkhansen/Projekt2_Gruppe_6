@@ -7,7 +7,7 @@ public class UserMenu {
 
     public static void displayMenu() {
         DatabaseController.loadFilesToArr();
-        System.out.println("\nVelkommen " + "!");
+        System.out.println("\nWelcome " + "!");
         System.out.println("--------------------");
         while (true) {
             System.out.println("\nHvilken bruger type er de?:");
