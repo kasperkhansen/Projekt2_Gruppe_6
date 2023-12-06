@@ -7,8 +7,7 @@ public class UserMenu {
 
     public static void displayMenu() {
         DatabaseController.loadFilesToArr();
-        String userName = Input.getNameInput("Indtast brugernavn: ", "Ugyldigt brugernavn, prøv igen");
-        System.out.println("\nWelcome " + userName + "!");
+        System.out.println("\nWelcome " + "!");
         System.out.println("--------------------");
         while (true) {
             System.out.println("\nHvilken bruger type er de?:");

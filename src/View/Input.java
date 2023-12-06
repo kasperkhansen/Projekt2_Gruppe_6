@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public abstract class Input {
 
-    private static final Scanner scanner= newScannerErrorHandling();
+    private static final Scanner scanner = newScannerErrorHandling();
 
     /*public static int getAgeInput() {
         return 0;
@@ -126,14 +126,19 @@ public abstract class Input {
 
     // datatype input
     public static int intInput(String message) {
-        System.out.println(message);
-        try {
-            // logic to avoid nullPointerException
-            return scanner.nextInt();
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
+        while (true) {
+            try {
+                System.out.println(message);
+                int input = scanner.nextInt();
+                scanner.nextLine();
+
+                return input;
+
+            } catch (Exception e) {
+                System.out.println("Indtast et gyldigt heltal");
+                scanner.nextLine();
+            }
         }
-        return 0;
     }
 
     public static double doubleInput(String message) {
