@@ -141,7 +141,9 @@ public class TraenerController {
         sortListsBrystTraening(BedsteTraeningsTiderBryst);
     }
 
-    public getBedsteTraeningsTidButterfly(){
+    public void getBedsteTraeningsTidButterfly(){
+        MedlemController.fillTraeningButterflyMedMedlemmerMedTider();
+        sortListsButterflyTraening(BedsteTraeningsTiderButterfly);
     }
 
 

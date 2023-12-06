@@ -55,7 +55,7 @@ public class TraenerSubMenu {
                     break;
 
                 case 5:
-                    //traenerController.registrerKonkurrenceSvoemmeresRsultat();
+                    //TraenerController.registrerKonkurrenceSvoemmeresRsultat();
                     DatabaseController.saveArrToFileDatabase();
                     System.out.println("traenerController.registrerKonkurrenceSvoemmeresRsultat();");
                     break;
