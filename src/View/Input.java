@@ -122,6 +122,7 @@ public abstract class Input {
     public static int intInput(String message) {
         System.out.println(message);
         try {
+            // logic to avoid nullPointerException
             return scanner.nextInt();
         } catch (Exception e) {
             System.out.println("Error: " + e);

@@ -2,3 +2,11 @@ navn: Hauge
 medlemskabsNr: 1
 alder: 22
 foedselsdato: 2001-11-09
+traening resultater: 
+
+
+
+konkurrence resultater: 
+
+
+
