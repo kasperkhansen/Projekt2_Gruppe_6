@@ -115,7 +115,6 @@ public class TraenerController {
         sortListsCrawlKonkurrence(BedsteStaevneTiderCrawl);
 
         for (int i = 0; i<5; i++){
-        BedsteStaevneTiderCrawl.get(0);
         arrayList.add(BedsteStaevneTiderCrawl.get(i));
         }
         return arrayList;
@@ -146,5 +145,7 @@ public class TraenerController {
         sortListsButterflyTraening(BedsteTraeningsTiderButterfly);
     }
 
-
+    public static void main(String[] args) {
+        System.out.println(getBedsteStaevneTidCrawl());
+    }
 }

@@ -185,7 +185,7 @@ public class MedlemController {
 
     public static void fillStaevneCrawlMedMedlemmerMedTider(){
         for (Medlem m : alleMedlemmer) {
-            if (m.crawlKonkurrence.get(0)!=null)
+            if (m.crawlKonkurrence.isEmpty())
                 TraenerController.BedsteStaevneTiderCrawl.add(m);
         }
     }
