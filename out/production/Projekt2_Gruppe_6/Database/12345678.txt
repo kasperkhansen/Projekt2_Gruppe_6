@@ -1,0 +1,4 @@
+navn: Peter
+medlemskabsNr: 1
+alder: 23
+foedselsdato: 2000-09-17
