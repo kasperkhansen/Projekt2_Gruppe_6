@@ -1,0 +1,12 @@
+navn: Svend1
+medlemskabsNr: 2
+alder: 63
+foedselsdato: 1960-08-17
+traening resultater: 
+
+
+
+konkurrence resultater: 
+
+
+

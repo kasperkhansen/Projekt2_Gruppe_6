@@ -60,10 +60,31 @@ public class KontingentController {
         betalinger.add(nyBetaling);
 
         int kontingentBeløb = nyBetaling.beregnKontingent();
+        String medlemskabstype = "";
+        int pris = 0;
 
-        int nr = medlem.getId();
+        if (aktivMedlem) {
+            if (seniorMedlem) {
+                if (pensionistRabat) {
+                    medlemskabstype = "Aktivt senior med pensionistrabat";
+                    pris = nyBetaling.beregnRabat(nyBetaling.aktivSeniorKontingent);
+                } else {
+                    medlemskabstype = "Aktivt senior medlemskab";
+                    pris = nyBetaling.aktivSeniorKontingent;
+                }
+            } else {
+                medlemskabstype = "Aktivt junior medlemskab";
+                pris = nyBetaling.aktivJuniorKontingent;
+            }
+        } else {
+            medlemskabstype = "Passivt medlemskab";
+            pris = nyBetaling.passivKontingent;
+        }
 
-        System.out.println("Betalingen for " + medlem.getNavn() + " er registreret");
+        System.out.println(medlemskabstype + " for " + medlem.getNavn() + " er betalt.");
+        System.out.println("Total: " + kontingentBeløb + "kr");
+
+        medlem.setKontingentBetalt(true); // marker kontingentet som betalt
         medlem.setSidstBetalt(LocalDate.now());
         // System.out.println(nyBetaling.besked());
     }
@@ -75,20 +96,35 @@ public class KontingentController {
     }
 
     public void overblikOverKontingentBetalinger(List<Medlem> alleMedlemmer) {
-
         LocalDate now = LocalDate.now();
+
         for (Medlem medlem : alleMedlemmer) {
             LocalDate sidstBetalt = medlem.getSidstBetalt();
             Period period = Period.between(sidstBetalt, now);
+
+            KontingentBetaling betaling = new KontingentBetaling(
+                    !medlem.erPassivtMedlemskab(),
+                    medlem.erSenior,
+                    medlem.erPensionist(),
+                    medlem.getFoedselsdato()
+            );
+
             if (period.getYears() >= 1) {
-                medlemmerUdenKontingentBetalt.add(medlem);
-            } else {
+                betaling.bekræftBetaling();
+                medlem.setKontingentBetalt(true); // marker kontingentet som betalt
+               // medlemmerUdenKontingentBetalt.add(medlem);
+            }
+
+            if (medlem.harBetaltKontingent()) {
                 medlemmerMedKontingentBetalt.add(medlem);
+            } else {
+                medlemmerUdenKontingentBetalt.add(medlem);
             }
 
             //    updateLists();
             System.out.println("--------------------------\n");
             System.out.println("Overblik over kontingent betalinger: ");
+            System.out.println();
             System.out.println("Medlemmer med kontingent betalt: ");
             for (Medlem m : medlemmerMedKontingentBetalt) {
                 System.out.println(m.getNavn());

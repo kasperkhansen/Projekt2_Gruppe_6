@@ -3,15 +3,16 @@ package Model;
 import java.time.LocalDate;
 
 public class KontingentBetaling {
+    public int aktivSeniorKontingent;
     private boolean aktivMedlem;
     private boolean seniorMedlem;
     private boolean pensionistRabat;
     private boolean passivMedlem;
     private LocalDate foedsesldato;
 
-    private int aktivJuniorKontingent = 1000;
+    public int aktivJuniorKontingent = 1000;
     private int aktivSeniorkontingent = 1600;
-    private int passivKontingent = 500;
+    public int passivKontingent = 500;
 
     private boolean betaltKontingent;
 
@@ -25,10 +26,6 @@ public class KontingentBetaling {
 
     public void bekræftBetaling () {
         this.betaltKontingent=true;
-    }
-
-    public boolean erBetalt () {
-        return betaltKontingent;
     }
 
     public int beregnKontingent () {
@@ -47,7 +44,7 @@ public class KontingentBetaling {
         }
     }
 
-    private int beregnRabat(int pris) {
+    public int beregnRabat(int pris) {
         return (int) (pris * 0.75); // 25% rabat
     }
 
