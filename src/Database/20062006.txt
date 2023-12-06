@@ -1,7 +1,7 @@
-navn: Hauge
+navn: john
 medlemskabsNr: 1
-alder: 22
-foedselsdato: 2001-11-09
+alder: 23
+foedselsdato: 2000-01-01
 traening resultater: 
 
 

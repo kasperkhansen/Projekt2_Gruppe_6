@@ -51,8 +51,4 @@ public class FormandSubMenu {
             }
         }
     }
-
-    public static void main(String[] args) {
-        new FormandSubMenu();
-    }
 }

@@ -36,12 +36,12 @@ public class MedlemSubMenu {
                 case 1:
                     MedlemController.skiftMedlemskabMedInputScan();
                     DatabaseController.saveArrToFileDatabase();
-                    System.out.println("medlemController.aendreMedlemskab() chosen");
+
                     break;
                 case 2:
                     MedlemController.betalEngangsbillet();
                     DatabaseController.saveArrToFileDatabase();
-                    System.out.println("kontingentController.koebEnGangsBillet()");
+
                     break;
                 case 3:
                     UserMenu.displayMenu();
