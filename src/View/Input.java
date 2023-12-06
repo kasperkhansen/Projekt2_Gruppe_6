@@ -105,13 +105,13 @@ public abstract class Input {
         }
     }
 
-    public static String getNameInput(String message) {
+    public static String getNameInput(String message, String errorMessage) {
         while (true) {
             System.out.println(message);
             try {
                 return scanner.next();
             } catch (Exception e) {
-                System.out.println("Error: " + e);
+                System.out.println(errorMessage);
             }
         }
     }

@@ -18,7 +18,7 @@ public class MedlemController {
     public static void registrerMedlem() {
         System.out.println("Registrerer medlem...");
 
-        tilfoejMedlem(new Medlem(Input.getNameInput("Indtast navn"), Input.medlemskabInput(), Input.getBirthDateInput(), Input.getIdInput()));
+        tilfoejMedlem(new Medlem(Input.getNameInput("Indtast navn", "Ugyldigt navn, prøv igen"), Input.medlemskabInput(), Input.getBirthDateInput(), Input.getIdInput()));
     }
 
     public static void tilfoejMedlem(Medlem medlem) {
@@ -80,7 +80,7 @@ public class MedlemController {
     public static void betalEngangsbillet() {
         System.out.println("Betal engangsbillet i proces...");
         if (!alleMedlemmer.isEmpty()) {
-            String søgtNavn = Input.getNameInput("Indtast navn");
+            String søgtNavn = Input.getNameInput("Indtast navn", "Ugyldigt navn, prøv igen");
             boolean medlemFundet = false;
 
             for (Medlem med : alleMedlemmer) {

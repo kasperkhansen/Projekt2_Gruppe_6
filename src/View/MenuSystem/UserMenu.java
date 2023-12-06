@@ -4,15 +4,10 @@ import Controller.DatabaseController;
 import View.Input;
 
 public class UserMenu {
-    int choice;
-    static String userName;
-
-    public UserMenu() {
-        userName = Input.getNameInput("user name");
-    }
 
     public static void displayMenu() {
         DatabaseController.loadFilesToArr();
+        String userName = Input.getNameInput("Indtast brugernavn: ", "Ugyldigt brugernavn, prøv igen");
         System.out.println("\nWelcome " + userName + "!");
         System.out.println("--------------------");
         while (true) {
@@ -24,7 +19,6 @@ public class UserMenu {
             System.out.println("5. Afslut");
             int choice = Input.intInput("Valg: ");
             System.out.println("--------------------\n");
-
 
             switch (choice) {
                 case 1:

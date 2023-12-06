@@ -165,7 +165,6 @@ public class Medlem {
     }
 
 
-
     // get metoder til Traening og Konkurrence
     public ArrayList<Traeningsresultat> getButterflyTraening() {
         return butterflyTraening;
