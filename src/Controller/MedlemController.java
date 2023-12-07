@@ -76,16 +76,6 @@ public class MedlemController {
         if (!alleMedlemmer.contains(medlem)) {
             DatabaseController.saveMedlemAsFile(medlem);
             alleMedlemmer.add(medlem);
-            DatabaseController.loadFilesToArr();
-        } else {
-            System.out.println("Test: " + medlem.getNavn());
-            System.out.println("alleMedlemmer indeholder + " + medlem.getNavn());
-            System.out.println("Test: nytMedlem indehold" + medlem.getNavn());
-            System.out.println(medlem);
-            Medlem m = getMedlemMedId(medlem.getId());
-            System.out.println("Test: alleMedlemmer indeholder + " + m.getNavn());
-            System.out.println(m);
-
         }
     }
 
@@ -110,6 +100,7 @@ public class MedlemController {
                 }
             } while (nytMedlemskabNr == medlem.getMedlemsskabsNr());
 
+            System.out.println("Test: "+ medlem.getId()+ " " + medlem.getNavn() + " " + medlem.getMedlemsskabsNr());
 
             String valgtMedlemskab;
             switch (nytMedlemskabNr) {
@@ -127,12 +118,18 @@ public class MedlemController {
                     medlem.setMedlemskab(3);
                     valgtMedlemskab = "Passivt.";
                     System.out.println("Medlemskab for medlem med ID" + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
+
                     break;
                 default:
                     System.out.println("Ugyldig indtastning, prøv igen");
                     return;
             }
-            DatabaseController.updaterMedlemFile(medlem);
+            // opdater alleMedlemmer med opdateret medlem
+            System.out.println("Test: "+ medlem.getId()+ " " + medlem.getNavn() + " " + medlem.getMedlemsskabsNr());
+            System.out.println(medlem.getMedlemsskabsNr());
+            opdaterMedlem(medlem);
+
+            DatabaseController.setMedlemskabsNr(medlem.getId(), nytMedlemskabNr);
         } else {
             System.out.println("Ingen medlem fundet med dette navn");
         }
@@ -167,11 +164,6 @@ public class MedlemController {
     }
 
     // 2 medlem Methods ---------------------------------------------
-    public static void fjernMedlem(Medlem medlem) {
-        alleMedlemmer.remove(medlem);
-        System.out.println("Medlem fjernet: " + medlem.getNavn());
-    }
-
     public static Medlem getMedlemMedId(int id) {
         for (Medlem medlem : alleMedlemmer) {
             if (medlem.getId() == id) {
@@ -186,15 +178,18 @@ public class MedlemController {
     }
 
     public static void opdaterMedlem(Medlem medlem) {
+        // get index of
         fjernMedlem(medlem);
-        tilfoejMedlem(medlem);
+        alleMedlemmer.add(medlem);
+    }
+
+    public static void fjernMedlem(Medlem medlem) {
+        alleMedlemmer.remove(medlem);
     }
 
 
-
     public static boolean doesMemberExist(int mobileNumber) {
-        boolean doesMemberExist = getMedlemByMobileNumber(mobileNumber) != null;
-        return doesMemberExist;
+        return getMedlemByMobileNumber(mobileNumber) != null;
     }
 
 

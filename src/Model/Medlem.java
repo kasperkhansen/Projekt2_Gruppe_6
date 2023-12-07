@@ -8,21 +8,21 @@ import java.util.ArrayList;
 public class Medlem {
     public static KontingentBetaling getKontingentBetaling;
     private final String navn;
+
+
+    public ArrayList<Traeningsresultat> butterflyTraening = new ArrayList<>();
+
+    public ArrayList<Konkurrenceresultat> butterflyKonkurrence = new ArrayList<>();
+
+    public ArrayList<Traeningsresultat> crawlTraening = new ArrayList<>();
+
+    public ArrayList<Konkurrenceresultat> crawlKonkurrence = new ArrayList<>();
+
+    public ArrayList<Traeningsresultat> brystTraening = new ArrayList<>();
+
+    public ArrayList<Konkurrenceresultat> brystKonkurrence = new ArrayList<>();
+
     private final ArrayList<Medlemskab> medlemsskab = new ArrayList<>();
-
-    public static final ArrayList<Traeningsresultat> butterflyTraening = new ArrayList<>();
-
-    public static final ArrayList<Konkurrenceresultat> butterflyKonkurrence = new ArrayList<>();
-
-    public static final ArrayList<Traeningsresultat> crawlTraening = new ArrayList<>();
-
-    public static final ArrayList<Konkurrenceresultat> crawlKonkurrence = new ArrayList<>();
-
-    public static final ArrayList<Traeningsresultat> brystTraening = new ArrayList<>();
-
-    public static final ArrayList<Konkurrenceresultat> brystKonkurrence = new ArrayList<>();
-
-
     private int medlemsskabsNr;
 
     private int alder;
@@ -35,10 +35,10 @@ public class Medlem {
     LocalDate sidstBetalt;
 
     // 3 options: "aktiv + konkurrence", "aktiv + motionist", "passiv"
-    public Medlem(String navn, int medlemsskabNr, LocalDate foedselsdato, int id){
+    public Medlem(String navn, int medlemsskabsNr, LocalDate foedselsdato, int id){
         this.navn = navn;
-        addMedlemskab(medlemsskabNr);
-        this.medlemsskabsNr = medlemsskabNr;
+        addMedlemskab(medlemsskabsNr);
+        this.medlemsskabsNr = medlemsskabsNr;
         this.foedselsdato = foedselsdato;
         this.alder = udregnAlder();
         this.id = id;
@@ -77,14 +77,15 @@ public class Medlem {
 
 
     //-----------------------------------------medlemsskab metoder ------------------------------------------------------
-    public void setMedlemskab(int medlemsskabNr) { // options: aktiv + konkurrence, aktiv + motionist, passiv = 3 options
+    public void setMedlemskab(int nytMedlemsskabNr) { // options: aktiv + konkurrence, aktiv + motionist, passiv = 3 options
         for (int i = 0; i<medlemsskab.size(); i++) {
             medlemsskab.remove(i);
         }
 
             // take string and add to arraylist
             // options to chose: aktiv + konkurrence, aktiv + motionist, passiv = 3 options
-        addMedlemskab(medlemsskabNr);
+        addMedlemskab(nytMedlemsskabNr);
+        this.medlemsskabsNr = nytMedlemsskabNr;
 
     }
 
@@ -146,7 +147,7 @@ public class Medlem {
     }
 
     public int getMedlemsskabsNr() {
-        return medlemsskabsNr;
+        return this.medlemsskabsNr;
     }
 
     public int getAlder() {
@@ -161,17 +162,19 @@ public class Medlem {
         return id;
     }
 
-    //--------------------------------------------------set metoder---------------------------------------------------------
-
-
-
-    public int getMedlemskabNr() {
-        return medlemsskabsNr;
+    public LocalDate getSidstBetalt() {
+        return sidstBetalt;
     }
 
     public void setSidstBetalt(LocalDate sidstBetalt) {
         this.sidstBetalt = sidstBetalt;
     }
+
+
+
+    //--------------------------------------------------set metoder---------------------------------------------------------
+
+
 
     // get metoder til Traening og Konkurrence
     public ArrayList<Traeningsresultat> getButterflyTraening() {
@@ -200,9 +203,7 @@ public class Medlem {
 
 
 
-    public LocalDate getSidstBetalt() {
-        return sidstBetalt;
-    }
+
 
 
     public void addButterflyTraening(Traeningsresultat traeningsresultat) {
@@ -270,32 +271,48 @@ public class Medlem {
     }
 
     public void printTraeningsresultater() {
-        System.out.println("Butterfly træning: ");
-        for (Traeningsresultat traeningsresultat : butterflyTraening) {
-            System.out.println(traeningsresultat.toString());
+        if (!crawlTraening.isEmpty()) {
+            System.out.println(navn + " (" + id + ")");
+            System.out.println("Antal træningsresultater: "+crawlTraening.size());
+            System.out.println("Crawl træning: ");
+            for (Traeningsresultat traeningsresultat : crawlTraening) {
+                System.out.println(traeningsresultat);
+            }
         }
-        System.out.println("Crawl træning: ");
-        for (Traeningsresultat traeningsresultat : crawlTraening) {
-            System.out.println(traeningsresultat.toString());
+        if (!butterflyTraening.isEmpty()) {
+            System.out.println("Butterfly træning: ");
+            for (Traeningsresultat traeningsresultat : butterflyTraening) {
+                System.out.println(traeningsresultat.toString());
+            }
         }
-        System.out.println("Bryst træning: ");
-        for (Traeningsresultat traeningsresultat : brystTraening) {
-            System.out.println(traeningsresultat.toString());
+        if (!brystTraening.isEmpty()) {
+            System.out.println("Bryst træning: ");
+            for (Traeningsresultat traeningsresultat : brystTraening) {
+                System.out.println(traeningsresultat.toString());
+            }
         }
     }
 
     public void printKonkurrenceresultater() {
-        System.out.println("Butterfly konkurrence: ");
-        for (Konkurrenceresultat konkurrenceresultat : butterflyKonkurrence) {
-            System.out.println(konkurrenceresultat.toString());
+        if(!crawlKonkurrence.isEmpty()) {
+            System.out.println(navn + " (" + id + ")");
+            System.out.println("Antal konkurrenceresultater: "+crawlKonkurrence.size());
+            System.out.println("Crawl konkurrence: ");
+            for (Konkurrenceresultat konkurrenceresultat : crawlKonkurrence) {
+                System.out.println(konkurrenceresultat.toString());
+            }
         }
-        System.out.println("Crawl konkurrence: ");
-        for (Konkurrenceresultat konkurrenceresultat : crawlKonkurrence) {
-            System.out.println(konkurrenceresultat.toString());
+        if(!butterflyKonkurrence.isEmpty()) {
+            System.out.println("Butterfly konkurrence: ");
+            for (Konkurrenceresultat konkurrenceresultat : butterflyKonkurrence) {
+                System.out.println(konkurrenceresultat.toString());
+            }
         }
-        System.out.println("Bryst konkurrence: ");
-        for (Konkurrenceresultat konkurrenceresultat : brystKonkurrence) {
-            System.out.println(konkurrenceresultat.toString());
+        if(!brystKonkurrence.isEmpty()) {
+            System.out.println("Bryst konkurrence: ");
+            for (Konkurrenceresultat konkurrenceresultat : brystKonkurrence) {
+                System.out.println(konkurrenceresultat.toString());
+            }
         }
     }
 }

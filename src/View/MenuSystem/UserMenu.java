@@ -1,12 +1,14 @@
 package View.MenuSystem;
 
 import Controller.DatabaseController;
+import Controller.MedlemController;
 import View.Input;
 
 public class UserMenu {
 
     public static void displayMenu() {
         DatabaseController.loadFilesToArr();
+
 
         System.out.println("\nVelkommen !");
 

@@ -41,18 +41,22 @@ public class TraenerController {
 
                     switch (disciplinValg) {
                         case 1:
-                            medlem.brystKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
+                            medlem.crawlKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
+
                             break;
                         case 2:
-                            medlem.crawlKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
+                            medlem.brystKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
+                            // print konkurrence resultater for this medlem
+
                             break;
                         case 3:
                             medlem.butterflyKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
+
                             break;
                     }
+                    DatabaseController.updaterMedlemFile(medlem);
+                    System.out.println("Resultatet er nu registreret");
 
-                    MedlemController.opdaterMedlem(medlem);
-                    DatabaseController.saveArrToFileDatabase();
                 } else {
                     System.out.println("Dette medlem er ikke en konkurrencesvømmer");
                 }
@@ -72,8 +76,7 @@ public class TraenerController {
                             break;
 
                     }
-                    MedlemController.opdaterMedlem(medlem);
-                    DatabaseController.saveArrToFileDatabase();
+                    DatabaseController.updaterMedlemFile(medlem);
                 } else {
                     System.out.println("Dette medlem er ikke et aktivt medlem");
                 }
@@ -81,8 +84,12 @@ public class TraenerController {
         } else {
             System.out.println("Ingen medlem fundet med dette navn");
         }
+
         MedlemController.opdaterMedlem(medlem);
-        DatabaseController.saveArrToFileDatabase();
+
+        medlem.printKonkurrenceresultater();
+        medlem.printTraeningsresultater();
+
     }
 
 //-----------------------------------sortering metoder------------------------------------------------------------------
@@ -137,6 +144,18 @@ public class TraenerController {
         return arrayList;
     }
 
+    public static void seAlleMedResultater() {
+
+        for (Medlem medlem : MedlemController.alleMedlemmer) {
+
+            if (medlem.getMedlemsskabsNr() == 1) {
+                medlem.printKonkurrenceresultater();
+                medlem.printTraeningsresultater();
+            }
+        }
+
+    }
+
     public void getBedsteStaevneTidBryst() {
         MedlemController.fillStaevneBrystMedMedlemmerMedTider();
         sortListsBrystKonkurrence(BedsteStaevneTiderBryst);
@@ -165,7 +184,7 @@ public class TraenerController {
     public static void printKonkurrencesvoemmereListe() {
         int i = 1;
 
-        for (Medlem medlem : MedlemController.getAlleMedlemmer()) {
+        for (Medlem medlem : MedlemController.alleMedlemmer) {
             if (medlem.getMedlemsskabsNr() == 1) {
                 System.out.println(" " + i + ". " + medlem.getNavn() + " (" + medlem.getId() + ")");
                 i++;

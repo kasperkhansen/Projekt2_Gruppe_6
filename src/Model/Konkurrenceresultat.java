@@ -27,4 +27,12 @@ public class Konkurrenceresultat {
         return this.staevne;
     }
 
+    @Override
+    public String toString() {
+        return "Konkurrenceresultat{" +
+                "traeningsTid=" + traeningsTid +
+                ", staevne='" + staevne + '\'' +
+                ", placering=" + placering +
+                '}';
+    }
 }

@@ -20,6 +20,12 @@ public class Traeningsresultat {
         this.traeningsDato = traeningsDato;
     }
 
-
+    @Override
+    public String toString() {
+        return "Traeningsresultat{" +
+                "traeningsTid=" + traeningsTid +
+                ", traeningsDato=" + traeningsDato +
+                '}';
+    }
 
 }

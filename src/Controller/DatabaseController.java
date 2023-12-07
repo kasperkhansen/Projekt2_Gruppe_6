@@ -21,6 +21,8 @@ public class DatabaseController {
     private static int alder;
     private static int id;
     private static LocalDate foedselsdato;
+    private static ArrayList<String> traeningsResultater = new ArrayList<>();
+    private static ArrayList<String> konkurrenceResultater = new ArrayList<>();
 
     // Create the database directory if it does not exist
     static {
@@ -90,21 +92,28 @@ public class DatabaseController {
 
     // Save a Medlem as a file
     public static void saveMedlemAsFile(Medlem m) {
+        File file = new File(DatabaseController.DATABASE_PATH + m.getId() + ".txt");
+
+        // Check if file exists and only overwrite if the same ID
+        if (file.exists()) {
+            Medlem existingMedlem = getMedlemFromFile(file);
+            if (existingMedlem != null && m.getId() != existingMedlem.getId()) {
+                System.err.println("Error saving member: " + m.getNavn() + " - ID does not match file name");
+                return;
+            }
+        }
 
         try {
-            File file = new File(DatabaseController.DATABASE_PATH + m.getId() + ".txt");
-
-            // metode skriver ovenpå filen, hvis eksisterer
+            // Overwrite the file if it exists, create a new one if it doesn't
             try (FileWriter fileWriter = new FileWriter(file, false)) {
-
                 writeFile(m, fileWriter);
                 System.out.println("Member data saved to file: " + file.getName());
             }
-
         } catch (IOException e) {
-            System.err.println("Error saving member: " + m.getNavn());
+            System.err.println("Error saving member: " + m.getNavn() + " - " + e.getMessage());
         }
     }
+
 
     private static void writeFile(Medlem m, FileWriter fileWriter) throws IOException {
 
@@ -138,8 +147,12 @@ public class DatabaseController {
     public static void loadFilesToArr() {
         loadedMembers = getMedlemmerFraFiles(); // Load members from files
         if (!loadedMembers.isEmpty()) {
-            MedlemController.alleMedlemmer.clear(); // Clear list only if files are loaded successfully
-            MedlemController.alleMedlemmer.addAll(loadedMembers);
+            MedlemController.alleMedlemmer.clear();
+
+            for (Medlem medlem : loadedMembers) {
+
+                MedlemController.alleMedlemmer.add(medlem);
+            }
         }
     }
 
@@ -151,7 +164,7 @@ public class DatabaseController {
     }
 
     public static void updaterMedlemFile(Medlem medlem) {
-        System.out.println("Opdaterer medlem file: " + medlem.getNavn());
+
         String IDtxt = medlem.getId() + ".txt";
         Medlem m = getMedlemFromFile(new File(DatabaseController.DATABASE_PATH + IDtxt));
         deleteFile(IDtxt);
@@ -198,9 +211,9 @@ public class DatabaseController {
             Medlem m = new Medlem(navn, medlemskabNr, foedselsdato, id);
 
             // get Traening and Konkurrence results from file
-            m = getOpdateretMedlemMedResultaterFraFile(file, m);
+            Medlem nytM = getOpdateretMedlemMedResultaterFraFile(file, m);
 
-            return m;
+            return nytM;
 
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + file.getName());
@@ -212,12 +225,11 @@ public class DatabaseController {
     }
 
     public static Medlem getOpdateretMedlemMedResultaterFraFile(File file, Medlem m) {
-        System.out.println("Opdaterer medlem med resultater fra file: " + file.getName() + "..." + m.getNavn());
-        m.clearResultater();
+
+
         // get Traening and Konkurrence results from file
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             updaterMedlemMedResultaterFraFile(reader, m);
-
             return m;
         } catch (IOException e) {
             System.err.println("Error reading from file: " + file.getName());
@@ -228,61 +240,133 @@ public class DatabaseController {
 
     private static void updaterMedlemMedResultaterFraFile(BufferedReader reader, Medlem m) {
         try {
-            while (reader.readLine()!=null) {
-                String s = reader.readLine();
-                if (s.startsWith("traening resultater: ")) {
-
-
-                    String[] lineStrings = s.split(", ");
-
-                    for (String tidString : lineStrings) {
-                        try {
-                            String disciplin = tidString.substring(0, tidString.indexOf(":"));
-                            Double tid = Double.parseDouble(tidString.substring(tidString.indexOf(":") + 1, tidString.indexOf("(")));
-                            LocalDate dato = LocalDate.parse(tidString.substring(tidString.indexOf("(") + 1, tidString.indexOf(")")));
-
-                            m.addTraeningsresultat(new Traeningsresultat(tid, dato), disciplin);
-
-                        } catch (NumberFormatException e) {
-                            System.err.println("Error parsing Traeningsresultat from file");
-                        }
-                    }
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Process training results
+                if (line.startsWith("traening resultater: ")) {
+                    processTrainingResults(reader, m);
                 }
-                System.out.println("test: ");
-                m.printTraeningsresultater();
-                if (s.startsWith("konkurrence resultater: ")) {
-                    String[] lineStrings = s.split(", ");
 
-                    for (String tidString : lineStrings) {
-                        try {
-                            String disciplin = tidString.substring(0, tidString.indexOf(":"));
-                            Double tid = Double.parseDouble(tidString.substring(tidString.indexOf(":") + 1, tidString.indexOf("(")));
-                            String staevne = tidString.substring(tidString.indexOf("(") + 1, tidString.indexOf("+"));
-                            int placering = Integer.parseInt(tidString.substring(tidString.indexOf("+") + 1, tidString.indexOf(")")));
-
-                            m.addKonkurrenceresultat(new Konkurrenceresultat(tid, staevne, placering), disciplin);
-
-                        } catch (NumberFormatException e) {
-                            System.err.println("Error parsing Konkurrenceresultat from file");
-                        }
-                    }
+                // Process competition results
+                if (line.startsWith("konkurrence resultater: ")) {
+                    processCompetitionResults(reader, m);
                 }
-                System.out.println("test: ");
-                m.printKonkurrenceresultater();
             }
-        } catch (IOException e) {
-            System.err.println("Error reading from file line:  ");
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    private static void processTrainingResults(BufferedReader reader, Medlem m) throws IOException {
+
+        try {
+            BufferedReader read = reader;
+            String line;
+            while ((line = read.readLine())!= null) {
+
+                int colonIndex = line.indexOf(":");
+                if (colonIndex != -1) {
+                    String disciplin = line.substring(0, colonIndex);
+                    String resultString = line.substring(colonIndex + 1).trim();
+
+
+                    if (!resultString.isEmpty()) {
+                        String[] results = resultString.split(", ");
+                        for (String result : results) {
+                            try {
+                                result = result.trim();
+                                // check if result contains (, ),  and .
+                                if (!result.contains("(") || !result.contains(")") || !result.contains(".")) {
+                                    continue;
+                                }
+                                Double tid = Double.parseDouble(result.substring(0, result.indexOf("(")));
+                                LocalDate dato = LocalDate.parse(result.substring(result.indexOf("(") + 1, result.indexOf(")")));
+                                Traeningsresultat traeningsresultat = new Traeningsresultat(tid, dato);
+                                m.addTraeningsresultat(traeningsresultat, disciplin);
+                            } catch (NumberFormatException e) {
+                                System.err.println("Error parsing Traeningsresultat from file: " + e.getMessage());
+                            }
+                        }
+                    }
+                }
+                line = reader.readLine();
+
+
+
+            }
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    private static void processCompetitionResults(BufferedReader reader, Medlem m) throws IOException {
+
+        try {
+            BufferedReader read = reader;
+            String line;
+            while ((line = read.readLine())!= null) {
+
+                if (line.startsWith("konkurrence resultater: ")) {
+                    continue;
+                }
+
+                // håndterer konkurrence resultater
+                while ((line = reader.readLine()) != null) {
+
+                    int colonIndex = line.indexOf(":");
+                    if (colonIndex != -1) {
+                        String disciplin = line.substring(0, colonIndex);
+                        String resultString = line.substring(colonIndex + 1).trim();
+
+
+                        if (!resultString.isEmpty()) {
+                            String[] results = resultString.split(", ");
+                            for (String result : results) {
+                                try {
+                                    result = result.trim();
+                                    // check if result contains (, ),  and .
+
+                                    if (!result.contains("(") || !result.contains(")") || !result.contains("+")) {
+                                        continue;
+                                    }
+                                    Double tid = Double.parseDouble(result.substring(0, result.indexOf("(")));
+                                    String staevne = result.substring(result.indexOf("(") + 1, result.indexOf("+"));
+                                    int placering = Integer.parseInt(result.substring(result.indexOf("+") + 1, result.indexOf(")")));
+                                    Konkurrenceresultat konkurrenceresultat = new Konkurrenceresultat(tid, staevne, placering);
+                                    m.addKonkurrenceresultat(konkurrenceresultat, disciplin);
+                                } catch (NumberFormatException e) {
+                                    System.err.println("Error parsing Konkurrenceresultat from file: " + e.getMessage());
+                                }
+                            }
+                        }
+                    }
+                    line = reader.readLine();
+                }
+
+
+
+            }
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
 
+
     }
+
+
 
     public static Medlem getMedlemByMobileNumber(int mobileNummber) {
         updateListOfFiles();
         try {
             for (File file : listOfFiles) {
-                if (file.getName().equals(mobileNummber + ".txt")) {
+                if (file.getName().startsWith(mobileNummber + "")) {
                     getValues(file);
-                    return new Medlem(navn, medlemskabNr, foedselsdato, id);
+
+                    Medlem m = new Medlem(navn, medlemskabNr, foedselsdato, id);
+
+                    m = getOpdateretMedlemMedResultaterFraFile(file, m);
+
+
                 }
             }
             return null;
@@ -310,8 +394,25 @@ public class DatabaseController {
             if (line.startsWith("foedselsdato: ")) {
                 foedselsdato = LocalDate.parse(line.substring(14));
             }
+            if (line.startsWith("traening resultater: ")) {
+                // add three lines corresponding to 3 disciplines
+                traeningsResultater.add(bufferedReader.readLine());
+                traeningsResultater.add(bufferedReader.readLine());
+                traeningsResultater.add(bufferedReader.readLine());
+
+            }
+            if (line.startsWith("konkurrence resultater: ")) {
+                // add three lines corresponding to 3 disciplines
+                konkurrenceResultater.add(bufferedReader.readLine());
+                konkurrenceResultater.add(bufferedReader.readLine());
+                konkurrenceResultater.add(bufferedReader.readLine());
+            }
+
+
+
         }
     }
+
 
 
     // Write the Traeningsresultat and Konkurrenceresultat to file
@@ -368,6 +469,38 @@ public class DatabaseController {
             }
         } catch (IOException e) {
             System.err.println("Error loading files");
+        }
+
+    }
+
+    public static void setMedlemskabsNr(int id, int nytMedlemskabNr) {
+
+        Medlem m = getMedlemFromFile(getFile(id));
+        m.setMedlemskab(nytMedlemskabNr);
+        editFile(m, getFile(id));
+    }
+
+    private static void editFile(Medlem m, File file) {
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            writeFile(m, fileWriter);
+        } catch (IOException e) {
+            System.err.println("Error editing file");
+        }
+    }
+
+    private static File getFile(int id) {
+        updateListOfFiles();
+        try {
+            for (File file : listOfFiles) {
+                if (file.getName().startsWith(id + "")) {
+                    return file;
+                }
+            }
+            return null;
+        } catch (NullPointerException e) {
+            System.err.println("Error loading member");
+            return null;
         }
 
     }
