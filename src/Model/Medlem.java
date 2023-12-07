@@ -139,7 +139,7 @@ public class Medlem {
 
     //--------------------------------------------------get metoder---------------------------------------------------------
     public String getNavn() {
-        return navn;
+        return this.navn;
     }
 
     public ArrayList<Medlemskab> getMedlemsskabArrayList() {
