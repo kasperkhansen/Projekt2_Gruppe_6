@@ -134,7 +134,6 @@ public class DatabaseController {
         }
     }
 
-    // 1
 
 
     // Update the list of files
@@ -151,7 +150,6 @@ public class DatabaseController {
         m.setMedlemskab(m.getMedlemsskabsNr());
         saveMedlemAsFile(m);
     }
-
 
     // 2 Get Medlem(s) fra File(s)
 

@@ -1,0 +1,12 @@
+navn: john
+medlemskabsNr: 1
+alder: 21
+foedselsdato: 2002-01-01
+traening resultater: 
+
+
+
+konkurrence resultater: 
+
+
+
