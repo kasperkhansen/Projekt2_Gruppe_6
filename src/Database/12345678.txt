@@ -4,9 +4,9 @@ alder: 23
 foedselsdato: 2000-01-01
 traening resultater: 
 Butterfly: 
-Crawl: 
+Crawl: 11.11(2000-01-01), 
 Bryst: 
 konkurrence resultater: 
 Butterfly: 
-Crawl: 99.99(CPH+3), 
+Crawl: 22.22(cph+3), 
 Bryst: 

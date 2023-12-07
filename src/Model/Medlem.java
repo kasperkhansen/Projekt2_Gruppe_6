@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Medlem {
     public static KontingentBetaling getKontingentBetaling;
-    private final String navn;
+    private String navn;
 
 
     public ArrayList<Traeningsresultat> butterflyTraening = new ArrayList<>();
@@ -26,7 +26,7 @@ public class Medlem {
     private int medlemsskabsNr;
 
     private int alder;
-    public final LocalDate foedselsdato;
+    public LocalDate foedselsdato;
     private final int id;
     public boolean erSenior = false;
     public boolean erPensionist = false;
@@ -314,5 +314,37 @@ public class Medlem {
                 System.out.println(konkurrenceresultat.toString());
             }
         }
+    }
+
+    public void setNavn(String navn) {
+        this.navn = navn;
+    }
+
+    public void setFoedselsdato(LocalDate foedselsdato) {
+        this.foedselsdato = foedselsdato;
+    }
+
+    public void setBrystTraening(ArrayList<Traeningsresultat> brystTraening) {
+        this.brystTraening = brystTraening;
+    }
+
+    public void setBrystKonkurrence(ArrayList<Konkurrenceresultat> brystKonkurrence) {
+        this.brystKonkurrence = brystKonkurrence;
+    }
+
+    public void setCrawlTraening(ArrayList<Traeningsresultat> crawlTraening) {
+        this.crawlTraening = crawlTraening;
+    }
+
+    public void setCrawlKonkurrence(ArrayList<Konkurrenceresultat> crawlKonkurrence) {
+        this.crawlKonkurrence = crawlKonkurrence;
+    }
+
+    public void setButterflyTraening(ArrayList<Traeningsresultat> butterflyTraening) {
+        this.butterflyTraening = butterflyTraening;
+    }
+
+    public void setButterflyKonkurrence(ArrayList<Konkurrenceresultat> butterflyKonkurrence) {
+        this.butterflyKonkurrence = butterflyKonkurrence;
     }
 }

@@ -2,7 +2,6 @@ package Controller;
 import Model.*;
 import View.Input;
 import View.MenuSystem.FormandSubMenu;
-import View.MenuSystem.MedlemSubMenu;
 import View.MenuSystem.UserMenu;
 
 import java.util.ArrayList;
@@ -177,14 +176,63 @@ public class MedlemController {
         return alleMedlemmer;
     }
 
-    public static void opdaterMedlem(Medlem medlem) {
-        // get index of
-        fjernMedlem(medlem);
-        alleMedlemmer.add(medlem);
+    public static void opdaterMedlem(Medlem newMedlem) {
+
+        // compare newMedlem and medlem in alleMedlemmer
+
+        alleMedlemmer.add(mergeMedlemmer(getMedlemMedId(newMedlem.getId()), newMedlem));
+
     }
 
+    public static Medlem mergeMedlemmer (Medlem oldMedlem, Medlem newMedlem) {
+        if (oldMedlem != null) {
+            // check values: navn, medlemskab, fødselsdato, træningsresultater, konkurrenceresultater
+            if (!oldMedlem.getNavn().equals(newMedlem.getNavn())) {
+                oldMedlem.setNavn(newMedlem.getNavn());
+            }
+            if (oldMedlem.getMedlemsskabsNr() != newMedlem.getMedlemsskabsNr()) {
+                oldMedlem.setMedlemskab(newMedlem.getMedlemsskabsNr());
+            }
+            if (!oldMedlem.getFoedselsdato().equals(newMedlem.getFoedselsdato())) {
+                oldMedlem.setFoedselsdato(newMedlem.getFoedselsdato());
+            }
+            mergeTraeningResults(oldMedlem.getCrawlTraening(), newMedlem.getCrawlTraening());
+            mergeKonkurrenceResults(oldMedlem.getCrawlKonkurrence(), newMedlem.getCrawlKonkurrence());
+            mergeTraeningResults(oldMedlem.getBrystTraening(), newMedlem.getBrystTraening());
+            mergeKonkurrenceResults(oldMedlem.getBrystKonkurrence(), newMedlem.getBrystKonkurrence());
+            mergeTraeningResults(oldMedlem.getButterflyTraening(), newMedlem.getButterflyTraening());
+            mergeKonkurrenceResults(oldMedlem.getButterflyKonkurrence(), newMedlem.getButterflyKonkurrence());
+
+            return oldMedlem;
+        } else {
+            return newMedlem;
+        }
+    }
+
+    private static void mergeTraeningResults(ArrayList<Traeningsresultat> oldResults, ArrayList<Traeningsresultat> newResults) {
+
+        for (Traeningsresultat result : newResults) {
+            if (!oldResults.contains(result)) {
+                oldResults.add(result);
+            }
+        }
+    }
+    private static void mergeKonkurrenceResults(ArrayList<Konkurrenceresultat> oldResults, ArrayList<Konkurrenceresultat> newResults) {
+        for (Konkurrenceresultat result : newResults) {
+            if (!oldResults.contains(result)) {
+                oldResults.add(result);
+            }
+        }
+    }
+
+
     public static void fjernMedlem(Medlem medlem) {
-        alleMedlemmer.remove(medlem);
+        for (Medlem m : alleMedlemmer) {
+            if (m.getId() == medlem.getId()) {
+                alleMedlemmer.remove(m);
+                break;
+            }
+        }
     }
 
 

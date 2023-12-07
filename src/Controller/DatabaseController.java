@@ -33,7 +33,7 @@ public class DatabaseController {
     public static void saveArrToFileDatabase() {
         updateListOfFiles();
 
-        for (Medlem medlem : MedlemController.alleMedlemmer) {
+        for (Medlem medlem : MedlemController.getAlleMedlemmer()) {
 
             // check if file exists
             if (loadedMembers.contains(medlem)) {
@@ -90,6 +90,10 @@ public class DatabaseController {
         return same;
     }
 
+    public static void saveAndLoad () {
+        saveArrToFileDatabase();
+        loadFilesToArr();
+    }
     // Save a Medlem as a file
     public static void saveMedlemAsFile(Medlem m) {
         File file = new File(DatabaseController.DATABASE_PATH + m.getId() + ".txt");
@@ -145,16 +149,26 @@ public class DatabaseController {
 
     // Load alleMedlemmer arraylist of MedlemController from files for each member
     public static void loadFilesToArr() {
+
         loadedMembers = getMedlemmerFraFiles(); // Load members from files
-        if (!loadedMembers.isEmpty()) {
-            MedlemController.alleMedlemmer.clear();
 
-            for (Medlem medlem : loadedMembers) {
-
-                MedlemController.alleMedlemmer.add(medlem);
+        if (loadedMembers != null && !loadedMembers.isEmpty()) {
+            if (MedlemController.alleMedlemmer.isEmpty()) {
+                MedlemController.alleMedlemmer = loadedMembers;
+            } else {
+                for (Medlem medlem : loadedMembers) {
+                    MedlemController.opdaterMedlem(medlem);
+                }
             }
+            System.out.println("Test: ");
+            System.out.println("alleMedlemmer antal: "+ MedlemController.alleMedlemmer.size());
+            System.out.println("loadedMedlemmer antal: "+ loadedMembers.size());
+
+        } else {
+            System.err.println("No members loaded from files or error occurred."); // Error message
         }
     }
+
 
 
     // Update the list of files
@@ -163,13 +177,34 @@ public class DatabaseController {
         listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
     }
 
-    public static void updaterMedlemFile(Medlem medlem) {
+    public static void updaterMedlemFile(Medlem nytMedlem) {
+        String IDtxt = nytMedlem.getId() + ".txt";
+        File file = new File(DatabaseController.DATABASE_PATH + IDtxt);
 
-        String IDtxt = medlem.getId() + ".txt";
-        Medlem m = getMedlemFromFile(new File(DatabaseController.DATABASE_PATH + IDtxt));
-        deleteFile(IDtxt);
-        m.setMedlemskab(m.getMedlemsskabsNr());
-        saveMedlemAsFile(m);
+        if (file.exists()) {
+            Medlem oldMedlem = getMedlemFromFile(file);
+            Medlem mergedMedlem = MedlemController.mergeMedlemmer(oldMedlem, nytMedlem);
+
+            try (FileWriter fileWriter = new FileWriter(file, false)) {
+                writeFile(mergedMedlem, fileWriter);
+            } catch (IOException e) {
+                System.err.println("Error editing file: " + e.getMessage());
+            }
+        } else {
+            System.err.println("File not found: " + file.getName());
+        }
+    }
+
+
+    private static void opdaterFile(File file, Medlem medlem) {
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+
+
+
+        } catch (IOException e) {
+            System.err.println("Error editing file");
+        }
     }
 
     // 2 Get Medlem(s) fra File(s)
@@ -258,100 +293,77 @@ public class DatabaseController {
     }
 
     private static void processTrainingResults(BufferedReader reader, Medlem m) throws IOException {
+        String line;
+        while ((line = reader.readLine()) != null && !line.startsWith("konkurrence resultater: ")) {
+            int colonIndex = line.indexOf(":");
+            if (colonIndex != -1) {
+                String disciplin = line.substring(0, colonIndex);
+                String resultString = line.substring(colonIndex + 1).trim();
+                processResultString(resultString, disciplin, m, true); // true for training results
+            }
+        }
+    }
 
-        try {
-            BufferedReader read = reader;
-            String line;
-            while ((line = read.readLine())!= null) {
+    private static void processCompetitionResults(BufferedReader reader, Medlem m) throws IOException {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            int colonIndex = line.indexOf(":");
+            if (colonIndex != -1) {
+                String disciplin = line.substring(0, colonIndex);
+                String resultString = line.substring(colonIndex + 1).trim();
+                processResultString(resultString, disciplin, m, false); // false for competition results
+            }
+        }
+    }
 
-                int colonIndex = line.indexOf(":");
-                if (colonIndex != -1) {
-                    String disciplin = line.substring(0, colonIndex);
-                    String resultString = line.substring(colonIndex + 1).trim();
+    private static void processResultString(String resultString, String disciplin, Medlem m, boolean isTraining) {
+        if (!resultString.isEmpty()) {
+            String[] results = resultString.split(", ");
+            for (String result : results) {
 
+                if (result.isEmpty()) {
+                    continue;
+                }
+                try {
 
-                    if (!resultString.isEmpty()) {
-                        String[] results = resultString.split(", ");
-                        for (String result : results) {
+                    int openParenIndex = result.indexOf("(");
+                    int closeParenIndex = result.indexOf(")");
+
+                    if (isTraining) {
+                        // process træning result
+                        if (openParenIndex != -1 && closeParenIndex != -1) {
                             try {
-                                result = result.trim();
-                                // check if result contains (, ),  and .
-                                if (!result.contains("(") || !result.contains(")") || !result.contains(".")) {
-                                    continue;
-                                }
-                                Double tid = Double.parseDouble(result.substring(0, result.indexOf("(")));
-                                LocalDate dato = LocalDate.parse(result.substring(result.indexOf("(") + 1, result.indexOf(")")));
+                                Double tid = Double.parseDouble(result.substring(0, openParenIndex));
+                                LocalDate dato = LocalDate.parse(result.substring(openParenIndex + 1, closeParenIndex));
                                 Traeningsresultat traeningsresultat = new Traeningsresultat(tid, dato);
                                 m.addTraeningsresultat(traeningsresultat, disciplin);
                             } catch (NumberFormatException e) {
                                 System.err.println("Error parsing Traeningsresultat from file: " + e.getMessage());
                             }
                         }
-                    }
-                }
-                line = reader.readLine();
-
-
-
-            }
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    private static void processCompetitionResults(BufferedReader reader, Medlem m) throws IOException {
-
-        try {
-            BufferedReader read = reader;
-            String line;
-            while ((line = read.readLine())!= null) {
-
-                if (line.startsWith("konkurrence resultater: ")) {
-                    continue;
-                }
-
-                // håndterer konkurrence resultater
-                while ((line = reader.readLine()) != null) {
-
-                    int colonIndex = line.indexOf(":");
-                    if (colonIndex != -1) {
-                        String disciplin = line.substring(0, colonIndex);
-                        String resultString = line.substring(colonIndex + 1).trim();
-
-
-                        if (!resultString.isEmpty()) {
-                            String[] results = resultString.split(", ");
-                            for (String result : results) {
-                                try {
-                                    result = result.trim();
-                                    // check if result contains (, ),  and .
-
-                                    if (!result.contains("(") || !result.contains(")") || !result.contains("+")) {
-                                        continue;
-                                    }
-                                    Double tid = Double.parseDouble(result.substring(0, result.indexOf("(")));
-                                    String staevne = result.substring(result.indexOf("(") + 1, result.indexOf("+"));
-                                    int placering = Integer.parseInt(result.substring(result.indexOf("+") + 1, result.indexOf(")")));
-                                    Konkurrenceresultat konkurrenceresultat = new Konkurrenceresultat(tid, staevne, placering);
-                                    m.addKonkurrenceresultat(konkurrenceresultat, disciplin);
-                                } catch (NumberFormatException e) {
-                                    System.err.println("Error parsing Konkurrenceresultat from file: " + e.getMessage());
-                                }
+                    } else if (!isTraining){
+                        // process konkurrence result
+                        int plusIndex = result.indexOf("+");
+                        if (openParenIndex != -1 && plusIndex != -1 && closeParenIndex != -1) {
+                            try {
+                                Double tid = Double.parseDouble(result.substring(0, openParenIndex));
+                                String staevne = result.substring(openParenIndex + 1, plusIndex);
+                                int placering = Integer.parseInt(result.substring(plusIndex + 1, closeParenIndex));
+                                Konkurrenceresultat konkurrenceresultat = new Konkurrenceresultat(tid, staevne, placering);
+                                m.addKonkurrenceresultat(konkurrenceresultat, disciplin);
+                            } catch (NumberFormatException e) {
+                                System.err.println("Error parsing Konkurrenceresultat from file: " + e.getMessage());
                             }
                         }
                     }
-                    line = reader.readLine();
+                    MedlemController.opdaterMedlem(m);
+                } catch (NumberFormatException e) {
+                    System.err.println("Error parsing result from file: " + e.getMessage());
                 }
-
-
-
             }
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
         }
-
-
     }
+
 
 
 
