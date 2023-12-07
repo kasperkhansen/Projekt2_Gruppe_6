@@ -1,7 +1,7 @@
-navn: Jannick
-medlemskabsNr: 1
+navn: Allan
+medlemskabsNr: 3
 alder: 23
-foedselsdato: 2000-01-01
+foedselsdato: 2000-10-20
 traening resultater: 
 
 

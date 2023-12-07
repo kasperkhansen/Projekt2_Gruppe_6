@@ -26,10 +26,9 @@ public class KontingentController {
 
     public static void registrerKontingentBetaling() {
         DatabaseController.loadFilesToArr();
-        System.out.println("Registrerer kontingent betaling...");
+        System.out.println("Registrer kontingent betaling...");
 
         while (true) {
-            System.out.println("test allemedlemmer arraylist size: " + MedlemController.alleMedlemmer.size());
             MedlemController.printAlleMedlemmerMobilNr();
 
             int MedlemId = Input.getIdInput();
@@ -90,6 +89,7 @@ public class KontingentController {
 
     public void overblikOverKontingentBetalinger(List<Medlem> alleMedlemmer) {
         LocalDate now = LocalDate.now();
+        int i = 1;
 
         for (Medlem medlem : alleMedlemmer) {
             LocalDate sidstBetalt = medlem.getSidstBetalt();
@@ -121,12 +121,14 @@ public class KontingentController {
             System.out.println();
             System.out.println("Medlemmer med kontingent betalt: ");
             for (Medlem m : medlemmerMedKontingentBetalt) {
-                System.out.println(m.getNavn());
+                System.out.println(" " + i + ". " + m.getNavn());
+                i++;
             }
             System.out.println();
             System.out.println("Medlemmer uden kontingent betalt: ");
             for (Medlem m : medlemmerUdenKontingentBetalt) {
-                System.out.println(m.getNavn());
+                System.out.println(" " + i + ". " + m.getNavn());
+                i++;
             }
             System.out.println();
             System.out.println("Antal medlemmer med kontingent betalt: " + medlemmerMedKontingentBetalt.size());

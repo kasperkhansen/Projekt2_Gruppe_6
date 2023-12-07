@@ -65,8 +65,10 @@ public class MedlemController {
                 }
             } else {
                 tilfoejMedlem(new Medlem(Input.getNameInput("Indtast navn", "Ugyldigt navn, prøv igen"), Input.medlemskabInput(), Input.getBirthDateInput(), Input.getIdInput()));
+
                 break;
             }
+            alleMedlemmer = getAlleMedlemmer();
         }
     }
 
@@ -81,10 +83,13 @@ public class MedlemController {
 
     // skift
     public static void skiftMedlemskabMedInputScan() {
+        System.out.println("Skift medlemskab for medlem:");
+        printAlleMedlemmerMobilNr();
         skiftMedlemskab(Input.getIdInput());
     }
 
     public static void skiftMedlemskab(int id) {
+
         Medlem medlem = getMedlemMedId(id);
         if (medlem != null) {
             int nytMedlemskabNr;
@@ -192,8 +197,10 @@ public class MedlemController {
     }
 
     public static void printAlleMedlemmerMobilNr() {
+        int i = 1;
         for (Medlem medlem : alleMedlemmer) {
-            System.out.println(medlem.getNavn() + " " + medlem.getId());
+            System.out.println(" "+ i +". " + medlem.getNavn() + " (" + medlem.getId() + ")");
+            i++;
         }
     }
 

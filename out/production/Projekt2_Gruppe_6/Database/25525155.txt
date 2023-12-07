@@ -1,7 +1,7 @@
-navn: Svendsen
+navn: Simon
 medlemskabsNr: 2
-alder: 63
-foedselsdato: 1960-08-17
+alder: 28
+foedselsdato: 1995-02-20
 traening resultater: 
 
 

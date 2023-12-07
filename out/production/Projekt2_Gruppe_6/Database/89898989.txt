@@ -1,7 +1,7 @@
-navn: Jannick
+navn: SvendErik
 medlemskabsNr: 1
-alder: 23
-foedselsdato: 2000-01-01
+alder: 20
+foedselsdato: 2003-09-30
 traening resultater: 
 
 

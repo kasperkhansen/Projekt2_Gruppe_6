@@ -1,4 +1,4 @@
-navn: john
+navn: John
 medlemskabsNr: 1
 alder: 23
 foedselsdato: 2000-01-01

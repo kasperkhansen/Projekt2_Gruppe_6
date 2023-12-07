@@ -1,4 +1,4 @@
-navn: paul
+navn: Paul
 medlemskabsNr: 1
 alder: 31
 foedselsdato: 1992-01-01

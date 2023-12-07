@@ -1,7 +1,7 @@
-navn: Jannick
+navn: Lars
 medlemskabsNr: 1
-alder: 23
-foedselsdato: 2000-01-01
+alder: 21
+foedselsdato: 2002-04-08
 traening resultater: 
 
 
