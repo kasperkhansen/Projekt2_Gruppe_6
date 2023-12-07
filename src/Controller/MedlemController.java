@@ -68,10 +68,13 @@ public class MedlemController {
 
     // skift
     public static void skiftMedlemskabMedInputScan() {
+        System.out.println("Skift medlemskab for medlem:");
+        printAlleMedlemmerMobilNr();
         skiftMedlemskab(Input.getIdInput());
     }
 
     public static void skiftMedlemskab(int id) {
+
         Medlem medlem = getMedlemMedId(id);
         if (medlem != null) {
             int nytMedlemskabNr;

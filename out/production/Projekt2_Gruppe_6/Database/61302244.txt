@@ -1,4 +1,4 @@
-navn: 
+navn: Lars
 medlemskabsNr: 1
 alder: 21
 foedselsdato: 2002-04-08

@@ -18,16 +18,21 @@ public class TraenerController {
     static ArrayList<Medlem> BedsteStaevneTiderButterfly = new ArrayList<Medlem>();
 
     public static void registrerResultat() {
+
+        System.out.println("Registrer svømmeresultater:");
+                printKonkurrencesvoemmereListe();
+
         int id = Input.getIdInput();
 
         Medlem medlem = getMedlemMedId(id);
+
 
         if (medlem != null) {
             int nyDisciplinTid = Input.svoemmeDisciplinValg();
             int nyDisciplinType = Input.konkurrenceValg();
 
             if (nyDisciplinType == 1) {
-                if (medlem.getMedlemsskabsNr()==1){
+                if (medlem.getMedlemsskabsNr() == 1) {
                     String hvilketStaevne = Input.stringInput("Indtast stævne: ");
                     int hvilkenPlacering = Input.intInput("Indtast placering: ");
                     double nyTid = Input.svoemmeTid();
@@ -39,12 +44,11 @@ public class TraenerController {
                         case 3:
                             medlem.butterflyKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
                     }
-                }  else {
+                } else {
                     System.out.println("Dette medlem er ikke en konkurrencesvømmer");
                 }
-            }
-            else {
-                if (medlem.getMedlemsskabsNr()!=3) {
+            } else {
+                if (medlem.getMedlemsskabsNr() != 3) {
                     LocalDate hvilkenDato = Input.dateInput("Indtast træningsdato: ");
                     double nyTid = Input.svoemmeTid();
                     switch (nyDisciplinTid) {
@@ -70,32 +74,32 @@ public class TraenerController {
 
 //-----------------------------------sortering metoder------------------------------------------------------------------
 
-    public static void sortListsBrystKonkurrence(ArrayList<Medlem> list){
+    public static void sortListsBrystKonkurrence(ArrayList<Medlem> list) {
         Comparatorer.BrystKonkurrenceComparator brystKonkurrenceResultatSorter = new Comparatorer.BrystKonkurrenceComparator();
         list.sort(brystKonkurrenceResultatSorter);
     }
 
-    public static void sortListsBrystTraening(ArrayList<Medlem> list){
+    public static void sortListsBrystTraening(ArrayList<Medlem> list) {
         Comparatorer.BrystTraeningsComparator brystTraeningResultatSorter = new BrystTraeningsComparator();
         list.sort(brystTraeningResultatSorter);
     }
 
-    public static void sortListsCrawlKonkurrence(ArrayList<Medlem> list){
+    public static void sortListsCrawlKonkurrence(ArrayList<Medlem> list) {
         Comparatorer.CrawlKonkurrenceComparator crawlKonurrenceResultatSorter = new CrawlKonkurrenceComparator();
         list.sort(crawlKonurrenceResultatSorter);
     }
 
-    public static void sortListsCrawlTraening(ArrayList<Medlem> list){
+    public static void sortListsCrawlTraening(ArrayList<Medlem> list) {
         Comparatorer.CrawlTraeningsComparator crawlTraeningsResultatSorter = new CrawlTraeningsComparator();
         list.sort(crawlTraeningsResultatSorter);
     }
 
-    public static void sortListsButterflyKonkurrence(ArrayList<Medlem> list){
+    public static void sortListsButterflyKonkurrence(ArrayList<Medlem> list) {
         Comparatorer.ButterflyKonkurrenceComparator buterflyKonkurrenceResultatSorter = new ButterflyKonkurrenceComparator();
         list.sort(buterflyKonkurrenceResultatSorter);
     }
 
-    public static void sortListsButterflyTraening(ArrayList<Medlem> list){
+    public static void sortListsButterflyTraening(ArrayList<Medlem> list) {
         Comparatorer.ButterflyTraeningsComparator butterflyTraeningResultatSorter = new ButterflyTraeningsComparator();
         list.sort(butterflyTraeningResultatSorter);
     }
@@ -103,7 +107,7 @@ public class TraenerController {
 
     //--------------------------get tider get metoder-------------------------------------------------------------------
 
-    public static ArrayList<Medlem> getBedsteStaevneTidCrawl(){
+    public static ArrayList<Medlem> getBedsteStaevneTidCrawl() {
 
         double tid1;
         double tid2;
@@ -114,36 +118,50 @@ public class TraenerController {
         MedlemController.fillStaevneCrawlMedMedlemmerMedTider();
         sortListsCrawlKonkurrence(BedsteStaevneTiderCrawl);
 
-        for (int i = 0; i<5; i++){
-        arrayList.add(BedsteStaevneTiderCrawl.get(i));
+        for (int i = 0; i < 5; i++) {
+            arrayList.add(BedsteStaevneTiderCrawl.get(i));
         }
         return arrayList;
     }
 
-    public void getBedsteStaevneTidBryst(){
+    public void getBedsteStaevneTidBryst() {
         MedlemController.fillStaevneBrystMedMedlemmerMedTider();
         sortListsBrystKonkurrence(BedsteStaevneTiderBryst);
     }
 
-    public void getBedsteStaevneTidButterfly(){
+    public void getBedsteStaevneTidButterfly() {
         MedlemController.fillStaevneButterflyMedMedlemmerMedTider();
         sortListsButterflyKonkurrence(BedsteStaevneTiderButterfly);
     }
 
-    public void getBedsteTraeningsTidCrawl(){
+    public void getBedsteTraeningsTidCrawl() {
         MedlemController.fillTraeningCrawlMedMedlemmerMedTider();
         sortListsCrawlTraening(BedsteTraeningsTiderCrawl);
     }
 
-    public void getBedsteTraeningsTidBryst(){
+    public void getBedsteTraeningsTidBryst() {
         MedlemController.fillTraeningBrystMedMedlemmerMedTider();
         sortListsBrystTraening(BedsteTraeningsTiderBryst);
     }
 
-    public void getBedsteTraeningsTidButterfly(){
+    public void getBedsteTraeningsTidButterfly() {
         MedlemController.fillTraeningButterflyMedMedlemmerMedTider();
         sortListsButterflyTraening(BedsteTraeningsTiderButterfly);
     }
+
+    public static void printKonkurrencesvoemmereListe() {
+        int i = 1;
+
+        for (Medlem medlem : MedlemController.getAlleMedlemmer()) {
+            if (medlem.getMedlemsskabsNr() == 1) {
+                System.out.println(" " + i + ". " + medlem.getNavn() + " (" + medlem.getId() + ")");
+                i++;
+            }
+        }
+
+    }
+
+
 
     public static void main(String[] args) {
         System.out.println(getBedsteStaevneTidCrawl());

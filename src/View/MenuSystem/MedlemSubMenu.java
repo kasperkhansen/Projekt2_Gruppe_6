@@ -45,7 +45,7 @@ public class MedlemSubMenu {
                     break;
                 case 3:
                     UserMenu.displayMenu();
-
+                    break;
                 case 4:
                     System.out.println("Afslutter...");
                     System.exit(0);

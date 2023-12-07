@@ -1,4 +1,4 @@
-navn: Svend1
+navn: Svendsen
 medlemskabsNr: 2
 alder: 63
 foedselsdato: 1960-08-17

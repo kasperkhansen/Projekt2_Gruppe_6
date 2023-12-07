@@ -1,4 +1,4 @@
-navn: oskar
+navn: Oliver
 medlemskabsNr: 3
 alder: 23
 foedselsdato: 2000-08-17
