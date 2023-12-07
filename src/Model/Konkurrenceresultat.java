@@ -7,22 +7,24 @@ public class Konkurrenceresultat {
 
     int placering;
 
-    public int getPlacering() {
-        return placering;
-    }
-
-    public double getTid() {
-        return traeningsTid;
-    }
-
-    public String getStaevne() {
-        return staevne;
-    }
 
     public Konkurrenceresultat(double traeningsTid, String staevne, int placering) {
         this.traeningsTid = traeningsTid;
         this.staevne = staevne;
         this.placering = placering;
+    }
+
+    public int getPlacering() {
+        return this.placering;
+    }
+
+    public double getTid() {
+        return this.traeningsTid;
+    }
+
+
+    public String getStaevne() {
+        return this.staevne;
     }
 
 }

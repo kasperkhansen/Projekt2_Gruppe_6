@@ -68,7 +68,7 @@ public class MedlemController {
 
                 break;
             }
-            alleMedlemmer = getAlleMedlemmer();
+
         }
     }
 
@@ -77,7 +77,15 @@ public class MedlemController {
             DatabaseController.saveMedlemAsFile(medlem);
             alleMedlemmer.add(medlem);
             DatabaseController.loadFilesToArr();
-            System.out.println("Medlem tilføjet: " + medlem.getNavn());
+        } else {
+            System.out.println("Test: " + medlem.getNavn());
+            System.out.println("alleMedlemmer indeholder + " + medlem.getNavn());
+            System.out.println("Test: nytMedlem indehold" + medlem.getNavn());
+            System.out.println(medlem);
+            Medlem m = getMedlemMedId(medlem.getId());
+            System.out.println("Test: alleMedlemmer indeholder + " + m.getNavn());
+            System.out.println(m);
+
         }
     }
 
@@ -182,6 +190,8 @@ public class MedlemController {
         tilfoejMedlem(medlem);
     }
 
+
+
     public static boolean doesMemberExist(int mobileNumber) {
         boolean doesMemberExist = getMedlemByMobileNumber(mobileNumber) != null;
         return doesMemberExist;
@@ -247,4 +257,6 @@ public class MedlemController {
                 TraenerController.BedsteTraeningsTiderButterfly.add(m);
         }
     }
+
+
 }

@@ -4,7 +4,7 @@ alder: 31
 foedselsdato: 1992-01-01
 traening resultater: 
 Butterfly: 
-Crawl: 
+Crawl: 12.34(2000-01-01), 
 Bryst: 
 konkurrence resultater: 
 Butterfly: 

@@ -268,4 +268,34 @@ public class Medlem {
     public String toString() {
         return " " + navn +", "+ medlemsskab.get(0).toString() + ", "+  alder +", "+ foedselsdato + ", id: " + id;
     }
+
+    public void printTraeningsresultater() {
+        System.out.println("Butterfly træning: ");
+        for (Traeningsresultat traeningsresultat : butterflyTraening) {
+            System.out.println(traeningsresultat.toString());
+        }
+        System.out.println("Crawl træning: ");
+        for (Traeningsresultat traeningsresultat : crawlTraening) {
+            System.out.println(traeningsresultat.toString());
+        }
+        System.out.println("Bryst træning: ");
+        for (Traeningsresultat traeningsresultat : brystTraening) {
+            System.out.println(traeningsresultat.toString());
+        }
+    }
+
+    public void printKonkurrenceresultater() {
+        System.out.println("Butterfly konkurrence: ");
+        for (Konkurrenceresultat konkurrenceresultat : butterflyKonkurrence) {
+            System.out.println(konkurrenceresultat.toString());
+        }
+        System.out.println("Crawl konkurrence: ");
+        for (Konkurrenceresultat konkurrenceresultat : crawlKonkurrence) {
+            System.out.println(konkurrenceresultat.toString());
+        }
+        System.out.println("Bryst konkurrence: ");
+        for (Konkurrenceresultat konkurrenceresultat : brystKonkurrence) {
+            System.out.println(konkurrenceresultat.toString());
+        }
+    }
 }

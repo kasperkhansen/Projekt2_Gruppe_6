@@ -60,7 +60,7 @@ public abstract class Input {
         }
     }
 
-    public static int konkurrenceValg() {
+    public static int traeningEllerKonkurrenceValg() {
         while (true) {
             System.out.println("Vælg træning eller konkurrence: ");
             System.out.println("--------------------");
