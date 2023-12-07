@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 
 import static Controller.MedlemController.getMedlemMedId;
+import static Controller.MedlemController.opdaterMedlem;
 
 public class TraenerController {
 
@@ -80,7 +81,8 @@ public class TraenerController {
         } else {
             System.out.println("Ingen medlem fundet med dette navn");
         }
-
+        MedlemController.opdaterMedlem(medlem);
+        DatabaseController.saveArrToFileDatabase();
     }
 
 //-----------------------------------sortering metoder------------------------------------------------------------------
