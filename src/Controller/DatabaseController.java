@@ -212,6 +212,7 @@ public class DatabaseController {
     }
 
     public static Medlem getOpdateretMedlemMedResultaterFraFile(File file, Medlem m) {
+        System.out.println("Opdaterer medlem med resultater fra file: " + file.getName() + "..." + m.getNavn());
         m.clearResultater();
         // get Traening and Konkurrence results from file
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -247,6 +248,8 @@ public class DatabaseController {
                         }
                     }
                 }
+                System.out.println("test: ");
+                m.printTraeningsresultater();
                 if (s.startsWith("konkurrence resultater: ")) {
                     String[] lineStrings = s.split(", ");
 
@@ -264,6 +267,8 @@ public class DatabaseController {
                         }
                     }
                 }
+                System.out.println("test: ");
+                m.printKonkurrenceresultater();
             }
         } catch (IOException e) {
             System.err.println("Error reading from file line:  ");
