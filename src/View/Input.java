@@ -110,8 +110,7 @@ public abstract class Input {
             System.out.println(message);
 
             try {
-                scanner.nextLine();
-                String input = scanner.nextLine();
+                String input = scanner.next();
                 if (input.contains(" ")) {
                     System.out.println("Indtast kun et fornavn. Prøv igen.");
                     return scanner.next();

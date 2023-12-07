@@ -20,4 +20,6 @@ public class Traeningsresultat {
         this.traeningsDato = traeningsDato;
     }
 
+
+
 }
