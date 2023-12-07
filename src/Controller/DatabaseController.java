@@ -30,6 +30,7 @@ public class DatabaseController {
     // Save alleMedlemmer arraylist of MedlemController to files for each member
     public static void saveArrToFileDatabase() {
         updateListOfFiles();
+
         for (Medlem medlem : MedlemController.alleMedlemmer) {
 
             // check if file exists
@@ -141,7 +142,6 @@ public class DatabaseController {
             MedlemController.alleMedlemmer.addAll(loadedMembers);
         }
     }
-
 
 
     // Update the list of files
@@ -314,8 +314,7 @@ public class DatabaseController {
         try {
             for (Traeningsresultat resultat : resultater) {
                 Double tid = resultat.getTid();
-                LocalDate dato = resultat.getTraeningsDato();
-                String datoStr = dato.toString();
+                String datoStr = resultat.getTraeningsDato().toString();
                 fileWriter.write(tid + "("+ datoStr +")"+ ", ");
             }
             fileWriter.write("\n");

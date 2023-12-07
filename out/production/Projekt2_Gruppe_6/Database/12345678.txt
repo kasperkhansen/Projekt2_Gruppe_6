@@ -3,9 +3,9 @@ medlemskabsNr: 1
 alder: 31
 foedselsdato: 1992-01-01
 traening resultater: 
-Butterfly: 
-Crawl: 
-Bryst: 
+Butterfly: 99.99(2000-01-01), 
+Crawl: 99.99(2000-01-01), 
+Bryst: 99.99(2000-01-01), 
 konkurrence resultater: 
 Butterfly: 
 Crawl: 

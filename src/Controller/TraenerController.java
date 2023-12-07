@@ -20,7 +20,7 @@ public class TraenerController {
     public static void registrerResultat() {
 
         System.out.println("Registrer svømmeresultater:");
-                printKonkurrencesvoemmereListe();
+        printKonkurrencesvoemmereListe();
 
         int id = Input.getIdInput();
 
@@ -28,40 +28,51 @@ public class TraenerController {
 
 
         if (medlem != null) {
-            int nyDisciplinTid = Input.svoemmeDisciplinValg();
-            int nyDisciplinType = Input.konkurrenceValg();
+            int disciplinValg = Input.svoemmeDisciplinValg(); // 1 = crawl, 2 = bryst, 3 = butterfly
+            int traeningEllerKonkurrenceValg = Input.traeningEllerKonkurrenceValg();
 
-            if (nyDisciplinType == 1) {
+            // 1 = konkurrence, 2 = træning
+            if (traeningEllerKonkurrenceValg == 1) {
                 if (medlem.getMedlemsskabsNr() == 1) {
                     String hvilketStaevne = Input.stringInput("Indtast stævne: ");
                     int hvilkenPlacering = Input.intInput("Indtast placering: ");
                     double nyTid = Input.svoemmeTid();
-                    switch (nyDisciplinTid) {
+
+                    switch (disciplinValg) {
                         case 1:
                             medlem.brystKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
+                            break;
                         case 2:
                             medlem.crawlKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
+                            break;
                         case 3:
                             medlem.butterflyKonkurrence.add(new Konkurrenceresultat(nyTid, hvilketStaevne, hvilkenPlacering));
+                            break;
                     }
+
+                    MedlemController.opdaterMedlem(medlem);
+                    DatabaseController.saveArrToFileDatabase();
                 } else {
                     System.out.println("Dette medlem er ikke en konkurrencesvømmer");
                 }
-            } else {
+            } else { // 2 = træning (traeningEllerKonkurrenceValg)
                 if (medlem.getMedlemsskabsNr() != 3) {
                     LocalDate hvilkenDato = Input.dateInput("Indtast træningsdato: ");
                     double nyTid = Input.svoemmeTid();
-                    switch (nyDisciplinTid) {
+                    switch (disciplinValg) {
                         case 1:
-                            medlem.brystTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
-                        case 2:
                             medlem.crawlTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
+                            break;
+                        case 2:
+                            medlem.brystTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
+                            break;
                         case 3:
                             medlem.butterflyTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
+                            break;
 
                     }
-
-                    DatabaseController.updaterMedlemFile(medlem);
+                    MedlemController.opdaterMedlem(medlem);
+                    DatabaseController.saveArrToFileDatabase();
                 } else {
                     System.out.println("Dette medlem er ikke et aktivt medlem");
                 }
@@ -162,8 +173,4 @@ public class TraenerController {
     }
 
 
-
-    public static void main(String[] args) {
-        System.out.println(getBedsteStaevneTidCrawl());
-    }
 }
