@@ -50,8 +50,10 @@ public class MedlemController {
                 }
             } else {
                 tilfoejMedlem(new Medlem(Input.getNameInput("Indtast navn", "Ugyldigt navn, prøv igen"), Input.medlemskabInput(), Input.getBirthDateInput(), Input.getIdInput()));
+
                 break;
             }
+            alleMedlemmer = getAlleMedlemmer();
         }
     }
 
@@ -176,8 +178,10 @@ public class MedlemController {
     }
 
     public static void printAlleMedlemmerMobilNr() {
+        int i = 1;
         for (Medlem medlem : alleMedlemmer) {
-            System.out.println(medlem.getNavn() + " " + medlem.getId());
+            System.out.println(" "+ i +". " + medlem.getNavn() + " (" + medlem.getId() + ")");
+            i++;
         }
     }
 

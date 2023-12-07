@@ -1,7 +1,7 @@
-navn: Lars
+navn: SvendErik
 medlemskabsNr: 1
-alder: 21
-foedselsdato: 2002-04-08
+alder: 20
+foedselsdato: 2003-09-30
 traening resultater: 
 
 
