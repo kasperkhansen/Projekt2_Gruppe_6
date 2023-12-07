@@ -1,0 +1,12 @@
+navn: SvendErik
+medlemskabsNr: 1
+alder: 20
+foedselsdato: 2003-09-30
+traening resultater: 
+
+
+
+konkurrence resultater: 
+
+
+

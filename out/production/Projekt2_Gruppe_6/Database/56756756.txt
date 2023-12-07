@@ -1,7 +1,7 @@
-navn: Børge
+navn: Allan
 medlemskabsNr: 3
-alder: 25
-foedselsdato: 1998-10-20
+alder: 23
+foedselsdato: 2000-10-20
 traening resultater: 
 
 

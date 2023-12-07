@@ -26,10 +26,9 @@ public class KontingentController {
 
     public static void registrerKontingentBetaling() {
         DatabaseController.loadFilesToArr();
-        System.out.println("Registrerer kontingent betaling...");
+        System.out.println("Registrer kontingent betaling...");
 
         while (true) {
-            System.out.println("test allemedlemmer arraylist size: " + MedlemController.alleMedlemmer.size());
             MedlemController.printAlleMedlemmerMobilNr();
 
             int MedlemId = Input.getIdInput();
