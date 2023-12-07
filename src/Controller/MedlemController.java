@@ -31,7 +31,22 @@ public class MedlemController {
                 System.out.println("2. Gå tilbage til Formand menu");
                 System.out.println("3. Opstart igen");
                 System.out.println("3. Afslut");
-                choice = Input.intInput("Valg: ");
+
+                while (true) {
+                    choice = Input.intInput("Valg: ");
+                    if (choice >= 1 && choice <= 4) {
+                        break;
+                    } else {
+                        System.out.println("Ugyldigt input, prøv igen");
+                        System.out.println();
+                        System.out.println("1. Gå tilbage og indtast nyt mobil nummer");
+                        System.out.println("2. Gå tilbage til Formand menu");
+                        System.out.println("3. Opstart igen");
+                        System.out.println("4. Afslut");
+                    }
+                }
+
+
                 switch (choice) {
                     case 1:
                         break;
@@ -68,10 +83,13 @@ public class MedlemController {
 
     // skift
     public static void skiftMedlemskabMedInputScan() {
+        System.out.println("Skift medlemskab for medlem:");
+        printAlleMedlemmerMobilNr();
         skiftMedlemskab(Input.getIdInput());
     }
 
     public static void skiftMedlemskab(int id) {
+
         Medlem medlem = getMedlemMedId(id);
         if (medlem != null) {
             int nytMedlemskabNr;
@@ -165,7 +183,8 @@ public class MedlemController {
     }
 
     public static boolean doesMemberExist(int mobileNumber) {
-        return getMedlemByMobileNumber(mobileNumber) != null;
+        boolean doesMemberExist = getMedlemByMobileNumber(mobileNumber) != null;
+        return doesMemberExist;
     }
 
 
@@ -227,12 +246,5 @@ public class MedlemController {
             if (m.butterflyTraening.get(0)!=null)
                 TraenerController.BedsteTraeningsTiderButterfly.add(m);
         }
-
-
     }
-
-
-
-
-
 }

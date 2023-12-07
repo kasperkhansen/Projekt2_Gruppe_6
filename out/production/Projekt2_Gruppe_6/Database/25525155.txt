@@ -1,4 +1,4 @@
-navn: 
+navn: Simon
 medlemskabsNr: 2
 alder: 28
 foedselsdato: 1995-02-20

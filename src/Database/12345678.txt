@@ -1,12 +1,12 @@
-navn: paul
+navn: Paul
 medlemskabsNr: 1
 alder: 31
 foedselsdato: 1992-01-01
 traening resultater: 
-
-
-
+Butterfly: 
+Crawl: 
+Bryst: 
 konkurrence resultater: 
-11.67, 
-11.67, 
-11.67, 
+Butterfly: 
+Crawl: 
+Bryst: 

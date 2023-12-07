@@ -1,10 +1,9 @@
 package Model;
 import View.Input;
-import javax.sound.midi.Soundbank;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 
 public class Medlem {
     public static KontingentBetaling getKontingentBetaling;
@@ -163,16 +162,16 @@ public class Medlem {
     }
 
     //--------------------------------------------------set metoder---------------------------------------------------------
-    @Override
-    public String toString() {
-        return " " + navn +", "+ medlemsskab.get(0).toString() + ", "+  alder +", "+ foedselsdato + ", id: " + id;
-    }
+
 
 
     public int getMedlemskabNr() {
         return medlemsskabsNr;
     }
 
+    public void setSidstBetalt(LocalDate sidstBetalt) {
+        this.sidstBetalt = sidstBetalt;
+    }
 
     // get metoder til Traening og Konkurrence
     public ArrayList<Traeningsresultat> getButterflyTraening() {
@@ -199,12 +198,74 @@ public class Medlem {
         return brystKonkurrence;
     }
 
-    public void setSidstBetalt(LocalDate sidstBetalt) {
-        this.sidstBetalt = sidstBetalt;
-    }
+
 
     public LocalDate getSidstBetalt() {
         return sidstBetalt;
     }
 
+
+    public void addButterflyTraening(Traeningsresultat traeningsresultat) {
+        butterflyTraening.add(traeningsresultat);
+    }
+
+    public void addCrawlTraening(Traeningsresultat traeningsresultat) {
+        crawlTraening.add(traeningsresultat);
+    }
+
+    public void addBrystTraening(Traeningsresultat traeningsresultat) {
+        brystTraening.add(traeningsresultat);
+    }
+
+    public void addButterflyKonkurrence(Konkurrenceresultat konkurrenceresultat) {
+        butterflyKonkurrence.add(konkurrenceresultat);
+    }
+
+    public void addCrawlKonkurrence(Konkurrenceresultat konkurrenceresultat) {
+        crawlKonkurrence.add(konkurrenceresultat);
+    }
+
+    public void addBrystKonkurrence(Konkurrenceresultat konkurrenceresultat) {
+        brystKonkurrence.add(konkurrenceresultat);
+    }
+
+
+    public void clearResultater() {
+        butterflyTraening.clear();
+        crawlTraening.clear();
+        brystTraening.clear();
+        butterflyKonkurrence.clear();
+        crawlKonkurrence.clear();
+        brystKonkurrence.clear();
+    }
+
+    public void addTraeningsresultat(Traeningsresultat traeningsresultat, String disciplin) {
+        if (disciplin.equals("Butterfly")) {
+            addButterflyTraening(traeningsresultat);
+        } else if (disciplin.equals("Crawl")) {
+            addCrawlTraening(traeningsresultat);
+        } else if (disciplin.equals("Bryst")) {
+            addBrystTraening(traeningsresultat);
+        }
+    }
+
+
+    public void addKonkurrenceresultat(Konkurrenceresultat konkurrenceresultat, String disciplin) {
+
+        if (disciplin.equals("Butterfly")) {
+            addButterflyKonkurrence(konkurrenceresultat);
+        } else if (disciplin.equals("Crawl")) {
+            addCrawlKonkurrence(konkurrenceresultat);
+        } else if (disciplin.equals("Bryst")) {
+            addBrystKonkurrence(konkurrenceresultat);
+        }
+    }
+
+
+
+
+    @Override
+    public String toString() {
+        return " " + navn +", "+ medlemsskab.get(0).toString() + ", "+  alder +", "+ foedselsdato + ", id: " + id;
+    }
 }
