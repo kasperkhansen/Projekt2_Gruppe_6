@@ -105,7 +105,7 @@ public class KontingentController {
             if (period.getYears() >= 1) {
                 betaling.bekræftBetaling();
                 medlem.setKontingentBetalt(true); // marker kontingentet som betalt
-               // medlemmerUdenKontingentBetalt.add(medlem);
+                // medlemmerUdenKontingentBetalt.add(medlem);
             }
 
             if (medlem.harBetaltKontingent()) {
@@ -113,6 +113,7 @@ public class KontingentController {
             } else {
                 medlemmerUdenKontingentBetalt.add(medlem);
             }
+        }
 
             //    updateLists();
             System.out.println("--------------------------\n");
@@ -134,20 +135,5 @@ public class KontingentController {
 
         }
 
-
-    /*public static void koebEnGangsBillet() {
-    }*/
-
-
-
-    /* private void updateLists() {
-        for (Medlem medlem : alleMedlemmer) {
-            if (medlem.getKontingentBetalt()) {
-                medlemmerMedKontingentBetalt.add(medlem);
-            } else {
-                medlemmerUdenKontingentBetalt.add(medlem);
-            }
-        }
-    } */
     }
-}
+
