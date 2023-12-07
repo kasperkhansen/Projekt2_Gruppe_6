@@ -50,8 +50,10 @@ public class MedlemController {
                 }
             } else {
                 tilfoejMedlem(new Medlem(Input.getNameInput("Indtast navn", "Ugyldigt navn, prøv igen"), Input.medlemskabInput(), Input.getBirthDateInput(), Input.getIdInput()));
+
                 break;
             }
+            alleMedlemmer = getAlleMedlemmer();
         }
     }
 
@@ -88,17 +90,17 @@ public class MedlemController {
                 case 1:
                     medlem.setMedlemskab(1);
                     valgtMedlemskab = "Aktiv - konkurrence.";
-                    System.out.println("Medlemskab for " + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
+                    System.out.println("Medlemskab for medlem med ID " + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
                     break;
                 case 2:
                     medlem.setMedlemskab(2);
                     valgtMedlemskab = "Aktiv - motionist.";
-                    System.out.println("Medlemskab for " + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
+                    System.out.println("Medlemskab for medlem med ID " + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
                     break;
                 case 3:
                     medlem.setMedlemskab(3);
                     valgtMedlemskab = "Passivt.";
-                    System.out.println("Medlemskab for " + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
+                    System.out.println("Medlemskab for medlem med ID" + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
                     break;
                 default:
                     System.out.println("Ugyldig indtastning, prøv igen");
@@ -113,24 +115,25 @@ public class MedlemController {
     // betal
     public static void betalEngangsbillet() {
         System.out.println("Betal engangsbillet i proces...");
+
         if (!alleMedlemmer.isEmpty()) {
-            String søgtNavn = Input.getNameInput("Indtast navn", "Ugyldigt navn, prøv igen");
+            int søgtId = Input.getIdInput();
             boolean medlemFundet = false;
 
             for (Medlem med : alleMedlemmer) {
-                if (med.getNavn().equals(søgtNavn)) {
+                if (med.getId() == søgtId) {
                     medlemFundet = true;
 
                     if (med.erPassivtMedlemskab()) {
-                        System.out.println("Engangsbillet til " + søgtNavn + " er købt");
+                        System.out.println("Engangsbillet til medlem med ID " + søgtId + " er købt.");
                     } else {
-                        System.out.println(søgtNavn + " er ikke passivt medlem.");
+                        System.out.println("Medlem med ID" + søgtId + " er ikke passivt medlem.");
                     }
                     break;
                 }
             }
             if (!medlemFundet) {
-                System.out.println("Ingen medlem fundet med dette navn: " + søgtNavn);
+                System.out.println("Ingen medlem fundet med dette navn: " + søgtId);
             }
         } else {
             System.out.println("Ingen medlemmer i listen");
@@ -175,46 +178,54 @@ public class MedlemController {
     }
 
     public static void printAlleMedlemmerMobilNr() {
+        int i = 1;
         for (Medlem medlem : alleMedlemmer) {
-            System.out.println(medlem.getNavn() + " " + medlem.getId());
+            System.out.println(" "+ i +". " + medlem.getNavn() + " (" + medlem.getId() + ")");
+            i++;
         }
     }
 
 //---------------------------------------Fill metoder------------------------------------------------------------------
 
-    public void fillStaevneCrawl(){
-        for (Medlem m : TraenerController.BedsteStaevneTiderCrawl) {
-            m.crawlKonkurrence.get(0);
+    public static void fillStaevneCrawlMedMedlemmerMedTider(){
+        for (Medlem m : alleMedlemmer) {
+            if (m.crawlKonkurrence.isEmpty())
+                TraenerController.BedsteStaevneTiderCrawl.add(m);
         }
     }
 
-    public void fillStaevneBryst(){
-        for (Medlem m : TraenerController.BedsteStaevneTiderBryst) {
-            m.brystKonkurrence.get(0);
+    public static void fillStaevneBrystMedMedlemmerMedTider(){
+        for (Medlem m : alleMedlemmer) {
+            if (m.brystKonkurrence.get(0)!=null)
+                TraenerController.BedsteStaevneTiderBryst.add(m);
         }
     }
 
-    public void fillStaevneButterfly(){
-        for (Medlem m : TraenerController.BedsteStaevneTiderButterfly){
-            m.butterflyKonkurrence.get(0);
+    public static void fillStaevneButterflyMedMedlemmerMedTider(){
+        for (Medlem m : alleMedlemmer) {
+            if (m.butterflyKonkurrence.get(0)!=null)
+                TraenerController.BedsteStaevneTiderButterfly.add(m);
         }
     }
 
-    public void fillTraeningCrawl(){
-        for (Medlem m : TraenerController.BedsteTraeningsTiderCrawl) {
-            m.crawlTraening.get(0);
+    public static void fillTraeningCrawlMedMedlemmerMedTider(){
+        for (Medlem m : alleMedlemmer) {
+            if (m.crawlTraening.get(0)!=null)
+                TraenerController.BedsteTraeningsTiderCrawl.add(m);
         }
     }
 
-    public void fillTraeningBryst(){
-        for (Medlem m : TraenerController.BedsteTraeningsTiderBryst) {
-            m.brystTraening.get(0);
+    public static void fillTraeningBrystMedMedlemmerMedTider(){
+        for (Medlem m : alleMedlemmer) {
+            if (m.brystTraening.get(0)!=null)
+                TraenerController.BedsteTraeningsTiderBryst.add(m);
         }
     }
 
-    public void fillTraeningButterfly(){
-        for (Medlem m : TraenerController.BedsteTraeningsTiderButterfly) {
-            m.butterflyTraening.get(0);
+    public static void fillTraeningButterflyMedMedlemmerMedTider(){
+        for (Medlem m : alleMedlemmer) {
+            if (m.butterflyTraening.get(0)!=null)
+                TraenerController.BedsteTraeningsTiderButterfly.add(m);
         }
 
 

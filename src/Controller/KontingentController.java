@@ -26,10 +26,9 @@ public class KontingentController {
 
     public static void registrerKontingentBetaling() {
         DatabaseController.loadFilesToArr();
-        System.out.println("Registrerer kontingent betaling...");
+        System.out.println("Registrer kontingent betaling...");
 
         while (true) {
-            System.out.println("test allemedlemmer arraylist size: " + MedlemController.alleMedlemmer.size());
             MedlemController.printAlleMedlemmerMobilNr();
 
             int MedlemId = Input.getIdInput();
@@ -105,7 +104,7 @@ public class KontingentController {
             if (period.getYears() >= 1) {
                 betaling.bekræftBetaling();
                 medlem.setKontingentBetalt(true); // marker kontingentet som betalt
-               // medlemmerUdenKontingentBetalt.add(medlem);
+                // medlemmerUdenKontingentBetalt.add(medlem);
             }
 
             if (medlem.harBetaltKontingent()) {
@@ -113,6 +112,7 @@ public class KontingentController {
             } else {
                 medlemmerUdenKontingentBetalt.add(medlem);
             }
+        }
 
             //    updateLists();
             System.out.println("--------------------------\n");
@@ -134,20 +134,5 @@ public class KontingentController {
 
         }
 
-
-    /*public static void koebEnGangsBillet() {
-    }*/
-
-
-
-    /* private void updateLists() {
-        for (Medlem medlem : alleMedlemmer) {
-            if (medlem.getKontingentBetalt()) {
-                medlemmerMedKontingentBetalt.add(medlem);
-            } else {
-                medlemmerUdenKontingentBetalt.add(medlem);
-            }
-        }
-    } */
     }
-}
+

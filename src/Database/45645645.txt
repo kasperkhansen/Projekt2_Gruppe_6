@@ -1,0 +1,12 @@
+navn: Henrik
+medlemskabsNr: 1
+alder: 23
+foedselsdato: 2000-10-25
+traening resultater: 
+
+
+
+konkurrence resultater: 
+
+
+

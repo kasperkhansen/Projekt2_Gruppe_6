@@ -1,0 +1,12 @@
+navn: Allan
+medlemskabsNr: 3
+alder: 23
+foedselsdato: 2000-10-20
+traening resultater: 
+
+
+
+konkurrence resultater: 
+
+
+

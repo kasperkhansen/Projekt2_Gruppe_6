@@ -34,15 +34,55 @@ public class DatabaseController {
 
             // check if file exists
             if (loadedMembers.contains(medlem)) {
-                System.out.println("File already exists. Updating file: " + medlem.getId() + ".txt");
-                deleteFile(medlem.getId() + ".txt");
-                saveMedlemAsFile(medlem);
+                // updates file if it exists
+                // check data difference between file and medlem
+                // if difference, update file
+                if (!checkDataDifference(medlem)) {
+                    deleteFile(medlem.getId() + ".txt");
+                    saveMedlemAsFile(medlem);
+                }
             } else {
                 System.out.println("File does not exist. Creating file: " + medlem.getId() + ".txt");
                 saveMedlemAsFile(medlem);
             }
             updateListOfFiles();
         }
+    }
+
+    private static boolean checkDataDifference(Medlem medlem) {
+        Medlem medlemFromFile = getMedlemFromFile(new File(DatabaseController.DATABASE_PATH + medlem.getId() + ".txt"));
+        boolean same = true;
+        if (!medlem.getNavn().equals(medlemFromFile.getNavn())) {
+            same = false;
+        }
+        if (medlem.getMedlemsskabsNr() != medlemFromFile.getMedlemsskabsNr()) {
+            same = false;
+        }
+        if (medlem.getAlder() != medlemFromFile.getAlder()) {
+            same = false;
+        }
+        if (!medlem.getFoedselsdato().equals(medlemFromFile.getFoedselsdato())) {
+            same = false;
+        }
+        if (!medlem.getButterflyTraening().equals(medlemFromFile.getButterflyTraening())) {
+            same = false;
+        }
+        if (!medlem.getCrawlTraening().equals(medlemFromFile.getCrawlTraening())) {
+            same = false;
+        }
+        if (!medlem.getBrystTraening().equals(medlemFromFile.getBrystTraening())) {
+            same = false;
+        }
+        if (!medlem.getButterflyKonkurrence().equals(medlemFromFile.getButterflyKonkurrence())) {
+            same = false;
+        }
+        if (!medlem.getCrawlKonkurrence().equals(medlemFromFile.getCrawlKonkurrence())) {
+            same = false;
+        }
+        if (!medlem.getBrystKonkurrence().equals(medlemFromFile.getBrystKonkurrence())) {
+            same = false;
+        }
+        return same;
     }
 
     // Save a Medlem as a file
@@ -117,6 +157,7 @@ public class DatabaseController {
 
     private static ArrayList<Medlem> getMedlemmerAfFiles() {
         updateListOfFiles();
+        loadedMembers.clear();
        try {
            for (File file : listOfFiles) {
                loadedMembers.add(getMedlemFromFile(file));

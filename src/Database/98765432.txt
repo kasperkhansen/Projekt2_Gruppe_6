@@ -1,0 +1,12 @@
+navn: Børge
+medlemskabsNr: 3
+alder: 25
+foedselsdato: 1998-10-20
+traening resultater: 
+
+
+
+konkurrence resultater: 
+
+
+

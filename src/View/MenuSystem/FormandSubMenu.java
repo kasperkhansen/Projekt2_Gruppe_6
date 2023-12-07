@@ -21,7 +21,7 @@ public class FormandSubMenu {
 
         while (true) {
             System.out.println("\nPlease choose an option:");
-            System.out.println("1. Registrerer Medlem");
+            System.out.println("1. Registrer Medlem");
             System.out.println("2. Gå tilbage til Bruger menu");
             System.out.println("3. Afslut");
 
@@ -50,9 +50,5 @@ public class FormandSubMenu {
                     System.out.println("Ugyldigt input, prøv igen");
             }
         }
-    }
-
-    public static void main(String[] args) {
-        new FormandSubMenu();
     }
 }

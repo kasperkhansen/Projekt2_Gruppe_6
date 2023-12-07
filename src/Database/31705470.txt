@@ -1,0 +1,12 @@
+navn: Finne
+medlemskabsNr: 3
+alder: 24
+foedselsdato: 1999-10-11
+traening resultater: 
+
+
+
+konkurrence resultater: 
+
+
+

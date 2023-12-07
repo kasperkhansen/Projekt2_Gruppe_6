@@ -1,0 +1,12 @@
+navn: Mads
+medlemskabsNr: 3
+alder: 24
+foedselsdato: 1999-09-11
+traening resultater: 
+
+
+
+konkurrence resultater: 
+
+
+

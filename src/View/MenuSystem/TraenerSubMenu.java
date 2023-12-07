@@ -22,12 +22,12 @@ public class TraenerSubMenu {
         while (true) {
             System.out.println("\nPlease choose an option:");
             System.out.println("1. Registrering af svoemmernes traenings resultater");
-            System.out.println("2. Se top 5 svoemmere indenfor discipline crawl");
-            System.out.println("2. Se top 5 svoemmere indenfor disciplinen bryst");
-            System.out.println("2. Se top 5 svoemmere indenfor disciplinen butterfly");
-            System.out.println("3. Registrer konkurrence svømmeres resultat");
-            System.out.println("4. Gå tilbage til Bruger menu");
-            System.out.println("5. Afslut");
+            System.out.println("2. Se top 5 svømmeres træningsresultater indenfor disciplinen crawl");
+            System.out.println("3. Se top 5 svømmeres træningsresultater indenfor disciplinen bryst");
+            System.out.println("4. Se top 5 svømmeres træningsresultater indenfor disciplinen butterfly");
+            System.out.println("5. Registrer konkurrence svømmeres resultat");
+            System.out.println("6. Gå tilbage til Bruger menu");
+            System.out.println("7. Afslut");
 
             int choice = intInput("Valg: ");
             System.out.println("--------------------\n");
@@ -40,21 +40,22 @@ public class TraenerSubMenu {
                     //System.out.println("traenerController.registrerTraeningsResultater();");
                     break;
                 case 2:
-                    TraenerController.seTopFemSvoemmereCrawl();
+                    //TraenerController.seTopFemSvoemmereCrawl();
                     DatabaseController.saveArrToFileDatabase();
                     //System.out.println("traenerController.seTopFemSvoemmere();");
 
                     break;
                 case 3:
-                    TraenerController.seTopFemSvoemmereBryst();
+                    //TraenerController.seTopFemSvoemmereBryst();
+                    System.out.println(TraenerController.getBedsteStaevneTidCrawl());
 
                     break;
                 case 4:
-                    TraenerController.seTopFemSvoemmereButterfly();
+                    //TraenerController.seTopFemSvoemmereButterfly();
                     break;
 
                 case 5:
-                    //traenerController.registrerKonkurrenceSvoemmeresRsultat();
+                    //TraenerController.registrerKonkurrenceSvoemmeresRsultat();
                     DatabaseController.saveArrToFileDatabase();
                     System.out.println("traenerController.registrerKonkurrenceSvoemmeresRsultat();");
                     break;
