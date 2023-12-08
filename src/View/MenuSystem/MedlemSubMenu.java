@@ -22,14 +22,14 @@ public class MedlemSubMenu {
         System.out.println();
 
         while (true) {
-            System.out.println("\nVælg en mulighed:");
-            System.out.println("1. Ændring af medlemskab");
-            System.out.println("2. Køb engangs billet");
-            System.out.println("3. Gå tilbage til Bruger menu");
-            System.out.println("4. Afslut");
+            System.out.println("Vælg en mulighed:");
+            System.out.println(" 1. Ændring af medlemskab");
+            System.out.println(" 2. Køb engangs billet");
+            System.out.println(" 3. Gå tilbage til Bruger menu");
+            System.out.println(" 4. Afslut");
 
             int choice = intInput("Valg: ");
-            System.out.println("--------------------\n");
+
 
 
             switch (choice) {

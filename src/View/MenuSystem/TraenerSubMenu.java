@@ -20,17 +20,18 @@ public class TraenerSubMenu {
         System.out.println();
 
         while (true) {
-            System.out.println("\nPlease choose an option:");
-            System.out.println("1. Registrering af svoemmernes traenings resultater");
-            System.out.println("2. Se top 5 svømmeres træningsresultater indenfor disciplinen crawl");
-            System.out.println("3. Se top 5 svømmeres træningsresultater indenfor disciplinen bryst");
-            System.out.println("4. Se top 5 svømmeres træningsresultater indenfor disciplinen butterfly");
-            System.out.println("5. Registrer konkurrence svømmeres resultat");
-            System.out.println("6. Gå tilbage til Bruger menu");
-            System.out.println("7. Afslut");
+            System.out.println("Hvad vil De gerne?:");
+            System.out.println(" 1. Registrering af svoemmernes traenings resultater");
+            /*System.out.println(" 2. Se top 5 svømmeres træningsresultater indenfor disciplinen crawl");
+            System.out.println(" 3. Se top 5 svømmeres træningsresultater indenfor disciplinen bryst");
+            System.out.println(" 4. Se top 5 svømmeres træningsresultater indenfor disciplinen butterfly");
+            */
+            System.out.println(" 5. Se alle med resultater");
+            System.out.println(" 6. Gå tilbage til Bruger menu");
+            System.out.println(" 7. Afslut");
 
             int choice = intInput("Valg: ");
-            System.out.println("--------------------\n");
+
 
 
             switch (choice) {
@@ -56,8 +57,10 @@ public class TraenerSubMenu {
 
                 case 5:
                     //TraenerController.registrerKonkurrenceSvoemmeresRsultat();
+
+                    TraenerController.seAlleMedResultater();
                     DatabaseController.saveArrToFileDatabase();
-                    System.out.println("traenerController.registrerKonkurrenceSvoemmeresRsultat();");
+
                     break;
                 case 6:
                     UserMenu.displayMenu();

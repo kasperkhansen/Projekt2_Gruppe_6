@@ -1,12 +1,12 @@
-navn: John
+navn: Bob
 medlemskabsNr: 1
 alder: 23
 foedselsdato: 2000-01-01
 traening resultater: 
-
-
-
+Butterfly: 
+Crawl: 
+Bryst: 
 konkurrence resultater: 
-
-
-
+Butterfly: 
+Crawl: 
+Bryst: 

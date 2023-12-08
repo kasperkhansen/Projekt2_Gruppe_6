@@ -1,7 +1,7 @@
-navn: Jørgen
+navn: Jytte
 medlemskabsNr: 1
-alder: 23
-foedselsdato: 2000-01-01
+alder: 58
+foedselsdato: 1965-02-03
 traening resultater: 
 Butterfly: 
 Crawl: 

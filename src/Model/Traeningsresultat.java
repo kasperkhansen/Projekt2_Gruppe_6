@@ -20,6 +20,21 @@ public class Traeningsresultat {
         this.traeningsDato = traeningsDato;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Traeningsresultat)) return false;
+        Traeningsresultat that = (Traeningsresultat) o;
+        return Double.compare(that.traeningsTid, traeningsTid) == 0 &&
+                traeningsDato.equals(that.traeningsDato);
+    }
 
+    @Override
+    public String toString() {
+        return "Traeningsresultat{" +
+                "traeningsTid=" + traeningsTid +
+                ", traeningsDato=" + traeningsDato +
+                '}';
+    }
 
 }

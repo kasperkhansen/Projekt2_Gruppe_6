@@ -2,12 +2,10 @@ package Controller;
 import Model.*;
 import View.Input;
 import View.MenuSystem.FormandSubMenu;
-import View.MenuSystem.MedlemSubMenu;
 import View.MenuSystem.UserMenu;
 
 import java.util.ArrayList;
 
-import static Controller.DatabaseController.getMedlemByMobileNumber;
 import static javax.swing.UIManager.get;
 
 public class MedlemController {
@@ -20,17 +18,20 @@ public class MedlemController {
 
     // medlem
     public static void registrerMedlem() {
-        System.out.println("Registrerer medlem...");
+        System.out.println();
+        System.out.println("Registrering af Medlem valgt...");
+        System.out.println("-----------------------------");
         int choice;
+
         while (true) {
             int mobilNumner = Input.getIdInput(); // Assuming this method gets the mobile number
-            if (doesMemberExist(mobilNumner)) {
+            if (isAlreadyRegistered(mobilNumner)) {
                 System.out.println("Mobil nummer eksisterer allerede.");
                 System.out.println();
-                System.out.println("1. Prøv igen");
-                System.out.println("2. Gå tilbage til Formand menu");
-                System.out.println("3. Opstart igen");
-                System.out.println("3. Afslut");
+                System.out.println(" 1. Prøv igen med et andet mobil nummer");
+                System.out.println(" 2. Gå tilbage til Formand menu");
+                System.out.println(" 3. Opstart igen");
+                System.out.println(" 3. Afslut");
 
                 while (true) {
                     choice = Input.intInput("Valg: ");
@@ -45,7 +46,6 @@ public class MedlemController {
                         System.out.println("4. Afslut");
                     }
                 }
-
 
                 switch (choice) {
                     case 1:
@@ -64,20 +64,21 @@ public class MedlemController {
                         System.out.println("Ugyldigt input, prøv igen");
                 }
             } else {
-                tilfoejMedlem(new Medlem(Input.getNameInput("Indtast navn", "Ugyldigt navn, prøv igen"), Input.medlemskabInput(), Input.getBirthDateInput(), Input.getIdInput()));
-
+                tilfoejMedlem(new Medlem(Input.getNameInput("Indtast navn", "Ugyldigt navn, prøv igen"), Input.medlemskabInput(), Input.getBirthDateInput(), mobilNumner));
+                System.out.println("Success! Medlem med mobil nummer " + mobilNumner + " er registreret.");
                 break;
             }
-            alleMedlemmer = getAlleMedlemmer();
         }
     }
 
     public static void tilfoejMedlem(Medlem medlem) {
+        boolean medlemEksisterer = true;
         if (!alleMedlemmer.contains(medlem)) {
-            DatabaseController.saveMedlemAsFile(medlem);
             alleMedlemmer.add(medlem);
-            DatabaseController.loadFilesToArr();
-            System.out.println("Medlem tilføjet: " + medlem.getNavn());
+            medlemEksisterer = false;
+        }
+        if (!medlemEksisterer) {
+            DatabaseController.saveMedlemAsFile(medlem);
         }
     }
 
@@ -102,6 +103,7 @@ public class MedlemController {
                 }
             } while (nytMedlemskabNr == medlem.getMedlemsskabsNr());
 
+            System.out.println("Test: "+ medlem.getId()+ " " + medlem.getNavn() + " " + medlem.getMedlemsskabsNr());
 
             String valgtMedlemskab;
             switch (nytMedlemskabNr) {
@@ -119,12 +121,18 @@ public class MedlemController {
                     medlem.setMedlemskab(3);
                     valgtMedlemskab = "Passivt.";
                     System.out.println("Medlemskab for medlem med ID" + getMedlemMedId(id).getId() + " er ændret til " + valgtMedlemskab);
+
                     break;
                 default:
                     System.out.println("Ugyldig indtastning, prøv igen");
                     return;
             }
-            DatabaseController.updaterMedlemFile(medlem);
+            // opdater alleMedlemmer med opdateret medlem
+            System.out.println("Test: "+ medlem.getId()+ " " + medlem.getNavn() + " " + medlem.getMedlemsskabsNr());
+            System.out.println(medlem.getMedlemsskabsNr());
+            opdaterMedlem(medlem);
+
+            DatabaseController.setMedlemskabsNr(medlem.getId(), nytMedlemskabNr);
         } else {
             System.out.println("Ingen medlem fundet med dette navn");
         }
@@ -159,11 +167,6 @@ public class MedlemController {
     }
 
     // 2 medlem Methods ---------------------------------------------
-    public static void fjernMedlem(Medlem medlem) {
-        alleMedlemmer.remove(medlem);
-        System.out.println("Medlem fjernet: " + medlem.getNavn());
-    }
-
     public static Medlem getMedlemMedId(int id) {
         for (Medlem medlem : alleMedlemmer) {
             if (medlem.getId() == id) {
@@ -177,14 +180,81 @@ public class MedlemController {
         return alleMedlemmer;
     }
 
-    public static void opdaterMedlem(Medlem medlem) {
-        fjernMedlem(medlem);
-        tilfoejMedlem(medlem);
+    public static void opdaterMedlem(Medlem newMedlem) {
+        Medlem oldMedlem = getMedlemMedId(newMedlem.getId());
+        Medlem mergedMedlem = mergeMedlemmer(oldMedlem, newMedlem);
+        int index = alleMedlemmer.indexOf(oldMedlem);
+        alleMedlemmer.remove(oldMedlem);
+        alleMedlemmer.add(index, mergedMedlem);
     }
 
-    public static boolean doesMemberExist(int mobileNumber) {
-        boolean doesMemberExist = getMedlemByMobileNumber(mobileNumber) != null;
-        return doesMemberExist;
+
+
+    public static Medlem mergeMedlemmer (Medlem oldMedlem, Medlem newMedlem) {
+        if (oldMedlem != null) {
+            // check values: navn, medlemskab, fødselsdato, træningsresultater, konkurrenceresultater
+            if (!oldMedlem.getNavn().equals(newMedlem.getNavn())) {
+                oldMedlem.setNavn(newMedlem.getNavn());
+            }
+            if (oldMedlem.getMedlemsskabsNr() != newMedlem.getMedlemsskabsNr()) {
+                oldMedlem.setMedlemskab(newMedlem.getMedlemsskabsNr());
+            }
+            if (!oldMedlem.getFoedselsdato().equals(newMedlem.getFoedselsdato())) {
+                oldMedlem.setFoedselsdato(newMedlem.getFoedselsdato());
+            }
+            mergeTraeningResults(oldMedlem.getCrawlTraening(), newMedlem.getCrawlTraening());
+            mergeKonkurrenceResults(oldMedlem.getCrawlKonkurrence(), newMedlem.getCrawlKonkurrence());
+            mergeTraeningResults(oldMedlem.getBrystTraening(), newMedlem.getBrystTraening());
+            mergeKonkurrenceResults(oldMedlem.getBrystKonkurrence(), newMedlem.getBrystKonkurrence());
+            mergeTraeningResults(oldMedlem.getButterflyTraening(), newMedlem.getButterflyTraening());
+            mergeKonkurrenceResults(oldMedlem.getButterflyKonkurrence(), newMedlem.getButterflyKonkurrence());
+
+            return oldMedlem;
+        } else {
+            return newMedlem;
+        }
+    }
+
+    // merge logic methods
+    private static void mergeTraeningResults(ArrayList<Traeningsresultat> oldResults, ArrayList<Traeningsresultat> newResults) {
+        for (Traeningsresultat newResult : newResults) {
+            if (!oldResults.contains(newResult)) {
+                oldResults.add(newResult);
+            }
+        }
+    }
+    private static void mergeKonkurrenceResults(ArrayList<Konkurrenceresultat> oldResults, ArrayList<Konkurrenceresultat> newResults) {
+        for (Konkurrenceresultat newResult : newResults) {
+            if (!oldResults.contains(newResult)) {
+                System.out.println();
+                System.out.println("--------------------");
+                System.out.println("test merge Traening results:");
+                System.out.println("oldResults: " + oldResults.toString());
+                System.out.println("newResults: " + newResults.toString());
+                oldResults.add(newResult);
+                System.out.println();
+                System.out.println("after add newResult to oldResults");
+                System.out.println("oldResults: " + oldResults.toString());
+            }
+        }
+    }
+
+    public static boolean isAlreadyRegistered(int mobileNumber) {
+
+        for (Medlem medlem : alleMedlemmer) {
+            if (medlem.getId() == mobileNumber) {
+                if (DatabaseController.getMedlemByMobileNumber(mobileNumber) != null) {
+
+                } else {
+                    System.out.println("Sync error: Medlemmet er ikke fundet i databasen, men fundet i alleMedlemmer");
+                }
+                return true;
+            }
+        }
+        if (getMedlemMedId(mobileNumber) != null) {
+            System.out.println("Sync error: Medlemmer er fundet i database, ikke fundet i alleMedlemmer");
+        }
+        return false;
     }
 
 
@@ -247,4 +317,6 @@ public class MedlemController {
                 TraenerController.BedsteTraeningsTiderButterfly.add(m);
         }
     }
+
+
 }

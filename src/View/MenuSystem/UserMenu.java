@@ -1,25 +1,26 @@
 package View.MenuSystem;
 
 import Controller.DatabaseController;
+import Controller.MedlemController;
 import View.Input;
 
 public class UserMenu {
 
     public static void displayMenu() {
-        DatabaseController.loadFilesToArr();
 
-        System.out.println("\nVelkommen !");
+        System.out.println("\nVelkommen til Delfinen!");
+        System.out.println(" - din lokale svømmeklub");
 
-        System.out.println("--------------------");
+        System.out.println("----------------------------------");
+        System.out.println();
         while (true) {
-            System.out.println("\nHvilken bruger type er de?:");
-            System.out.println("1. Formand");
-            System.out.println("2. Kasserer");
-            System.out.println("3. Traener");
-            System.out.println("4. Medlem");
-            System.out.println("5. Afslut");
+            System.out.println("Hvilken bruger type er De?:");
+            System.out.println(" 1. Formand");
+            System.out.println(" 2. Kasserer");
+            System.out.println(" 3. Traener");
+            System.out.println(" 4. Medlem");
+            System.out.println(" 5. Afslut");
             int choice = Input.intInput("Valg: ");
-            System.out.println("--------------------\n");
 
             switch (choice) {
                 case 1:

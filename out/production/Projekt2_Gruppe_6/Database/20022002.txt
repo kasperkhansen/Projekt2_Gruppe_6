@@ -1,12 +1,12 @@
-navn: Jens
+navn: Jørgen
 medlemskabsNr: 1
 alder: 23
 foedselsdato: 2000-01-01
 traening resultater: 
-
-
-
+Butterfly: 
+Crawl: 
+Bryst: 
 konkurrence resultater: 
-3.33, 
-3.33, 
-3.33, 
+Butterfly: 
+Crawl: 
+Bryst: 

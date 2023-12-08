@@ -1,7 +1,7 @@
-navn: Jørgen
+navn: Grethe
 medlemskabsNr: 1
-alder: 23
-foedselsdato: 2000-01-01
+alder: 83
+foedselsdato: 1940-02-23
 traening resultater: 
 Butterfly: 
 Crawl: 

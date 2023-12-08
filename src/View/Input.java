@@ -13,24 +13,23 @@ public abstract class Input {
     }*/
 
     public static int getIdInput() {
-        int medlemId = intInput("Indtast medlemmets tlf nr: ");
-        return medlemId;
+        return intInput("Indtast medlemmets tlf nr: ");
     }
 
     public static LocalDate getBirthDateInput() {
-        return dateInput("Indtast fødselsdato: ");
+        return dateInput(" Indtast fødselsdato i dette format yyyy-mm-dd: ");
     }
 
     public static int medlemskabInput() {
         while (true) {
-            System.out.println("Indtast medlemskab: ");
-            System.out.println("--------------------");
+            System.out.println(" Indtast medlemskab: ");
+            System.out.println(" --------------------");
 
-            System.out.println("tast 1 for Aktiv + konkurrence");
-            System.out.println("tast 2 for Aktiv + motionist");
-            System.out.println("tast 3 for Passiv");
+            System.out.println(" tast 1 for Aktiv + konkurrence");
+            System.out.println(" tast 2 for Aktiv + motionist");
+            System.out.println(" tast 3 for Passiv");
             int choice = intInput("Valg: ");
-            System.out.println("--------------------\n");
+
 
             if (choice < 4 && choice > 0) {
                 return choice;
@@ -44,12 +43,12 @@ public abstract class Input {
 
     public static int svoemmeDisciplinValg() {
         while (true) {
-            System.out.println("Vælg svømmedisciplin: ");
-            System.out.println("--------------------");
+            System.out.println(" Vælg svømmedisciplin: ");
+            System.out.println(" --------------------");
 
-            System.out.println("tast 1 for Crawl");
-            System.out.println("tast 2 for Bryst");
-            System.out.println("tast 3 for Butterfly");
+            System.out.println(" tast 1 for Crawl");
+            System.out.println(" tast 2 for Bryst");
+            System.out.println(" tast 3 for Butterfly");
             int disciplinValg = intInput("Valg: ");
 
             if (disciplinValg < 4 && disciplinValg > 0) {
@@ -60,13 +59,13 @@ public abstract class Input {
         }
     }
 
-    public static int konkurrenceValg() {
+    public static int traeningEllerKonkurrenceValg() {
         while (true) {
-            System.out.println("Vælg træning eller konkurrence: ");
-            System.out.println("--------------------");
+            System.out.println(" Vælg Konkurrence eller Træning: ");
+            System.out.println(" --------------------");
 
-            System.out.println("tast 1 for Konkurrence");
-            System.out.println("tast 2 for Træning");
+            System.out.println(" tast 1 for Konkurrence");
+            System.out.println(" tast 2 for Træning");
             int konkurrenceValg = intInput("Valg: ");
 
             if (konkurrenceValg < 3 && konkurrenceValg > 0) {
@@ -79,11 +78,8 @@ public abstract class Input {
 
     public static double svoemmeTid() {
         while (true) {
-            System.out.println("Indtast tid i format 00.00");
-            System.out.println("--------------------");
-
             try {
-                String tidInput = stringInput("Indtast tid i format 00.00");
+                String tidInput = stringInput(" Indtast tid i format 00.00");
 
                 if (Pattern.matches("\\d+\\.\\d+", tidInput)) {
                     return Double.parseDouble(tidInput);
@@ -165,18 +161,14 @@ public abstract class Input {
         return scanDate();
     }
 
-    public static LocalDate dateInput(){
-        return scanDate();
-    }
 
     private static LocalDate scanDate() {
 
         while (true) {
-            System.out.println("Indtast fødselsdato i dette format yyyy-mm-dd: ");
             try {
                 return LocalDate.parse(scanner.next());
             } catch (Exception e) {
-                System.out.println("Indtast fødselsdato i dette format yyyy-mm-dd:  ");
+                System.out.println(" Indtast fødselsdato i dette format yyyy-mm-dd:  ");
             }
         }
     }

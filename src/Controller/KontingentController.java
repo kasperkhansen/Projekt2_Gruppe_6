@@ -9,12 +9,9 @@ import Model.KontingentBetaling;
 import View.Input;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
-import static Controller.MedlemController.getAlleMedlemmer;
 import static Controller.MedlemController.getMedlemMedId;
-import static View.Input.booleanInput;
 
 public class KontingentController {
 
@@ -25,7 +22,6 @@ public class KontingentController {
 
 
     public static void registrerKontingentBetaling() {
-        DatabaseController.loadFilesToArr();
         System.out.println("Registrer kontingent betaling...");
 
         while (true) {
