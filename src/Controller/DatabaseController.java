@@ -70,7 +70,6 @@ public class DatabaseController {
                 System.out.println("File does not exist. Creating file: " + medlem.getId() + ".txt");
                 saveMedlemAsFile(medlem);
             }
-
         }
 
         MedlemController.alleMedlemmer.removeAll(toRemove);
