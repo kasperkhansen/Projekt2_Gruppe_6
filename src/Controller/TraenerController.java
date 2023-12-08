@@ -81,7 +81,8 @@ public class TraenerController {
                             break;
                         case 2:
                             medlem.brystTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
-                            break;
+                        case 2:
+                            medlem.crawlTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
                         case 3:
                             medlem.butterflyTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
                             break;
