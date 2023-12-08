@@ -1,12 +1,12 @@
 navn: Bob
 medlemskabsNr: 1
-alder: 23
+alder: 0
 foedselsdato: 2000-01-01
 traening resultater: 
 Butterfly: 
 Crawl: 
 Bryst: 
 konkurrence resultater: 
-Butterfly: 
+Butterfly: 12.55(CPH+2), 
 Crawl: 
 Bryst: 
