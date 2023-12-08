@@ -243,7 +243,7 @@ public class MedlemController {
 
         for (Medlem medlem : alleMedlemmer) {
             if (medlem.getId() == mobileNumber) {
-                if (DatabaseController.getMedlemByMobileNumber(mobileNumber) != null) {
+                if (DatabaseController.getMedlemByID(mobileNumber) != null) {
 
                 } else {
                     System.out.println("Sync error: Medlemmet er ikke fundet i databasen, men fundet i alleMedlemmer");

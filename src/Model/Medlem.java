@@ -179,6 +179,7 @@ public class Medlem {
     public ArrayList<Konkurrenceresultat> brystKonkurrence = new ArrayList<>();
 
 
+
     //--------------------------------------------------resultater metoder----------------------------------------------------
 
     // get

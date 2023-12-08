@@ -151,13 +151,11 @@ public class DatabaseController {
             return new ArrayList<>(); // Return an empty list instead of null
         }
 
-        System.out.println("Medlemmer fra file: ");
         for (File file : listOfFiles) {
-            System.out.println(file.getName());
+
             Medlem member = getMedlemProcess(file);
             if (member != null) {
-                System.out.println("Medlem loaded: " + member.getNavn());
-                member.printKonkurrenceresultater();
+
                 loadedMembers.add(member);
             } else {
                 System.err.println("Error processing file: " + file.getName());
@@ -183,10 +181,11 @@ public class DatabaseController {
             String navn = "";
             int medlemskabNr = 0;
             LocalDate foedselsdato = null;
+
             int id = Integer.parseInt(file.getName().substring(0, file.getName().length() - 4));
             String line;
 
-            Medlem m = new Medlem(1);
+            Medlem m = new Medlem(id);
 
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("navn: ")) {
@@ -204,18 +203,11 @@ public class DatabaseController {
                     processCompetitionResults(reader, m);
                 }
             }
-            System.out.println();
-            System.out.println();
-            System.out.println("Test af getMedlemFromFile");
+
             processedMedlem = m;
-            System.out.println("-----------------------------");
-            System.out.println(processedMedlem.getNavn());
-            processedMedlem.printKonkurrenceresultater();
-            m = getOpdateretMedlemMedResultaterFraFile(file, m);
-            System.out.println("-----------------------------");
-            System.out.println(m.getNavn());
-            m.printKonkurrenceresultater();
-            System.out.println("-----------------------------");
+
+            OpdateretMedlemMedResultaterFraFile(file, m);
+            m = processedMedlem;
 
             return m;
 
@@ -228,14 +220,14 @@ public class DatabaseController {
         }
     }
 
-    public static Medlem getMedlemByMobileNumber(int mobileNummber) {
+    public static Medlem getMedlemByID(int mobileNummber) {
         ArrayList<File> listOfFiles = getListOfFiles();
         try {
             for (File file : listOfFiles) {
                 if (file.getName().startsWith(mobileNummber + "")) {
                     Medlem m = getMedlemFromFile(file);
-                    Medlem mOpdateret = getOpdateretMedlemMedResultaterFraFile(file, m);
-                    return mOpdateret;
+                    OpdateretMedlemMedResultaterFraFile(file, m);
+                    return processedMedlem;
                 }
             }
             return null;
@@ -249,40 +241,35 @@ public class DatabaseController {
 
 
     //----------------------------------------read Methods---------------------------------------------------
-    public static Medlem getOpdateretMedlemMedResultaterFraFile(File file, Medlem m) {
-        // get Traening and Konkurrence results from file
+
+
+    private static void OpdateretMedlemMedResultaterFraFile(File file, Medlem m) {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            boolean isTrainingResultsSection = false;
+            boolean isCompetitionResultsSection = false;
+            String line;
 
-            return getUpdaterMedlemMedResultaterFraFile(reader, m);
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("traening resultater: ")) {
+                    isTrainingResultsSection = true;
+                    isCompetitionResultsSection = false;
+                    continue; // Skip the header line
+                } else if (line.startsWith("konkurrence resultater: ")) {
+                    isCompetitionResultsSection = true;
+                    isTrainingResultsSection = false;
+                    continue; // Skip the header line
+                }
+
+                if (isTrainingResultsSection) {
+                    processTrainingResultsLine(line, m);
+                } else if (isCompetitionResultsSection) {
+                    processCompetitionResultsLine(line, m);
+                }
+            }
+
         } catch (IOException e) {
-            System.err.println("Error reading from file: " + file.getName());
-            return null;
+            System.err.println("Error reading from file: " + e.getMessage());
         }
-    }
-
-    private static Medlem getUpdaterMedlemMedResultaterFraFile(BufferedReader reader, Medlem m) throws IOException {
-        boolean isTrainingResultsSection = false;
-        boolean isCompetitionResultsSection = false;
-        String line;
-
-        while ((line = reader.readLine()) != null) {
-            if (line.startsWith("traening resultater: ")) {
-                isTrainingResultsSection = true;
-                isCompetitionResultsSection = false;
-                continue; // Skip the header line
-            } else if (line.startsWith("konkurrence resultater: ")) {
-                isCompetitionResultsSection = true;
-                isTrainingResultsSection = false;
-                continue; // Skip the header line
-            }
-
-            if (isTrainingResultsSection) {
-                processTrainingResultsLine(line, m);
-            } else if (isCompetitionResultsSection) {
-                processCompetitionResultsLine(line, m);
-            }
-        }
-        return getProcessedMedlem();
     }
 
     private static void processTrainingResults(BufferedReader reader, Medlem m) {
@@ -396,10 +383,6 @@ public class DatabaseController {
                 }
             }
         }
-    }
-
-    private static Medlem getProcessedMedlem() {
-        return processedMedlem;
     }
 
     private static void setProcessedMedlem(Medlem nytProcessedMedlem) {
