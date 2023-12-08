@@ -27,7 +27,6 @@ public class DatabaseController {
         load();
     }
     public static void load() {
-
         loadedMembers = getMedlemmerFraFiles(); // Load members from files
 
         if (loadedMembers != null && !loadedMembers.isEmpty()) {
@@ -39,13 +38,10 @@ public class DatabaseController {
                     MedlemController.opdaterMedlem(medlem);
                 }
             }
-
-
         } else {
             System.err.println("No members loaded from files or error occurred."); // Error message
         }
     }
-
 
     public static void saveArrToFileDatabase() {
 
@@ -120,7 +116,6 @@ public class DatabaseController {
         }
     }
 
-
     public static void updaterMedlemFile(Medlem nytMedlem) {
         String IDtxt = nytMedlem.getId() + ".txt";
         File file = new File(DatabaseController.DATABASE_PATH + IDtxt);
@@ -152,7 +147,7 @@ public class DatabaseController {
 
         for (File file : listOfFiles) {
 
-            Medlem member = getMedlemProcess(file);
+            Medlem member = getMedlemFromFile(file);
             if (member != null) {
 
                 loadedMembers.add(member);
@@ -163,12 +158,6 @@ public class DatabaseController {
         return loadedMembers;
     }
 
-
-    private static Medlem getMedlemProcess(File file) {
-        Medlem m = getMedlemFromFile(file);
-
-        return m;
-    }
 
     private static Medlem getMedlemFromFile(File file) {
         if (file == null || !file.exists() || !file.canRead()) {

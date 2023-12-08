@@ -80,8 +80,6 @@ public class TraenerController {
                             medlem.crawlTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
                             break;
                         case 2:
-                            medlem.brystTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
-                        case 2:
                             medlem.crawlTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
                         case 3:
                             medlem.butterflyTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
@@ -99,9 +97,6 @@ public class TraenerController {
 
         MedlemController.opdaterMedlem(medlem);
 
-        medlem.printKonkurrenceresultater();
-        medlem.printTraeningsresultater();
-
     }
 
     public static void seAlleMedResultater() {
@@ -109,13 +104,16 @@ public class TraenerController {
         for (Medlem medlem : MedlemController.alleMedlemmer) {
 
             if (medlem.getMedlemsskabsNr() == 1) {
-                System.out.println("Resultater for " + medlem.getNavn() + " (" + medlem.getId() + ")");
-                System.out.println("-----------------------------------");
-                System.out.println("Konkurrence resultater: ");
-                medlem.printKonkurrenceresultater();
-                System.out.println();
-                System.out.println("Trænings resultater: ");
-                medlem.printTraeningsresultater();
+                if (medlem.hasResults()) {
+                    System.out.println();
+                    System.out.println("Resultater for " + medlem.getNavn() + " (" + medlem.getId() + ")");
+                    System.out.println("-----------------------------------");
+                    System.out.println("1 Konkurrence resultater: ");
+                    medlem.printKonkurrenceresultater();
+                    System.out.println();
+                    System.out.println("2 Trænings resultater: ");
+                    medlem.printTraeningsresultater();
+                }
             }
         }
     }

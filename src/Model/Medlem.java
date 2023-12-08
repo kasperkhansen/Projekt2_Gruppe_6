@@ -303,23 +303,22 @@ public class Medlem {
 
 
 
-
     //--------------------------------------------------service metoder------------------------------------------------------
     public void printTraeningsresultater() {
         if (!crawlTraening.isEmpty()) {
-            System.out.println("1 Crawl træning: ");
+            System.out.println(" Crawl træning: ");
             for (Traeningsresultat traeningsresultat : crawlTraening) {
                 System.out.println(" "+traeningsresultat.toString());
             }
         }
         if (!butterflyTraening.isEmpty()) {
-            System.out.println("2 Butterfly træning: ");
+            System.out.println(" Butterfly træning: ");
             for (Traeningsresultat traeningsresultat : butterflyTraening) {
                 System.out.println(" "+traeningsresultat.toString());
             }
         }
         if (!brystTraening.isEmpty()) {
-            System.out.println("3 Bryst træning: ");
+            System.out.println(" Bryst træning: ");
             for (Traeningsresultat traeningsresultat : brystTraening) {
                 System.out.println(" "+traeningsresultat.toString());
             }
@@ -328,19 +327,19 @@ public class Medlem {
 
     public void printKonkurrenceresultater() {
         if(!crawlKonkurrence.isEmpty()) {
-            System.out.println("1 Crawl konkurrence: ");
+            System.out.println(" Crawl konkurrence: ");
             for (Konkurrenceresultat konkurrenceresultat : crawlKonkurrence) {
                 System.out.println(" "+konkurrenceresultat.toString());
             }
         }
         if(!butterflyKonkurrence.isEmpty()) {
-            System.out.println("2 Butterfly konkurrence: ");
+            System.out.println(" Butterfly konkurrence: ");
             for (Konkurrenceresultat konkurrenceresultat : butterflyKonkurrence) {
                 System.out.println(" "+konkurrenceresultat.toString());
             }
         }
         if(!brystKonkurrence.isEmpty()) {
-            System.out.println("3 Bryst konkurrence: ");
+            System.out.println(" Bryst konkurrence: ");
             for (Konkurrenceresultat konkurrenceresultat : brystKonkurrence) {
                 System.out.println(" "+konkurrenceresultat.toString());
             }
@@ -364,8 +363,7 @@ public class Medlem {
     }
 
 
-
-
-
-
+    public boolean hasResults() {
+        return !crawlKonkurrence.isEmpty() || !butterflyKonkurrence.isEmpty() || !brystKonkurrence.isEmpty() || !crawlTraening.isEmpty() || !butterflyTraening.isEmpty() || !brystTraening.isEmpty();
+    }
 }

@@ -168,11 +168,17 @@ public class MedlemController {
 
     // 2 medlem Methods ---------------------------------------------
     public static Medlem getMedlemMedId(int id) {
-        for (Medlem medlem : alleMedlemmer) {
-            if (medlem.getId() == id) {
-                return medlem;
+        if (alleMedlemmer.isEmpty()) {
+            System.out.println("Ingen medlemmer i listen");
+            return null;
+        } else {
+            for (Medlem medlem : alleMedlemmer) {
+                if (medlem.getId() == id) {
+                    return medlem;
+                }
             }
         }
+
         return null;
     }
 
