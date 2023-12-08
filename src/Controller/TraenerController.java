@@ -103,6 +103,21 @@ public class TraenerController {
 
     }
 
+    public static void seAlleMedResultater() {
+
+        for (Medlem medlem : MedlemController.alleMedlemmer) {
+
+            if (medlem.getMedlemsskabsNr() == 1) {
+                System.out.println("Resultater for " + medlem.getNavn() + " (" + medlem.getId() + ")");
+                System.out.println("-----------------------------------");
+                System.out.println("Konkurrence resultater: ");
+                medlem.printKonkurrenceresultater();
+                System.out.println();
+                System.out.println("Trænings resultater: ");
+                medlem.printTraeningsresultater();
+            }
+        }
+    }
 
 
 //-----------------------------------sortering metoder------------------------------------------------------------------
@@ -157,22 +172,6 @@ public class TraenerController {
         return arrayList;
     }
 
-    public static void seAlleMedResultater() {
-
-        for (Medlem medlem : MedlemController.alleMedlemmer) {
-
-            if (medlem.getMedlemsskabsNr() == 1) {
-                System.out.println("Resultater for " + medlem.getNavn() + " (" + medlem.getId() + ")");
-                System.out.println("-----------------------------------");
-                System.out.println("Konkurrence resultater: ");
-                medlem.printKonkurrenceresultater();
-                System.out.println();
-                System.out.println("Trænings resultater: ");
-                medlem.printTraeningsresultater();
-            }
-        }
-
-    }
 
     public void getBedsteStaevneTidBryst() {
         MedlemController.fillStaevneBrystMedMedlemmerMedTider();

@@ -47,7 +47,6 @@ public class DatabaseController {
     }
 
 
-
     public static void saveArrToFileDatabase() {
 
         List<Medlem> toRemove = new ArrayList<>();
@@ -110,7 +109,7 @@ public class DatabaseController {
             // get all the files from a directory
             for (File file : directory.listFiles()) {
                 if (file.getName().endsWith(".txt")) {
-                    System.out.println("File found: " + file.getName());
+
                 }
                 files.add(file);
             }
