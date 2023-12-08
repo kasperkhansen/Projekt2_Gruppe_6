@@ -1,0 +1,12 @@
+navn: Jytte
+medlemskabsNr: 1
+alder: 58
+foedselsdato: 1965-02-03
+traening resultater: 
+Butterfly: 
+Crawl: 
+Bryst: 
+konkurrence resultater: 
+Butterfly: 
+Crawl: 
+Bryst: 

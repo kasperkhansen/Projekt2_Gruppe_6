@@ -4,9 +4,7 @@ import Controller.DatabaseController;
 import Controller.KontingentController;
 import Controller.MedlemController;
 import Model.Medlem;
-import View.MenuSystem.KassererSubMenu;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
@@ -40,13 +38,13 @@ public class MedlemDatabaseTest {
         System.out.println("Test saving to database...");
         DatabaseController.saveArrToFileDatabase();
         System.out.println("--------------------------\n");
-        DatabaseController.printDatabase();
+
         System.out.println("--------------------------\n");
 
 
         // Test loading from database
         MedlemController.alleMedlemmer.clear();
-        DatabaseController.loadFilesToArr();
+        DatabaseController.load();
         MedlemController.printAlleMedlemmer();
         System.out.println("--------------------------\n");
 

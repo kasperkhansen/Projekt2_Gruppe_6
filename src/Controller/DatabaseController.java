@@ -7,31 +7,51 @@ import Model.Traeningsresultat;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseController {
-
     public static final String DATABASE_PATH = "src/Database/";
     public static File[] listOfFiles;
-
     public static ArrayList<Medlem> loadedMembers = new ArrayList<>();
-
-    // instance variables of medlem
-    private static String navn;
-    private static int medlemskabNr;
-    private static int alder;
-    private static int id;
-    private static LocalDate foedselsdato;
-    private static ArrayList<String> traeningsResultater = new ArrayList<>();
-    private static ArrayList<String> konkurrenceResultater = new ArrayList<>();
+    private static Medlem processedMedlem;
 
     // Create the database directory if it does not exist
     static {
         new File(DATABASE_PATH).mkdirs();
     }
 
-    // Save alleMedlemmer arraylist of MedlemController to files for each member
+
+    // ---------------------------------------- Methods---------------------------------------------------
+    public static void saveAndLoad () {
+        saveArrToFileDatabase();
+        load();
+    }
+    public static void load() {
+
+        loadedMembers = getMedlemmerFraFiles(); // Load members from files
+
+        if (loadedMembers != null && !loadedMembers.isEmpty()) {
+
+            if (MedlemController.alleMedlemmer.isEmpty()) {
+                MedlemController.alleMedlemmer = loadedMembers;
+            } else {
+                for (Medlem medlem : loadedMembers) {
+                    MedlemController.opdaterMedlem(medlem);
+                }
+            }
+
+
+        } else {
+            System.err.println("No members loaded from files or error occurred."); // Error message
+        }
+    }
+
+
+
     public static void saveArrToFileDatabase() {
-        updateListOfFiles();
+
+        List<Medlem> toRemove = new ArrayList<>();
+        List<Medlem> toAdd = new ArrayList<>();
 
         for (Medlem medlem : MedlemController.getAlleMedlemmer()) {
 
@@ -50,9 +70,411 @@ public class DatabaseController {
                 System.out.println("File does not exist. Creating file: " + medlem.getId() + ".txt");
                 saveMedlemAsFile(medlem);
             }
-            updateListOfFiles();
+
+        }
+
+        MedlemController.alleMedlemmer.removeAll(toRemove);
+        MedlemController.alleMedlemmer.addAll(toAdd);
+    }
+    // Save a Medlem as a file
+    public static void saveMedlemAsFile(Medlem m) {
+        File file = new File(DatabaseController.DATABASE_PATH + m.getId() + ".txt");
+
+        // Check if file exists and only overwrite if the same ID
+        if (file.exists()) {
+            Medlem existingMedlem = getMedlemFromFile(file);
+            if (existingMedlem != null && m.getId() != existingMedlem.getId()) {
+                System.err.println("Error saving member: " + m.getNavn() + " - ID does not match file name");
+                return;
+            }
+        }
+
+        try {
+            // Overwrite the file if it exists, create a new one if it doesn't
+            try (FileWriter fileWriter = new FileWriter(file, false)) {
+                writeFile(m, fileWriter);
+            }
+        } catch (IOException e) {
+            System.err.println("Error saving member: " + m.getNavn() + " - " + e.getMessage());
         }
     }
+
+
+
+
+    // ----------------------------------------update Methods---------------------------------------------------
+    private static ArrayList<File> getListOfFiles() {
+        try {
+            File directory = new File(DatabaseController.DATABASE_PATH);
+            ArrayList<File> files = new ArrayList<>();
+            System.out.println(directory.listFiles().length);
+            // get all the files from a directory
+            for (File file : directory.listFiles()) {
+                if (file.getName().endsWith(".txt")) {
+                    System.out.println("File found: " + file.getName());
+                }
+                files.add(file);
+            }
+            return files;
+        } catch (NullPointerException e) {
+            System.err.println("Error loading members");
+            return null;
+        }
+    }
+
+
+    public static void updaterMedlemFile(Medlem nytMedlem) {
+        String IDtxt = nytMedlem.getId() + ".txt";
+        File file = new File(DatabaseController.DATABASE_PATH + IDtxt);
+
+        if (file.exists()) {
+            Medlem oldMedlem = getMedlemFromFile(file);
+            Medlem mergedMedlem = MedlemController.mergeMedlemmer(oldMedlem, nytMedlem);
+
+            try (FileWriter fileWriter = new FileWriter(file, false)) {
+                writeFile(mergedMedlem, fileWriter);
+            } catch (IOException e) {
+                System.err.println("Error editing file: " + e.getMessage());
+            }
+        } else {
+            System.err.println("File not found: " + file.getName());
+        }
+    }
+
+
+    // ----------------------------------------get Methods---------------------------------------------------
+    private static ArrayList<Medlem> getMedlemmerFraFiles() {
+        ArrayList<Medlem> loadedMembers = new ArrayList<>();
+        ArrayList<File> listOfFiles = getListOfFiles();
+
+        if (listOfFiles == null || listOfFiles.isEmpty()) {
+            System.err.println("No files found or error in fetching files.");
+            return new ArrayList<>(); // Return an empty list instead of null
+        }
+
+        System.out.println("Medlemmer fra file: ");
+        for (File file : listOfFiles) {
+            System.out.println(file.getName());
+            Medlem member = getMedlemProcess(file);
+            if (member != null) {
+                System.out.println("Medlem loaded: " + member.getNavn());
+                member.printKonkurrenceresultater();
+                loadedMembers.add(member);
+            } else {
+                System.err.println("Error processing file: " + file.getName());
+            }
+        }
+        return loadedMembers;
+    }
+
+
+    private static Medlem getMedlemProcess(File file) {
+        Medlem m = getMedlemFromFile(file);
+
+        return m;
+    }
+
+    private static Medlem getMedlemFromFile(File file) {
+        if (file == null || !file.exists() || !file.canRead()) {
+            System.err.println("Cannot read file: " + (file != null ? file.getName() : "null"));
+            return null;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String navn = "";
+            int medlemskabNr = 0;
+            LocalDate foedselsdato = null;
+            int id = Integer.parseInt(file.getName().substring(0, file.getName().length() - 4));
+            String line;
+
+            Medlem m = new Medlem(1);
+
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("navn: ")) {
+                    navn = line.substring(6);
+                    m.setNavn(navn);
+                } else if (line.startsWith("medlemskabsNr: ")) {
+                    medlemskabNr = Integer.parseInt(line.substring(15));
+                    m.setMedlemskab(medlemskabNr);
+                } else if (line.startsWith("foedselsdato: ")) {
+                    foedselsdato = LocalDate.parse(line.substring(14));
+                    m.setFoedselsdato(foedselsdato);
+                } else if (line.startsWith("traening resultater: ")) {
+                    processTrainingResults(reader, m);
+                } else if (line.startsWith("konkurrence resultater: ")) {
+                    processCompetitionResults(reader, m);
+                }
+            }
+            System.out.println();
+            System.out.println();
+            System.out.println("Test af getMedlemFromFile");
+            processedMedlem = m;
+            System.out.println("-----------------------------");
+            System.out.println(processedMedlem.getNavn());
+            processedMedlem.printKonkurrenceresultater();
+            m = getOpdateretMedlemMedResultaterFraFile(file, m);
+            System.out.println("-----------------------------");
+            System.out.println(m.getNavn());
+            m.printKonkurrenceresultater();
+            System.out.println("-----------------------------");
+
+            return m;
+
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + file.getName());
+            return null;
+        } catch (IOException e) {
+            System.err.println("Error reading from file: " + file.getName());
+            return null;
+        }
+    }
+
+    public static Medlem getMedlemByMobileNumber(int mobileNummber) {
+        ArrayList<File> listOfFiles = getListOfFiles();
+        try {
+            for (File file : listOfFiles) {
+                if (file.getName().startsWith(mobileNummber + "")) {
+                    Medlem m = getMedlemFromFile(file);
+                    Medlem mOpdateret = getOpdateretMedlemMedResultaterFraFile(file, m);
+                    return mOpdateret;
+                }
+            }
+            return null;
+        } catch (NullPointerException e) {
+            System.err.println("Error loading member");
+            return null;
+        }
+    }
+
+
+
+
+    //----------------------------------------read Methods---------------------------------------------------
+    public static Medlem getOpdateretMedlemMedResultaterFraFile(File file, Medlem m) {
+        // get Traening and Konkurrence results from file
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+
+            return getUpdaterMedlemMedResultaterFraFile(reader, m);
+        } catch (IOException e) {
+            System.err.println("Error reading from file: " + file.getName());
+            return null;
+        }
+    }
+
+    private static Medlem getUpdaterMedlemMedResultaterFraFile(BufferedReader reader, Medlem m) throws IOException {
+        boolean isTrainingResultsSection = false;
+        boolean isCompetitionResultsSection = false;
+        String line;
+
+        while ((line = reader.readLine()) != null) {
+            if (line.startsWith("traening resultater: ")) {
+                isTrainingResultsSection = true;
+                isCompetitionResultsSection = false;
+                continue; // Skip the header line
+            } else if (line.startsWith("konkurrence resultater: ")) {
+                isCompetitionResultsSection = true;
+                isTrainingResultsSection = false;
+                continue; // Skip the header line
+            }
+
+            if (isTrainingResultsSection) {
+                processTrainingResultsLine(line, m);
+            } else if (isCompetitionResultsSection) {
+                processCompetitionResultsLine(line, m);
+            }
+        }
+        return getProcessedMedlem();
+    }
+
+    private static void processTrainingResults(BufferedReader reader, Medlem m) {
+        boolean isTrainingResultsSection = true;
+        boolean isCompetitionResultsSection = false;
+        String line;
+
+        try {
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("konkurrence resultater: ")) {
+                    isTrainingResultsSection = false;
+                    isCompetitionResultsSection = true;
+                    continue; // Skip the header line
+                }
+
+                if (isTrainingResultsSection) {
+                    processTrainingResultsLine(line, m);
+                } else if (isCompetitionResultsSection) {
+                    processCompetitionResultsLine(line, m);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading from file: " + e.getMessage());
+        }
+    }
+
+    private static void processCompetitionResults(BufferedReader reader, Medlem m) {
+        boolean isTrainingResultsSection = false;
+        boolean isCompetitionResultsSection = true;
+        String line;
+
+        try {
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("traening resultater: ")) {
+                    isTrainingResultsSection = true;
+                    isCompetitionResultsSection = false;
+                    continue; // Skip the header line
+                } else if (line.startsWith("konkurrence resultater: ")) {
+                    isCompetitionResultsSection = true;
+                    isTrainingResultsSection = false;
+                    continue; // Skip the header line
+                }
+
+                if (isTrainingResultsSection) {
+                    processTrainingResultsLine(line, m);
+                } else if (isCompetitionResultsSection) {
+                    processCompetitionResultsLine(line, m);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading from file: " + e.getMessage());
+        }
+    }
+    private static void processTrainingResultsLine(String line, Medlem m) {
+        int colonIndex = line.indexOf(":");
+        if (colonIndex != -1) {
+            String disciplin = line.substring(0, colonIndex);
+            String resultString = line.substring(colonIndex + 1).trim();
+            processResultString(resultString, disciplin, m, true); // true for training results
+        }
+    }
+
+    private static void processCompetitionResultsLine(String line, Medlem m) {
+        int colonIndex = line.indexOf(":");
+        if (colonIndex != -1) {
+            String disciplin = line.substring(0, colonIndex);
+            String resultString = line.substring(colonIndex + 1).trim();
+            processResultString(resultString, disciplin, m, false); // false for competition results
+        }
+    }
+
+    private static void processResultString(String resultString, String disciplin, Medlem m, boolean isTraining) {
+        if (!resultString.isEmpty()) {
+            String[] results = resultString.split(", ");
+            for (String result : results) {
+
+                if (result.isEmpty()) {
+                    continue;
+                }
+                try {
+
+                    int openParenIndex = result.indexOf("(");
+                    int closeParenIndex = result.indexOf(")");
+                    if (isTraining) {
+                        // process træning result
+                        if (openParenIndex != -1 && closeParenIndex != -1) {
+                            try {
+                                Double tid = Double.parseDouble(result.substring(0, openParenIndex));
+                                LocalDate dato = LocalDate.parse(result.substring(openParenIndex + 1, closeParenIndex));
+                                Traeningsresultat traeningsresultat = new Traeningsresultat(tid, dato);
+                                m.addIfNewTraeningsresultat(traeningsresultat, disciplin);
+                            } catch (NumberFormatException e) {
+                                System.err.println("Error parsing Traeningsresultat from file: " + e.getMessage());
+                            }
+                        }
+                    } else {
+                        // process konkurrence result
+                        int plusIndex = result.indexOf("+");
+
+                        if (openParenIndex != -1 && plusIndex != -1 && closeParenIndex != -1) {
+                            Double tid = Double.parseDouble(result.substring(0, openParenIndex));
+                            String staevne = result.substring(openParenIndex + 1, plusIndex);
+                            int placering = Integer.parseInt(result.substring(plusIndex + 1, closeParenIndex));
+                            Konkurrenceresultat konkurrenceresultat = new Konkurrenceresultat(tid, staevne, placering);
+                            m.addIfNewKonkurrenceresultat(konkurrenceresultat, disciplin);
+                        }
+                    }
+                   setProcessedMedlem(m);
+                } catch (NumberFormatException e) {
+                    System.err.println("Error parsing result from file: " + e.getMessage());
+                }
+            }
+        }
+    }
+
+    private static Medlem getProcessedMedlem() {
+        return processedMedlem;
+    }
+
+    private static void setProcessedMedlem(Medlem nytProcessedMedlem) {
+        processedMedlem = nytProcessedMedlem;
+    }
+
+
+    //----------------------------------------write Methods---------------------------------------------------
+
+
+
+    private static void writeFile(Medlem m, FileWriter fileWriter) throws IOException {
+
+        // write file with structure to preserve all Medlem instance variables as strings
+        fileWriter.write("navn: "+ m.getNavn() + "\n");
+        fileWriter.write("medlemskabsNr: "+ m.getMedlemsskabsNr() + "\n");
+        fileWriter.write("alder: "+ m.getAlder() + "\n");
+        fileWriter.write("foedselsdato: "+ m.getFoedselsdato() + "\n");
+
+        // document Traening and Konkurrence results of Medlem
+        fileWriter.write("traening resultater: \n");
+        fileWriter.write("Butterfly: ");
+        writeTraeningsTiderToFile(m.getButterflyTraening(), fileWriter);
+        fileWriter.write("Crawl: ");
+        writeTraeningsTiderToFile(m.getCrawlTraening(), fileWriter);
+        fileWriter.write("Bryst: ");
+        writeTraeningsTiderToFile(m.getBrystTraening(), fileWriter);
+
+        fileWriter.write("konkurrence resultater: \n");
+        fileWriter.write("Butterfly: ");
+        writeKonkurrenceTiderToFile(m.getButterflyKonkurrence(), fileWriter);
+        fileWriter.write("Crawl: ");
+        writeKonkurrenceTiderToFile(m.getCrawlKonkurrence(), fileWriter);
+        fileWriter.write("Bryst: ");
+        writeKonkurrenceTiderToFile(m.getBrystKonkurrence(), fileWriter);
+        fileWriter.close();
+    }
+
+    // Write the Traeningsresultat and Konkurrenceresultat to file
+    private static void writeTraeningsTiderToFile(ArrayList<Traeningsresultat> resultater, FileWriter fileWriter) throws IOException {
+        try {
+            for (Traeningsresultat resultat : resultater) {
+                Double tid = resultat.getTid();
+                String datoStr = resultat.getTraeningsDato().toString();
+                fileWriter.write(tid + "("+ datoStr +")"+ ", ");
+            }
+            fileWriter.write("\n");
+        } catch (NullPointerException e) {
+
+        }
+    }
+    private static void writeKonkurrenceTiderToFile(ArrayList<Konkurrenceresultat> resultater, FileWriter fileWriter) throws IOException {
+        try {
+            for (Konkurrenceresultat resultat : resultater) {
+                Double tid = resultat.getTid();
+                String staevne = resultat.getStaevne();
+                int placering = resultat.getPlacering();
+
+                fileWriter.write(tid + "("+ staevne+"+"+placering+ ")"+ ", ");
+            }
+            fileWriter.write("\n");
+        } catch (NullPointerException e) {
+
+        }
+    }
+
+    public static void setMedlemskabsNr(int id, int nytMedlemskabNr) {
+
+        Medlem m = getMedlemFromFile(getFile(id));
+        m.setMedlemskab(nytMedlemskabNr);
+        editFile(m, getFile(id));
+    }
+
+
 
     private static boolean checkDataDifference(Medlem medlem) {
         Medlem medlemFromFile = getMedlemFromFile(new File(DatabaseController.DATABASE_PATH + medlem.getId() + ".txt"));
@@ -90,372 +512,7 @@ public class DatabaseController {
         return same;
     }
 
-    public static void saveAndLoad () {
-        saveArrToFileDatabase();
-        loadFilesToArr();
-    }
-    // Save a Medlem as a file
-    public static void saveMedlemAsFile(Medlem m) {
-        File file = new File(DatabaseController.DATABASE_PATH + m.getId() + ".txt");
-
-        // Check if file exists and only overwrite if the same ID
-        if (file.exists()) {
-            Medlem existingMedlem = getMedlemFromFile(file);
-            if (existingMedlem != null && m.getId() != existingMedlem.getId()) {
-                System.err.println("Error saving member: " + m.getNavn() + " - ID does not match file name");
-                return;
-            }
-        }
-
-        try {
-            // Overwrite the file if it exists, create a new one if it doesn't
-            try (FileWriter fileWriter = new FileWriter(file, false)) {
-                writeFile(m, fileWriter);
-                System.out.println("Member data saved to file: " + file.getName());
-            }
-        } catch (IOException e) {
-            System.err.println("Error saving member: " + m.getNavn() + " - " + e.getMessage());
-        }
-    }
-
-
-    private static void writeFile(Medlem m, FileWriter fileWriter) throws IOException {
-
-        // write file with structure to preserve all Medlem instance variables as strings
-        fileWriter.write("navn: "+ m.getNavn() + "\n");
-        fileWriter.write("medlemskabsNr: "+ m.getMedlemsskabsNr() + "\n");
-        fileWriter.write("alder: "+ m.getAlder() + "\n");
-        fileWriter.write("foedselsdato: "+ m.getFoedselsdato() + "\n");
-
-        // document Traening and Konkurrence results of Medlem
-        fileWriter.write("traening resultater: \n");
-        fileWriter.write("Butterfly: ");
-        writeTraeningsTiderToFile(m.getButterflyTraening(), fileWriter);
-        fileWriter.write("Crawl: ");
-        writeTraeningsTiderToFile(m.getCrawlTraening(), fileWriter);
-        fileWriter.write("Bryst: ");
-        writeTraeningsTiderToFile(m.getBrystTraening(), fileWriter);
-
-        fileWriter.write("konkurrence resultater: \n");
-        fileWriter.write("Butterfly: ");
-        writeKonkurrenceTiderToFile(m.getButterflyKonkurrence(), fileWriter);
-        fileWriter.write("Crawl: ");
-        writeKonkurrenceTiderToFile(m.getCrawlKonkurrence(), fileWriter);
-        fileWriter.write("Bryst: ");
-        writeKonkurrenceTiderToFile(m.getBrystKonkurrence(), fileWriter);
-        fileWriter.close();
-    }
-
-
-    // Load alleMedlemmer arraylist of MedlemController from files for each member
-    public static void loadFilesToArr() {
-
-        loadedMembers = getMedlemmerFraFiles(); // Load members from files
-
-        if (loadedMembers != null && !loadedMembers.isEmpty()) {
-            if (MedlemController.alleMedlemmer.isEmpty()) {
-                MedlemController.alleMedlemmer = loadedMembers;
-            } else {
-                for (Medlem medlem : loadedMembers) {
-                    MedlemController.opdaterMedlem(medlem);
-                }
-            }
-            System.out.println("Test: ");
-            System.out.println("alleMedlemmer antal: "+ MedlemController.alleMedlemmer.size());
-            System.out.println("loadedMedlemmer antal: "+ loadedMembers.size());
-
-        } else {
-            System.err.println("No members loaded from files or error occurred."); // Error message
-        }
-    }
-
-
-
-    // Update the list of files
-    private static void updateListOfFiles() {
-        File folder = new File(DATABASE_PATH);
-        listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
-    }
-
-    public static void updaterMedlemFile(Medlem nytMedlem) {
-        String IDtxt = nytMedlem.getId() + ".txt";
-        File file = new File(DatabaseController.DATABASE_PATH + IDtxt);
-
-        if (file.exists()) {
-            Medlem oldMedlem = getMedlemFromFile(file);
-            Medlem mergedMedlem = MedlemController.mergeMedlemmer(oldMedlem, nytMedlem);
-
-            try (FileWriter fileWriter = new FileWriter(file, false)) {
-                writeFile(mergedMedlem, fileWriter);
-            } catch (IOException e) {
-                System.err.println("Error editing file: " + e.getMessage());
-            }
-        } else {
-            System.err.println("File not found: " + file.getName());
-        }
-    }
-
-
-    private static void opdaterFile(File file, Medlem medlem) {
-        try {
-            FileWriter fileWriter = new FileWriter(file, false);
-
-
-
-        } catch (IOException e) {
-            System.err.println("Error editing file");
-        }
-    }
-
-    // 2 Get Medlem(s) fra File(s)
-
-    private static ArrayList<Medlem> getMedlemmerFraFiles() {
-        updateListOfFiles();
-        loadedMembers.clear();
-       try {
-           for (File file : listOfFiles) {
-               loadedMembers.add(getMedlemFromFile(file));
-           }
-           return loadedMembers;
-       } catch (NullPointerException e) {
-           System.err.println("Error loading members");
-           return null;
-       }
-    }
-
-    private static Medlem getMedlemFromFile(File file) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String navn = "";
-            int medlemskabNr = 0;
-            LocalDate foedselsdato = null;
-            int id = Integer.parseInt(file.getName().substring(0, file.getName().length() - 4));
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith("navn: ")) {
-                    navn = line.substring(6);
-                }
-                if (line.startsWith("medlemskabsNr: ")) {
-                    medlemskabNr = Integer.parseInt(line.substring(15));
-                }
-                if (line.startsWith("foedselsdato: ")) {
-                    foedselsdato = LocalDate.parse(line.substring(14));
-                }
-            }
-
-            Medlem m = new Medlem(navn, medlemskabNr, foedselsdato, id);
-
-            // get Traening and Konkurrence results from file
-            Medlem nytM = getOpdateretMedlemMedResultaterFraFile(file, m);
-
-            return nytM;
-
-        } catch (FileNotFoundException e) {
-            System.err.println("File not found: " + file.getName());
-            return null;
-        } catch (IOException e) {
-            System.err.println("Error reading from file: " + file.getName());
-            return null;
-        }
-    }
-
-    public static Medlem getOpdateretMedlemMedResultaterFraFile(File file, Medlem m) {
-
-
-        // get Traening and Konkurrence results from file
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            updaterMedlemMedResultaterFraFile(reader, m);
-            return m;
-        } catch (IOException e) {
-            System.err.println("Error reading from file: " + file.getName());
-            return null;
-        }
-
-    }
-
-    private static void updaterMedlemMedResultaterFraFile(BufferedReader reader, Medlem m) {
-        try {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                // Process training results
-                if (line.startsWith("traening resultater: ")) {
-                    processTrainingResults(reader, m);
-                }
-
-                // Process competition results
-                if (line.startsWith("konkurrence resultater: ")) {
-                    processCompetitionResults(reader, m);
-                }
-            }
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    private static void processTrainingResults(BufferedReader reader, Medlem m) throws IOException {
-        String line;
-        while ((line = reader.readLine()) != null && !line.startsWith("konkurrence resultater: ")) {
-            int colonIndex = line.indexOf(":");
-            if (colonIndex != -1) {
-                String disciplin = line.substring(0, colonIndex);
-                String resultString = line.substring(colonIndex + 1).trim();
-                processResultString(resultString, disciplin, m, true); // true for training results
-            }
-        }
-    }
-
-    private static void processCompetitionResults(BufferedReader reader, Medlem m) throws IOException {
-        String line;
-        while ((line = reader.readLine()) != null) {
-            int colonIndex = line.indexOf(":");
-            if (colonIndex != -1) {
-                String disciplin = line.substring(0, colonIndex);
-                String resultString = line.substring(colonIndex + 1).trim();
-                processResultString(resultString, disciplin, m, false); // false for competition results
-            }
-        }
-    }
-
-    private static void processResultString(String resultString, String disciplin, Medlem m, boolean isTraining) {
-        if (!resultString.isEmpty()) {
-            String[] results = resultString.split(", ");
-            for (String result : results) {
-
-                if (result.isEmpty()) {
-                    continue;
-                }
-                try {
-
-                    int openParenIndex = result.indexOf("(");
-                    int closeParenIndex = result.indexOf(")");
-
-                    if (isTraining) {
-                        // process træning result
-                        if (openParenIndex != -1 && closeParenIndex != -1) {
-                            try {
-                                Double tid = Double.parseDouble(result.substring(0, openParenIndex));
-                                LocalDate dato = LocalDate.parse(result.substring(openParenIndex + 1, closeParenIndex));
-                                Traeningsresultat traeningsresultat = new Traeningsresultat(tid, dato);
-                                m.addTraeningsresultat(traeningsresultat, disciplin);
-                            } catch (NumberFormatException e) {
-                                System.err.println("Error parsing Traeningsresultat from file: " + e.getMessage());
-                            }
-                        }
-                    } else if (!isTraining){
-                        // process konkurrence result
-                        int plusIndex = result.indexOf("+");
-                        if (openParenIndex != -1 && plusIndex != -1 && closeParenIndex != -1) {
-                            try {
-                                Double tid = Double.parseDouble(result.substring(0, openParenIndex));
-                                String staevne = result.substring(openParenIndex + 1, plusIndex);
-                                int placering = Integer.parseInt(result.substring(plusIndex + 1, closeParenIndex));
-                                Konkurrenceresultat konkurrenceresultat = new Konkurrenceresultat(tid, staevne, placering);
-                                m.addKonkurrenceresultat(konkurrenceresultat, disciplin);
-                            } catch (NumberFormatException e) {
-                                System.err.println("Error parsing Konkurrenceresultat from file: " + e.getMessage());
-                            }
-                        }
-                    }
-                    MedlemController.opdaterMedlem(m);
-                } catch (NumberFormatException e) {
-                    System.err.println("Error parsing result from file: " + e.getMessage());
-                }
-            }
-        }
-    }
-
-
-
-
-    public static Medlem getMedlemByMobileNumber(int mobileNummber) {
-        updateListOfFiles();
-        try {
-            for (File file : listOfFiles) {
-                if (file.getName().startsWith(mobileNummber + "")) {
-                    getValues(file);
-
-                    Medlem m = new Medlem(navn, medlemskabNr, foedselsdato, id);
-
-                    m = getOpdateretMedlemMedResultaterFraFile(file, m);
-
-
-                }
-            }
-            return null;
-        } catch (IOException e) {
-            System.err.println("Error loading member");
-            return null;
-        }
-    }
-
-
-    // Get the values from a file
-    private static void getValues (File file) throws IOException {
-        FileReader fileReader = new FileReader(file);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-        String line;
-        // read the first line of the file
-        while ((line = bufferedReader.readLine()) != null) {
-            // if the line starts with "navn: " then return the rest of the line
-            if (line.startsWith("navn: ")) {
-                navn = line.substring(6);
-            }
-            if (line.startsWith("medlemskabsNr: ")) {
-                medlemskabNr = Integer.parseInt(line.substring(15));
-            }
-            if (line.startsWith("foedselsdato: ")) {
-                foedselsdato = LocalDate.parse(line.substring(14));
-            }
-            if (line.startsWith("traening resultater: ")) {
-                // add three lines corresponding to 3 disciplines
-                traeningsResultater.add(bufferedReader.readLine());
-                traeningsResultater.add(bufferedReader.readLine());
-                traeningsResultater.add(bufferedReader.readLine());
-
-            }
-            if (line.startsWith("konkurrence resultater: ")) {
-                // add three lines corresponding to 3 disciplines
-                konkurrenceResultater.add(bufferedReader.readLine());
-                konkurrenceResultater.add(bufferedReader.readLine());
-                konkurrenceResultater.add(bufferedReader.readLine());
-            }
-
-
-
-        }
-    }
-
-
-
-    // Write the Traeningsresultat and Konkurrenceresultat to file
-    private static void writeTraeningsTiderToFile(ArrayList<Traeningsresultat> resultater, FileWriter fileWriter) throws IOException {
-        try {
-            for (Traeningsresultat resultat : resultater) {
-                Double tid = resultat.getTid();
-                String datoStr = resultat.getTraeningsDato().toString();
-                fileWriter.write(tid + "("+ datoStr +")"+ ", ");
-            }
-            fileWriter.write("\n");
-        } catch (NullPointerException e) {
-
-        }
-    }
-    private static void writeKonkurrenceTiderToFile(ArrayList<Konkurrenceresultat> resultater, FileWriter fileWriter) throws IOException {
-        try {
-            for (Konkurrenceresultat resultat : resultater) {
-                Double tid = resultat.getTid();
-                String staevne = resultat.getStaevne();
-                int placering = resultat.getPlacering();
-
-                fileWriter.write(tid + "("+ staevne+"+"+placering+ ")"+ ", ");
-            }
-            fileWriter.write("\n");
-        } catch (NullPointerException e) {
-
-        }
-    }
-
-
+    //----------------------------------------file Methods---------------------------------------------------
     private static void deleteFile(String iDtxt) {
         File file = new File(DatabaseController.DATABASE_PATH + iDtxt);
         if (file.delete()) {
@@ -463,33 +520,6 @@ public class DatabaseController {
         } else {
             System.out.println("Error deleting file: " + file.getName());
         }
-    }
-
-    public static void printDatabase () {
-        System.out.println("Printer database...");
-        try {
-            updateListOfFiles();
-            for (File file : listOfFiles) {
-                getValues(file);
-                System.out.println("File: " + file.getName());
-                System.out.println("--------------------");
-                System.out.println("navn: " + navn);
-                System.out.println("medlemskabsNr: " + medlemskabNr);
-                System.out.println("foedselsdato: " + foedselsdato);
-                System.out.println("--------------------");
-                System.out.println();
-            }
-        } catch (IOException e) {
-            System.err.println("Error loading files");
-        }
-
-    }
-
-    public static void setMedlemskabsNr(int id, int nytMedlemskabNr) {
-
-        Medlem m = getMedlemFromFile(getFile(id));
-        m.setMedlemskab(nytMedlemskabNr);
-        editFile(m, getFile(id));
     }
 
     private static void editFile(Medlem m, File file) {
@@ -502,7 +532,7 @@ public class DatabaseController {
     }
 
     private static File getFile(int id) {
-        updateListOfFiles();
+
         try {
             for (File file : listOfFiles) {
                 if (file.getName().startsWith(id + "")) {

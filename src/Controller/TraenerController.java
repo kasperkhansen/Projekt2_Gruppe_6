@@ -20,17 +20,28 @@ public class TraenerController {
 
     public static void registrerResultat() {
 
-        System.out.println("Registrer svømmeresultater:");
-        printKonkurrencesvoemmereListe();
+        System.out.println("Registrering af svømmeresultater...");
 
-        int id = Input.getIdInput();
+        System.out.println();
+        System.out.println("Registreret konkurrencesvømmere: ");
+        printKonkurrencesvoemmereListe();
+        System.out.println();
+
+        int id = Input.intInput("Vælg ved indtastning af medlems id: ");
 
         Medlem medlem = getMedlemMedId(id);
 
-
         if (medlem != null) {
+            System.out.println("Medlem valgt: " + medlem.getNavn()+"\n");
+
             int disciplinValg = Input.svoemmeDisciplinValg(); // 1 = crawl, 2 = bryst, 3 = butterfly
+            System.out.println("Disciplin valgt: " + disciplinValg+"\n");
             int traeningEllerKonkurrenceValg = Input.traeningEllerKonkurrenceValg();
+            System.out.println();
+            System.out.println("Svømmer: " + medlem.getNavn());
+            System.out.println("Disciplin: " + disciplinValg);
+            System.out.println("Ved: " + traeningEllerKonkurrenceValg);
+            System.out.println();
 
             // 1 = konkurrence, 2 = træning
             if (traeningEllerKonkurrenceValg == 1) {
@@ -92,6 +103,8 @@ public class TraenerController {
 
     }
 
+
+
 //-----------------------------------sortering metoder------------------------------------------------------------------
 
     public static void sortListsBrystKonkurrence(ArrayList<Medlem> list) {
@@ -149,7 +162,12 @@ public class TraenerController {
         for (Medlem medlem : MedlemController.alleMedlemmer) {
 
             if (medlem.getMedlemsskabsNr() == 1) {
+                System.out.println("Resultater for " + medlem.getNavn() + " (" + medlem.getId() + ")");
+                System.out.println("-----------------------------------");
+                System.out.println("Konkurrence resultater: ");
                 medlem.printKonkurrenceresultater();
+                System.out.println();
+                System.out.println("Trænings resultater: ");
                 medlem.printTraeningsresultater();
             }
         }
@@ -183,11 +201,17 @@ public class TraenerController {
 
     public static void printKonkurrencesvoemmereListe() {
         int i = 1;
-
-        for (Medlem medlem : MedlemController.alleMedlemmer) {
+        String tidlNavn = "";
+        System.out.println("Antal i alleMedlemmer: " + MedlemController.alleMedlemmer.size());
+        System.out.println("Antal i alleMedlemmer get: " + MedlemController.getAlleMedlemmer().size());
+        for (Medlem medlem : MedlemController.getAlleMedlemmer()) {
+            System.out.println("Medlem: " + medlem.getNavn() + " (" + medlem.getId() + ")"+ " medlemskab: " + medlem.getMedlemsskabsNr());
             if (medlem.getMedlemsskabsNr() == 1) {
-                System.out.println(" " + i + ". " + medlem.getNavn() + " (" + medlem.getId() + ")");
-                i++;
+                if (!medlem.getNavn().equals(tidlNavn)) {
+                    System.out.println(" " + i + ". " + medlem.getNavn() + " (" + medlem.getId() + ")");
+                    tidlNavn = medlem.getNavn();
+                    i++;
+                }
             }
         }
 

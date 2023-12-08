@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.Objects;
+
 public class Konkurrenceresultat {
     double traeningsTid;
 
@@ -25,6 +27,16 @@ public class Konkurrenceresultat {
 
     public String getStaevne() {
         return this.staevne;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Konkurrenceresultat)) return false;
+        Konkurrenceresultat that = (Konkurrenceresultat) o;
+        return Double.compare(that.traeningsTid, traeningsTid) == 0 &&
+                placering == that.placering &&
+                Objects.equals(staevne, that.staevne);
     }
 
     @Override

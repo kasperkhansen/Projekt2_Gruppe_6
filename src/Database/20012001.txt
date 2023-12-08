@@ -1,0 +1,12 @@
+navn: yes
+medlemskabsNr: 1
+alder: 22
+foedselsdato: 2001-01-01
+traening resultater: 
+Butterfly: 
+Crawl: 
+Bryst: 
+konkurrence resultater: 
+Butterfly: 
+Crawl: 
+Bryst: 

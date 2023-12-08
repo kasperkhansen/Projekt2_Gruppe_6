@@ -20,13 +20,12 @@ public class FormandSubMenu {
         System.out.println();
 
         while (true) {
-            System.out.println("Please choose an option:");
-            System.out.println("1. Registrer Medlem");
-            System.out.println("2. Gå tilbage til Bruger menu");
-            System.out.println("3. Afslut");
+            System.out.println("Hvad vil De gerne?:");
+            System.out.println(" 1. Registrer Medlem");
+            System.out.println(" 2. Gå tilbage til Bruger menu");
+            System.out.println(" 3. Afslut");
 
             int choice = intInput("Valg: ");
-            System.out.println("--------------------\n");
 
 
             switch (choice) {
