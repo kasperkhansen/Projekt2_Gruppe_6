@@ -140,7 +140,9 @@ public class MedlemController {
 
     // betal
     public static void betalEngangsbillet() {
-        System.out.println("Betal engangsbillet i proces...");
+        System.out.println("Betal engangsbillet for passivt medlem");
+
+        printPassivMedlemListe();
 
         if (!alleMedlemmer.isEmpty()) {
             int søgtId = Input.getIdInput();
@@ -152,6 +154,7 @@ public class MedlemController {
 
                     if (med.erPassivtMedlemskab()) {
                         System.out.println("Engangsbillet til medlem med ID " + søgtId + " er købt.");
+                        System.out.println("Total: 50kr");
                     } else {
                         System.out.println("Medlem med ID" + søgtId + " er ikke passivt medlem.");
                     }
@@ -161,6 +164,7 @@ public class MedlemController {
             if (!medlemFundet) {
                 System.out.println("Ingen medlem fundet med dette navn: " + søgtId);
             }
+
         } else {
             System.out.println("Ingen medlemmer i listen");
         }
@@ -234,13 +238,13 @@ public class MedlemController {
             if (!oldResults.contains(newResult)) {
                 System.out.println();
                 System.out.println("--------------------");
-                System.out.println("test merge Traening results:");
-                System.out.println("oldResults: " + oldResults.toString());
-                System.out.println("newResults: " + newResults.toString());
+                System.out.println("Resultater:");
+                System.out.println("Gamle resultater: " + oldResults.toString());
+                System.out.println("Nye resultaster: " + newResults.toString());
                 oldResults.add(newResult);
                 System.out.println();
-                System.out.println("after add newResult to oldResults");
-                System.out.println("oldResults: " + oldResults.toString());
+                System.out.println("Resultater:");
+                System.out.println(oldResults.toString());
             }
         }
     }
@@ -323,6 +327,19 @@ public class MedlemController {
                 TraenerController.BedsteTraeningsTiderButterfly.add(m);
         }
     }
+
+    public static void printPassivMedlemListe() {
+        int i = 1;
+
+        for (Medlem medlem : getAlleMedlemmer()) {
+            if (medlem.getMedlemsskabsNr() == 3) {
+                System.out.println(" " + i + ". " + medlem.getNavn() + " (" + medlem.getId() + ")");
+                i++;
+            }
+        }
+
+    }
+
 
 
 }

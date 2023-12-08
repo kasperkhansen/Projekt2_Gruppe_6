@@ -8,5 +8,5 @@ Crawl:
 Bryst: 
 konkurrence resultater: 
 Butterfly: 12.55(CPH+2), 
-Crawl: 
+Crawl: 20.0(Julecup+1), 
 Bryst: 

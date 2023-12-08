@@ -1,6 +1,6 @@
 navn: Grethe
 medlemskabsNr: 1
-alder: 83
+alder: 0
 foedselsdato: 1940-02-23
 traening resultater: 
 Butterfly: 
@@ -8,5 +8,5 @@ Crawl:
 Bryst: 
 konkurrence resultater: 
 Butterfly: 
-Crawl: 
+Crawl: 20.0(Julecuppen+1), 9.1(Sommer23+3), 
 Bryst: 

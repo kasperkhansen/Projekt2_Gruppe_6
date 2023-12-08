@@ -25,9 +25,9 @@ public abstract class Input {
             System.out.println(" Indtast medlemskab: ");
             System.out.println(" --------------------");
 
-            System.out.println(" tast 1 for Aktiv + konkurrence");
-            System.out.println(" tast 2 for Aktiv + motionist");
-            System.out.println(" tast 3 for Passiv");
+            System.out.println(" Tast 1 for Aktiv + konkurrence");
+            System.out.println(" Tast 2 for Aktiv + motionist");
+            System.out.println(" Tast 3 for Passiv");
             int choice = intInput("Valg: ");
 
 
@@ -46,9 +46,9 @@ public abstract class Input {
             System.out.println(" Vælg svømmedisciplin: ");
             System.out.println(" --------------------");
 
-            System.out.println(" tast 1 for Crawl");
-            System.out.println(" tast 2 for Bryst");
-            System.out.println(" tast 3 for Butterfly");
+            System.out.println(" Tast 1 for Crawl");
+            System.out.println(" Tast 2 for Bryst");
+            System.out.println(" Tast 3 for Butterfly");
             int disciplinValg = intInput("Valg: ");
 
             if (disciplinValg < 4 && disciplinValg > 0) {
@@ -64,8 +64,8 @@ public abstract class Input {
             System.out.println(" Vælg Konkurrence eller Træning: ");
             System.out.println(" --------------------");
 
-            System.out.println(" tast 1 for Konkurrence");
-            System.out.println(" tast 2 for Træning");
+            System.out.println(" Tast 1 for Konkurrence");
+            System.out.println(" Tast 2 for Træning");
             int konkurrenceValg = intInput("Valg: ");
 
             if (konkurrenceValg < 3 && konkurrenceValg > 0) {
@@ -134,16 +134,6 @@ public abstract class Input {
                 scanner.nextLine();
             }
         }
-    }
-
-    public static double doubleInput(String message) {
-        System.out.println(message);
-        try {
-            return scanner.nextDouble();
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        }
-        return 0;
     }
 
     public static String stringInput(String message) {

@@ -3,6 +3,7 @@ package View.MenuSystem;
 import Controller.DatabaseController;
 import Controller.KontingentController;
 import Controller.MedlemController;
+import View.Input;
 
 import static View.Input.intInput;
 

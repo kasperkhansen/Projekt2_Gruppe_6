@@ -41,9 +41,6 @@ public class KontingentBetaling {
         return (int)((double)pris * 0.75);
     }
 
-    public void besked() {
-    }
-
     public String toString() {
         return "KontingentBetaling{aktivMedlem=" + this.aktivMedlem + ", seniorMedlem=" + this.seniorMedlem + ", pensionistRabat= " + this.pensionistRabat + ", betaltKontingent= " + this.betaltKontingent + "}";
     }

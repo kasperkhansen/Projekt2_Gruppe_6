@@ -6,7 +6,7 @@ import java.time.Period;
 import java.util.ArrayList;
 
 public class Medlem {
-    public static KontingentBetaling getKontingentBetaling;
+
     private String navn;
     private int medlemsskabsNr;
     private final ArrayList<Medlemskab> medlemsskab = new ArrayList<>();
@@ -33,20 +33,6 @@ public class Medlem {
         this.id = id;
     }
 
-    // initialisering metode
-    /*
-    private int udregnAlder () {
-
-        LocalDate nu = LocalDate.now();
-        LocalDate foedsel = foedselsdato;
-
-        Period periode = Period.between(foedsel, nu);
-        alder = periode.getYears();
-
-        return alder;
-    }
-    */
-
     // -----------------------------------------boolean metoder------------------------------------------------------------
 
     public boolean erSenior(){
@@ -56,8 +42,8 @@ public class Medlem {
         return erSenior;
     }
 
-    public boolean erPensionist(){
-        if (alder >= 60){
+    public boolean erPensionist () {
+        if (alder >= 60) {
             erPensionist = true;
         }
         return erPensionist;
@@ -76,10 +62,6 @@ public class Medlem {
     //--------------------------------------------------get metoder---------------------------------------------------------
     public String getNavn() {
         return this.navn;
-    }
-
-    public ArrayList<Medlemskab> getMedlemsskabArrayList() {
-        return medlemsskab;
     }
 
     public int getMedlemsskabsNr() {
@@ -207,32 +189,6 @@ public class Medlem {
         return brystKonkurrence;
     }
 
-    // set
-    public void setBrystTraening(ArrayList<Traeningsresultat> brystTraening) {
-        this.brystTraening = brystTraening;
-    }
-
-    public void setBrystKonkurrence(ArrayList<Konkurrenceresultat> brystKonkurrence) {
-        this.brystKonkurrence = brystKonkurrence;
-    }
-
-    public void setCrawlTraening(ArrayList<Traeningsresultat> crawlTraening) {
-        this.crawlTraening = crawlTraening;
-    }
-
-    public void setCrawlKonkurrence(ArrayList<Konkurrenceresultat> crawlKonkurrence) {
-        this.crawlKonkurrence = crawlKonkurrence;
-    }
-
-    public void setButterflyTraening(ArrayList<Traeningsresultat> butterflyTraening) {
-        this.butterflyTraening = butterflyTraening;
-    }
-
-    public void setButterflyKonkurrence(ArrayList<Konkurrenceresultat> butterflyKonkurrence) {
-        this.butterflyKonkurrence = butterflyKonkurrence;
-    }
-
-
     // add
     public void addButterflyTraening(Traeningsresultat traeningsresultat) {
         butterflyTraening.add(traeningsresultat);
@@ -306,42 +262,42 @@ public class Medlem {
     //--------------------------------------------------service metoder------------------------------------------------------
     public void printTraeningsresultater() {
         if (!crawlTraening.isEmpty()) {
-            System.out.println(" Crawl træning: ");
+            System.out.println(" Crawl: ");
             for (Traeningsresultat traeningsresultat : crawlTraening) {
-                System.out.println(" "+traeningsresultat.toString());
+                traeningsresultat.printTræningsResultat();
             }
         }
         if (!butterflyTraening.isEmpty()) {
-            System.out.println(" Butterfly træning: ");
+            System.out.println(" Butterfly: ");
             for (Traeningsresultat traeningsresultat : butterflyTraening) {
-                System.out.println(" "+traeningsresultat.toString());
+                traeningsresultat.printTræningsResultat();
             }
         }
         if (!brystTraening.isEmpty()) {
-            System.out.println(" Bryst træning: ");
+            System.out.println(" Bryst: ");
             for (Traeningsresultat traeningsresultat : brystTraening) {
-                System.out.println(" "+traeningsresultat.toString());
+                traeningsresultat.printTræningsResultat();
             }
         }
     }
 
     public void printKonkurrenceresultater() {
         if(!crawlKonkurrence.isEmpty()) {
-            System.out.println(" Crawl konkurrence: ");
+            System.out.println(" Crawl: ");
             for (Konkurrenceresultat konkurrenceresultat : crawlKonkurrence) {
-                System.out.println(" "+konkurrenceresultat.toString());
+                konkurrenceresultat.printKonkurrenceresultat();
             }
         }
         if(!butterflyKonkurrence.isEmpty()) {
-            System.out.println(" Butterfly konkurrence: ");
+            System.out.println(" Butterfly: ");
             for (Konkurrenceresultat konkurrenceresultat : butterflyKonkurrence) {
-                System.out.println(" "+konkurrenceresultat.toString());
+                konkurrenceresultat.printKonkurrenceresultat();
             }
         }
         if(!brystKonkurrence.isEmpty()) {
-            System.out.println(" Bryst konkurrence: ");
+            System.out.println(" Bryst: ");
             for (Konkurrenceresultat konkurrenceresultat : brystKonkurrence) {
-                System.out.println(" "+konkurrenceresultat.toString());
+                konkurrenceresultat.printKonkurrenceresultat();
             }
         }
     }
@@ -366,4 +322,5 @@ public class Medlem {
     public boolean hasResults() {
         return !crawlKonkurrence.isEmpty() || !butterflyKonkurrence.isEmpty() || !brystKonkurrence.isEmpty() || !crawlTraening.isEmpty() || !butterflyTraening.isEmpty() || !brystTraening.isEmpty();
     }
+
 }

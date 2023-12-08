@@ -20,6 +20,11 @@ public class Traeningsresultat {
         this.traeningsDato = traeningsDato;
     }
 
+    public void printTræningsResultat () {
+        System.out.println("Træningsresultat:");
+        System.out.println("Træningstid: " + traeningsTid + ", Træningsdato: " + traeningsDato);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

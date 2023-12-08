@@ -66,7 +66,9 @@ public class TraenerController {
                             break;
                     }
                     DatabaseController.updaterMedlemFile(medlem);
+                    System.out.println();
                     System.out.println("Resultatet er nu registreret");
+                    System.out.println();
 
                 } else {
                     System.out.println("Dette medlem er ikke en konkurrencesvømmer");
@@ -80,7 +82,7 @@ public class TraenerController {
                             medlem.crawlTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
                             break;
                         case 2:
-                            medlem.crawlTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
+                            medlem.brystTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
                         case 3:
                             medlem.butterflyTraening.add(new Traeningsresultat(nyTid, hvilkenDato));
                             break;
@@ -109,10 +111,13 @@ public class TraenerController {
                     System.out.println("Resultater for " + medlem.getNavn() + " (" + medlem.getId() + ")");
                     System.out.println("-----------------------------------");
                     System.out.println("1 Konkurrence resultater: ");
+                    System.out.println();
                     medlem.printKonkurrenceresultater();
                     System.out.println();
                     System.out.println("2 Trænings resultater: ");
+                    System.out.println();
                     medlem.printTraeningsresultater();
+                    System.out.println("-----------------------------------");
                 }
             }
         }
@@ -153,49 +158,6 @@ public class TraenerController {
 
 
     //--------------------------get tider get metoder-------------------------------------------------------------------
-
-    public static ArrayList<Medlem> getBedsteStaevneTidCrawl() {
-
-        double tid1;
-        double tid2;
-        double tid3;
-        double tid4;
-        double tid5;
-        ArrayList<Medlem> arrayList = new ArrayList<>();
-        MedlemController.fillStaevneCrawlMedMedlemmerMedTider();
-        sortListsCrawlKonkurrence(BedsteStaevneTiderCrawl);
-
-        for (int i = 0; i < 5; i++) {
-            arrayList.add(BedsteStaevneTiderCrawl.get(i));
-        }
-        return arrayList;
-    }
-
-
-    public void getBedsteStaevneTidBryst() {
-        MedlemController.fillStaevneBrystMedMedlemmerMedTider();
-        sortListsBrystKonkurrence(BedsteStaevneTiderBryst);
-    }
-
-    public void getBedsteStaevneTidButterfly() {
-        MedlemController.fillStaevneButterflyMedMedlemmerMedTider();
-        sortListsButterflyKonkurrence(BedsteStaevneTiderButterfly);
-    }
-
-    public void getBedsteTraeningsTidCrawl() {
-        MedlemController.fillTraeningCrawlMedMedlemmerMedTider();
-        sortListsCrawlTraening(BedsteTraeningsTiderCrawl);
-    }
-
-    public void getBedsteTraeningsTidBryst() {
-        MedlemController.fillTraeningBrystMedMedlemmerMedTider();
-        sortListsBrystTraening(BedsteTraeningsTiderBryst);
-    }
-
-    public void getBedsteTraeningsTidButterfly() {
-        MedlemController.fillTraeningButterflyMedMedlemmerMedTider();
-        sortListsButterflyTraening(BedsteTraeningsTiderButterfly);
-    }
 
     public static void printKonkurrencesvoemmereListe() {
         int i = 1;

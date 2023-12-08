@@ -22,10 +22,7 @@ public class DatabaseController {
 
 
     // ---------------------------------------- Methods---------------------------------------------------
-    public static void saveAndLoad () {
-        saveArrToFileDatabase();
-        load();
-    }
+
     public static void load() {
         loadedMembers = getMedlemmerFraFiles(); // Load members from files
 
@@ -87,6 +84,7 @@ public class DatabaseController {
             // Overwrite the file if it exists, create a new one if it doesn't
             try (FileWriter fileWriter = new FileWriter(file, false)) {
                 writeFile(m, fileWriter);
+                System.out.println("Member data saved to file: " + file.getName());
             }
         } catch (IOException e) {
             System.err.println("Error saving member: " + m.getNavn() + " - " + e.getMessage());

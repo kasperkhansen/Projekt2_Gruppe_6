@@ -77,11 +77,6 @@ public class KontingentController {
         medlem.setSidstBetalt(LocalDate.now());
     }
 
-    public void seOverblik() {
-        for (KontingentBetaling betaling : betalinger) {
-            System.out.println(betaling.toString());
-        }
-    }
 
     public void overblikOverKontingentBetalinger(List<Medlem> alleMedlemmer) {
         LocalDate now = LocalDate.now();

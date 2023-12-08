@@ -1,4 +1,4 @@
-navn: yes
+navn: Jes
 medlemskabsNr: 1
 alder: 22
 foedselsdato: 2001-01-01

@@ -9,28 +9,3 @@ public class Main {
     }
     
 }
-
-
-/*
-
-note:
-Rapport dokumentation
-- Alle krav
-- DoD test
-- Stand up meeting
-- Sprint review
-- Sprint retrospective
-
-
-- UML diagrammer
-- Klassediagrammer
-- Sekvensdiagrammer
-- Use case diagrammer
-- Kode
-- Test
-- Reflektioner
-- Konklusion
-
-
-
- */
